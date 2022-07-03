@@ -1,4 +1,4 @@
-package com.example.rebalancear.wallet.presentation.presenters
+package com.example.rebalancear.presentation.presenters
 import com.example.rebalancear.core.AssetTypes
 import com.example.rebalancear.core.ContributeState
 

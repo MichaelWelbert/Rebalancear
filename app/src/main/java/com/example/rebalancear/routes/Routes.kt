@@ -1,13 +1,12 @@
 package com.example.rebalancear.routes
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.rebalancear.wallet.presentation.components.addAssetScreen.AddAssetScreen
-import com.example.rebalancear.wallet.presentation.components.walletScreen.WalletScreenComponent
-import com.example.rebalancear.wallet.presentation.viewmodels.WalletViewModel
+import com.example.rebalancear.presentation.components.addAssetScreen.AddAssetScreen
+import com.example.rebalancear.presentation.components.walletScreen.WalletScreenComponent
+import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 
 sealed class Routes(val route: String){
     object WalletScreen: Routes(route = "wallet_screen")

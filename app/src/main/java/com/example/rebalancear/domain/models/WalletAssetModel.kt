@@ -1,4 +1,4 @@
-package com.example.rebalancear.wallet.domain.models
+package com.example.rebalancear.domain.models
 
 data class WalletAssetModel(
     var code: String,

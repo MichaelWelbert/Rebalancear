@@ -1,4 +1,4 @@
-package com.example.rebalancear.wallet.presentation.components.walletScreen.components.assetCard
+package com.example.rebalancear.presentation.components.walletScreen.components.assetCard
 
 
 import android.icu.text.NumberFormat
@@ -19,7 +19,7 @@ import com.example.rebalancear.core.ContributeState
 import com.example.rebalancear.ui.RebalanceStrings
 import com.example.rebalancear.ui.theme.ReBalanceTypography
 import com.example.rebalancear.ui.theme.RebalanceColors
-import com.example.rebalancear.wallet.presentation.presenters.WalletAssetPresenter
+import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 
 
 @Composable
@@ -169,8 +169,8 @@ private fun getColorsStatus(status: ContributeState): List<Color> {
     return when (status) {
         ContributeState.CONTRIBUTE -> {
             listOf(
-                RebalanceColors.darkBlue,
-                RebalanceColors.lightBlue,
+                RebalanceColors.darkOceanBlue,
+                RebalanceColors.lightOceanBlue,
             )
         }
         ContributeState.WAIT -> {

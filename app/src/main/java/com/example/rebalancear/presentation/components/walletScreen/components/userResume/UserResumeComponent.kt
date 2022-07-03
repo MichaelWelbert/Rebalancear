@@ -1,4 +1,4 @@
-package com.example.rebalancear.wallet.presentation.components.walletScreen.components.userResume
+package com.example.rebalancear.presentation.components.walletScreen.components.userResume
 
 import android.icu.text.NumberFormat
 import androidx.compose.foundation.layout.*

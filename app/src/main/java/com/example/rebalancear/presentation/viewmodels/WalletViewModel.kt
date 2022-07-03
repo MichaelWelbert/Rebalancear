@@ -1,4 +1,4 @@
-package com.example.rebalancear.wallet.presentation.viewmodels
+package com.example.rebalancear.presentation.viewmodels
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import com.example.rebalancear.core.AssetTypes
 import com.example.rebalancear.core.ContributeState
-import com.example.rebalancear.wallet.presentation.presenters.WalletAssetPresenter
-import com.example.rebalancear.wallet.presentation.states.WalletState
+import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
+import com.example.rebalancear.presentation.states.WalletState
 
 class WalletViewModel : ViewModel() {
 

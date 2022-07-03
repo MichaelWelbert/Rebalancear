@@ -1,4 +1,4 @@
-package com.example.rebalancear.wallet.presentation.components.walletScreen
+package com.example.rebalancear.presentation.components.walletScreen
 
 import com.example.rebalancear.R
 import android.annotation.SuppressLint
@@ -19,10 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.rebalancear.routes.Routes
 import com.example.rebalancear.ui.theme.RebalanceColors
-import com.example.rebalancear.wallet.presentation.components.walletScreen.components.assetCard.AssetCardComponent
-import com.example.rebalancear.wallet.presentation.components.walletScreen.components.userResume.UserResumeComponent
-import com.example.rebalancear.wallet.presentation.presenters.WalletAssetPresenter
-import com.example.rebalancear.wallet.presentation.viewmodels.WalletViewModel
+import com.example.rebalancear.presentation.components.walletScreen.components.assetCard.AssetCardComponent
+import com.example.rebalancear.presentation.components.walletScreen.components.userResume.UserResumeComponent
+import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
+import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
