@@ -4,13 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.rebalancear.presentation.components.addAssetScreen.AddAssetScreen
+import com.example.rebalancear.presentation.components.addAssetScreen.AddAssetScreenComponent
+import com.example.rebalancear.presentation.components.assetScreen.AssetScreenComponent
 import com.example.rebalancear.presentation.components.walletScreen.WalletScreenComponent
 import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 
 sealed class Routes(val route: String){
     object WalletScreen: Routes(route = "wallet_screen")
     object AddAssetScreen: Routes(route = "add_asset_screen")
+    object AssetScreen: Routes(route = "asset_screen")
+
 }
 
 @Composable
@@ -29,7 +32,12 @@ fun MakeRoutes(navController: NavHostController) {
         composable(
             route = Routes.AddAssetScreen.route
         ) {
-            AddAssetScreen()
+            AddAssetScreenComponent()
+        }
+        composable(
+            route = Routes.AssetScreen.route+ "/{code}"
+        ) {
+            AssetScreenComponent()
         }
     }
 }

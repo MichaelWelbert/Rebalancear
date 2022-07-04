@@ -16,7 +16,7 @@ import com.example.rebalancear.ui.theme.RebalanceColors
 
 
 @Composable
-fun AddAssetScreen() {
+fun AddAssetScreenComponent() {
     var goalFieldState by remember {
         mutableStateOf("")
     }

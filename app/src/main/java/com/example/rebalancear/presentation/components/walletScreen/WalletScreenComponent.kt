@@ -74,6 +74,7 @@ fun WalletScreenComponent(
                     LazyColumn {
                         items(walletState.assets) { asset ->
                             AssetCardComponent(
+                                navController = navController,
                                 asset = WalletAssetPresenter(
                                     code = asset.code,
                                     assetType = asset.assetType,

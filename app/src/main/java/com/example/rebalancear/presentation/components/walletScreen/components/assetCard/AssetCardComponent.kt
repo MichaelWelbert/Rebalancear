@@ -5,6 +5,7 @@ import android.icu.text.NumberFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,16 +15,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.rebalancear.core.AssetTypes
 import com.example.rebalancear.core.ContributeState
 import com.example.rebalancear.ui.RebalanceStrings
 import com.example.rebalancear.ui.theme.ReBalanceTypography
 import com.example.rebalancear.ui.theme.RebalanceColors
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
+import com.example.rebalancear.routes.Routes
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AssetCardComponent(
+    navController: NavController,
     asset: WalletAssetPresenter
 ) {
     androidx.compose.material.Card(
@@ -37,6 +42,9 @@ fun AssetCardComponent(
             ),
         elevation = 2.dp,
         shape = RoundedCornerShape(12),
+        onClick = {
+            navController.navigate(Routes.AssetScreen.route + "/${asset.code}")
+        }
     ) {
         Row(
             modifier = Modifier
