@@ -1,4 +1,4 @@
-package com.example.rebalancear.presentation.components.walletScreen.components.assetCard
+package com.example.rebalancear.presentation.components.screen.wallet.components.assetCard
 
 
 import android.icu.text.NumberFormat

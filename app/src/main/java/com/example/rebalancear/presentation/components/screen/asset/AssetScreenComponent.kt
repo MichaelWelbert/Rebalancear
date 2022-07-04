@@ -1,4 +1,4 @@
-package com.example.rebalancear.presentation.components.assetScreen
+package com.example.rebalancear.presentation.components.screen.asset
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,15 +9,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.rebalancear.R
+import com.example.rebalancear.core.AssetTypes
+import com.example.rebalancear.core.ContributeState
+import com.example.rebalancear.presentation.components.screen.asset.components.RecordAssetComponent
 import com.example.rebalancear.presentation.components.shared.GradientButtonComponent
 import com.example.rebalancear.presentation.components.shared.RebalanceTextFieldComponent
+import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 import com.example.rebalancear.ui.theme.ReBalanceTypography
 import com.example.rebalancear.ui.theme.RebalanceColors
 
@@ -50,7 +53,7 @@ fun AssetScreenComponent() {
                     ),
                 )
             )
-            .padding(36.dp),
+            .padding(28.dp),
     ) {
         Column {
             Spacer(modifier = Modifier.height(16.dp))
@@ -198,10 +201,49 @@ fun AssetScreenComponent() {
                     ),
                 ),
                 onClick = {
-                    if(editGoalState)
+                    if (editGoalState)
                         editGoalState = false
                 }
             )
+
+            Spacer(modifier = Modifier.height(32.dp))
+            RecordAssetComponent(
+                WalletAssetPresenter(
+                    code = "BBAS3",
+                    assetType = AssetTypes.STOCKS,
+                    investedAmount = 25000f,
+                    percentageGoal = 5f,
+                    percentageOwned = 2f,
+                    contributeState = ContributeState.CONTRIBUTE
+                ),
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            RecordAssetComponent(
+                WalletAssetPresenter(
+                    code = "BBAS3",
+                    assetType = AssetTypes.STOCKS,
+                    investedAmount = 25000f,
+                    percentageGoal = 5f,
+                    percentageOwned = 2f,
+                    contributeState = ContributeState.CONTRIBUTE
+                ),
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            RecordAssetComponent(
+                WalletAssetPresenter(
+                    code = "BBAS3",
+                    assetType = AssetTypes.STOCKS,
+                    investedAmount = 25000f,
+                    percentageGoal = 5f,
+                    percentageOwned = 2f,
+                    contributeState = ContributeState.CONTRIBUTE
+                ),
+            )
+
         }
     }
 }

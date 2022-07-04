@@ -1,4 +1,4 @@
-package com.example.rebalancear.presentation.components.walletScreen
+package com.example.rebalancear.presentation.components.screen.wallet
 
 import com.example.rebalancear.R
 import android.annotation.SuppressLint
@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.rebalancear.routes.Routes
 import com.example.rebalancear.ui.theme.RebalanceColors
-import com.example.rebalancear.presentation.components.walletScreen.components.assetCard.AssetCardComponent
-import com.example.rebalancear.presentation.components.walletScreen.components.userResume.UserResumeComponent
+import com.example.rebalancear.presentation.components.screen.wallet.components.assetCard.AssetCardComponent
+import com.example.rebalancear.presentation.components.screen.wallet.components.userResume.UserResumeComponent
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 

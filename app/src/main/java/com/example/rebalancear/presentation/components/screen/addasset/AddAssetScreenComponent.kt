@@ -1,4 +1,4 @@
-package com.example.rebalancear.presentation.components.addAssetScreen
+package com.example.rebalancear.presentation.components.screen.addasset
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

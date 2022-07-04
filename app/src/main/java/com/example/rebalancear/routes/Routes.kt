@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.rebalancear.presentation.components.addAssetScreen.AddAssetScreenComponent
-import com.example.rebalancear.presentation.components.assetScreen.AssetScreenComponent
-import com.example.rebalancear.presentation.components.walletScreen.WalletScreenComponent
+import com.example.rebalancear.presentation.components.screen.addasset.AddAssetScreenComponent
+import com.example.rebalancear.presentation.components.screen.asset.AssetScreenComponent
+import com.example.rebalancear.presentation.components.screen.wallet.WalletScreenComponent
 import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 
 sealed class Routes(val route: String){
