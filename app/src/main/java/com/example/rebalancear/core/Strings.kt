@@ -1,4 +1,4 @@
-package com.example.rebalancear.ui
+package com.example.rebalancear.core
 
 object RebalanceStrings {
     const val wallet_asset_type = "TIPO"
@@ -12,4 +12,11 @@ object RebalanceStrings {
     const val wallet_asset_status_contribute = "Aportar"
     const val wallet_asset_status_wait = "Esperar"
     const val wallet_patrimony = "Patrimônio"
+
+
+
+
+    const val asset_record_unit = "Unidades"
+    const val asset_record_paid = "Paguei"
+
 }

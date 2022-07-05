@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.rebalancear.core.AssetTypes
 import com.example.rebalancear.core.ContributeState
-import com.example.rebalancear.ui.RebalanceStrings
+import com.example.rebalancear.core.RebalanceStrings
 import com.example.rebalancear.ui.theme.ReBalanceTypography
 import com.example.rebalancear.ui.theme.RebalanceColors
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter

@@ -3,7 +3,10 @@ package com.example.rebalancear.presentation.components.screen.asset
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -11,18 +14,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.rebalancear.R
 import com.example.rebalancear.core.AssetTypes
 import com.example.rebalancear.core.ContributeState
+import com.example.rebalancear.core.RecordType
 import com.example.rebalancear.presentation.components.screen.asset.components.RecordAssetComponent
+
 import com.example.rebalancear.presentation.components.shared.GradientButtonComponent
 import com.example.rebalancear.presentation.components.shared.RebalanceTextFieldComponent
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 import com.example.rebalancear.ui.theme.ReBalanceTypography
 import com.example.rebalancear.ui.theme.RebalanceColors
+
 
 @Composable
 fun AssetScreenComponent() {
@@ -206,44 +213,159 @@ fun AssetScreenComponent() {
                 }
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
-            RecordAssetComponent(
-                WalletAssetPresenter(
-                    code = "BBAS3",
-                    assetType = AssetTypes.STOCKS,
-                    investedAmount = 25000f,
-                    percentageGoal = 5f,
-                    percentageOwned = 2f,
-                    contributeState = ContributeState.CONTRIBUTE
-                ),
-            )
+            Spacer(modifier = Modifier.height(36.dp))
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Box(
+                modifier = Modifier
+                    .clickable { }
+                    .shadow(2.dp, RoundedCornerShape(20.dp))
+                    .background(
+                        Brush.linearGradient(
+                            colors = listOf(
+                                RebalanceColors.darkRed,
+                                RebalanceColors.lightRed
+                            ),
+                        ),
+                    )
 
-            RecordAssetComponent(
-                WalletAssetPresenter(
-                    code = "BBAS3",
-                    assetType = AssetTypes.STOCKS,
-                    investedAmount = 25000f,
-                    percentageGoal = 5f,
-                    percentageOwned = 2f,
-                    contributeState = ContributeState.CONTRIBUTE
-                ),
-            )
+            ) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .weight(0.75f)
+                            .padding(start = 8.dp)
+                    ) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = "VENDER",
+                            color = RebalanceColors.white,
+                            style = ReBalanceTypography.Strong5.copy(textAlign = TextAlign.Start),
+                        )
 
-            Spacer(modifier = Modifier.height(12.dp))
+                        Spacer(modifier = Modifier.height(12.dp))
 
-            RecordAssetComponent(
-                WalletAssetPresenter(
-                    code = "BBAS3",
-                    assetType = AssetTypes.STOCKS,
-                    investedAmount = 25000f,
-                    percentageGoal = 5f,
-                    percentageOwned = 2f,
-                    contributeState = ContributeState.CONTRIBUTE
-                ),
-            )
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(end = 16.dp),
+                            text = "Quer vender algumas unidades do seu ativo? Faça isso por aqui!",
+                            color = RebalanceColors.white,
+                            style = ReBalanceTypography.Body2.copy(textAlign = TextAlign.Start),
+                        )
 
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+
+                    Box(
+                        modifier = Modifier.weight(0.25f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            modifier = Modifier
+                                .size(56.dp)
+                                .fillMaxWidth(),
+                            painter = painterResource(id = R.drawable.ic_money),
+                            contentDescription = null,
+                            tint = RebalanceColors.darkRed.copy(alpha = 0.7f)
+                        )
+                    }
+
+                }
+
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Box(
+                modifier = Modifier
+                    .clickable { }
+                    .shadow(2.dp, RoundedCornerShape(20.dp))
+                    .background(
+                        Brush.linearGradient(
+                            colors = listOf(
+                                RebalanceColors.darkYellow,
+                                RebalanceColors.lightYellow
+                            ),
+                        ),
+                    )
+
+            ) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .weight(0.75f)
+                            .padding(start = 8.dp)
+                    ) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = "HISTÓRICO",
+                            color = RebalanceColors.white,
+                            style = ReBalanceTypography.Strong5.copy(textAlign = TextAlign.Start),
+                        )
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(end = 16.dp),
+                            text = "Deseja ver o historico de compra desse ativo? Faça isso por aqui!",
+                            color = RebalanceColors.white,
+                            style = ReBalanceTypography.Body2.copy(textAlign = TextAlign.Start),
+                        )
+
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+
+                    Box(
+                        modifier = Modifier.weight(0.25f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            modifier = Modifier
+                                .size(56.dp)
+                                .fillMaxWidth(),
+                            painter = painterResource(id = R.drawable.ic_record),
+                            contentDescription = null,
+                            tint = RebalanceColors.darkRed.copy(alpha = 0.7f)
+                        )
+                    }
+
+                }
+
+            }
+
+
+
+            /*    LazyColumn {
+                    items(12) {
+                        Spacer(modifier = Modifier.height(12.dp))
+                        RecordAssetComponent(
+                            WalletAssetPresenter(
+                                code = "BBAS3",
+                                assetType = AssetTypes.STOCKS,
+                                investedAmount = 25000f,
+                                percentageGoal = 5f,
+                                percentageOwned = 2f,
+                                contributeState = ContributeState.CONTRIBUTE
+                            ),
+                            recordType = RecordType.BUY
+                        )
+
+                    }
+                }
+
+             */
         }
     }
 }
