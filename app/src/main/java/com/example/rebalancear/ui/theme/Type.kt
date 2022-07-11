@@ -18,14 +18,25 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.rebalancear.R
 
-private val Manrope = FontFamily(
-    Font(R.font.manrope_medium, FontWeight.Medium),
-    Font(R.font.manrope_extra_bold, FontWeight.ExtraBold)
+private val Mulish = FontFamily(
+    Font(R.font.mulish_medium, FontWeight.Medium),
+    Font(R.font.mulish_extra_bold, FontWeight.ExtraBold),
+    Font(R.font.mulish_black_italic, FontWeight.Black)
 )
 
 object ReBalanceTypography {
+    val Tittle = TextStyle(
+        fontFamily = Mulish,
+        fontWeight = FontWeight.Black,
+        fontStyle = FontStyle.Italic,
+        fontSize = 18.sp,
+        lineHeight = (1.2).em,
+        letterSpacing = (-0.02).em
+    )
+
+
     val Body1 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontSize = 10.sp,
@@ -34,7 +45,7 @@ object ReBalanceTypography {
     )
 
     val Body2 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontSize = 12.sp,
@@ -43,7 +54,7 @@ object ReBalanceTypography {
     )
 
     val Body3 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontSize = 14.sp,
@@ -52,7 +63,7 @@ object ReBalanceTypography {
     )
 
     val Body4 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontSize = 16.sp,
@@ -61,7 +72,7 @@ object ReBalanceTypography {
     )
 
     val Body5 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontSize = 18.sp,
@@ -70,7 +81,7 @@ object ReBalanceTypography {
     )
 
     val Strong1 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 10.sp,
@@ -79,7 +90,7 @@ object ReBalanceTypography {
     )
 
     val Strong2 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 12.sp,
@@ -88,7 +99,7 @@ object ReBalanceTypography {
     )
 
     val Strong3 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 14.sp,
@@ -97,7 +108,7 @@ object ReBalanceTypography {
     )
 
     val Strong4 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 16.sp,
@@ -106,7 +117,7 @@ object ReBalanceTypography {
     )
 
     val Strong5 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 18.sp,
@@ -115,7 +126,7 @@ object ReBalanceTypography {
     )
 
     val Paragraph1 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 10.sp,
@@ -124,7 +135,7 @@ object ReBalanceTypography {
     )
 
     val Paragraph2 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 12.sp,
@@ -133,7 +144,7 @@ object ReBalanceTypography {
     )
 
     val Paragraph3 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 14.sp,
@@ -142,7 +153,7 @@ object ReBalanceTypography {
     )
 
     val Paragraph4 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 16.sp,
@@ -151,7 +162,7 @@ object ReBalanceTypography {
     )
 
     val Paragraph5 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 18.sp,
@@ -160,7 +171,7 @@ object ReBalanceTypography {
     )
 
     val Heading1 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 36.sp,
@@ -169,7 +180,7 @@ object ReBalanceTypography {
     )
 
     val Heading2 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 32.sp,
@@ -178,7 +189,7 @@ object ReBalanceTypography {
     )
 
     val Heading3 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 28.sp,
@@ -187,7 +198,7 @@ object ReBalanceTypography {
     )
 
     val Heading4 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 24.sp,
@@ -196,7 +207,7 @@ object ReBalanceTypography {
     )
 
     val Heading5 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 22.sp,
@@ -205,7 +216,7 @@ object ReBalanceTypography {
     )
 
     val Heading6 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 20.sp,
@@ -214,7 +225,7 @@ object ReBalanceTypography {
     )
 
     val Display1 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 60.sp,
@@ -223,7 +234,7 @@ object ReBalanceTypography {
     )
 
     val Display2 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 48.sp,
@@ -232,7 +243,7 @@ object ReBalanceTypography {
     )
 
     val Display3 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 44.sp,
@@ -241,7 +252,7 @@ object ReBalanceTypography {
     )
 
     val Display4 = TextStyle(
-        fontFamily = Manrope,
+        fontFamily = Mulish,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 40.sp,
@@ -251,7 +262,7 @@ object ReBalanceTypography {
 }
 
 val ComposeTypography = Typography(
-    defaultFontFamily = Manrope,
+    defaultFontFamily = Mulish,
     h1 = ReBalanceTypography.Heading1,
     h2 = ReBalanceTypography.Heading2,
     h3 = ReBalanceTypography.Heading3,

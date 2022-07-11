@@ -101,8 +101,6 @@ fun RecordAssetComponent(
                     )
                 }
 
-
-
                 Box(
                     modifier = Modifier
                         .size(32.dp)

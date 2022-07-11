@@ -16,8 +16,8 @@ interface IRebalanceColors {
     val darkRed: Color
 
 
-    val lightGold: Color
-    val darkGold: Color
+    val lightGreen: Color
+    val darkGreen: Color
 
 
     val lightYellow: Color
@@ -45,8 +45,8 @@ object RebalanceColors : IRebalanceColors {
     override val lightYellow = Color(0xFFFABA4B)
     override val darkYellow = Color(0xFFBD783C)
 
-    override val lightGold = Color(0xFF4A8577)
-    override val darkGold = Color(0xFF326458)
+    override val lightGreen= Color(0xFF5BEBC8)
+    override val darkGreen= Color(0xFF326458)
 
 
     override val black = Color.Black

@@ -18,8 +18,9 @@ fun UserResumeComponent(patrimony: Float) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 32.dp, horizontal = 12.dp),
+            .padding(vertical = 32.dp, horizontal = 16.dp),
     ) {
+
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = RebalanceStrings.wallet_patrimony,

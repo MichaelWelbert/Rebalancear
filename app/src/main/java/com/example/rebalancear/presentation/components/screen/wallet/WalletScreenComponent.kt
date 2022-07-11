@@ -2,27 +2,32 @@ package com.example.rebalancear.presentation.components.screen.wallet
 
 import com.example.rebalancear.R
 import android.annotation.SuppressLint
+import android.icu.text.NumberFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.FloatingActionButton
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
+import androidx.compose.material.TopAppBar
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.rebalancear.presentation.components.screen.wallet.components.assetCard.AddNewCardComponent
 import com.example.rebalancear.routes.Routes
 import com.example.rebalancear.ui.theme.RebalanceColors
 import com.example.rebalancear.presentation.components.screen.wallet.components.assetCard.AssetCardComponent
 import com.example.rebalancear.presentation.components.screen.wallet.components.userResume.UserResumeComponent
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 import com.example.rebalancear.presentation.viewmodels.WalletViewModel
+import com.example.rebalancear.ui.theme.ReBalanceTypography
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,38 +44,49 @@ fun WalletScreenComponent(
     }
 
     Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    navController.navigate(Routes.AddAssetScreen.route)
+        topBar = {
+            TopAppBar(
+                title = {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(0.5f),
+                            text = "Balancear",
+                            color = RebalanceColors.white,
+                            style = ReBalanceTypography.Tittle,
+                            textAlign = TextAlign.Start
+                        )
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(0.5f)
+                                .padding(end = 20.dp),
+                            text = "R$${NumberFormat.getInstance().format(patrimony)}",
+                            color = RebalanceColors.white,
+                            style = ReBalanceTypography.Tittle.copy(fontSize = 16.sp),
+                            textAlign = TextAlign.End
+                        )
+                    }
                 },
+
                 backgroundColor = RebalanceColors.darkGrey,
-                content = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_add),
-                        contentDescription = null,
-                        tint = RebalanceColors.white
-                    )
-                }
+                elevation = 10.dp
             )
         },
+
         content = { innerPadding ->
             Box(
                 modifier = Modifier
+                    .fillMaxSize()
                     .padding(innerPadding)
-
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                RebalanceColors.darkGrey,
-                                RebalanceColors.lightGrey,
-                            ),
-                        )
-                    ),
+                    .background(RebalanceColors.darkGrey),
             ) {
                 Column {
-                    UserResumeComponent(patrimony)
-
                     LazyColumn {
                         items(walletState.assets) { asset ->
                             AssetCardComponent(
@@ -84,15 +100,12 @@ fun WalletScreenComponent(
                                     contributeState = asset.contributeState
                                 )
                             )
-
-                            if (walletState.assets.last() == asset) {
-                                Spacer(modifier = Modifier.height(32.dp))
-                            }
                         }
-
+                        item() {
+                            AddNewCardComponent(navController = navController)
+                            Spacer(modifier = Modifier.height(32.dp))
+                        }
                     }
-
-
                 }
             }
         }
