@@ -42,19 +42,19 @@ fun RebalanceTextFieldComponent(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = placeholderText,
-                    color = if (readOnly) RebalanceColors.white else RebalanceColors.lightGrey.copy(alpha = 0.3f),
+                    color = if (readOnly) RebalanceColors.white else RebalanceColors.white.copy(alpha = 0.3f),
                     style = ReBalanceTypography.Strong3.copy(textAlign = TextAlign.Center),
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
-                cursorColor = if (readOnly) Color.Transparent else RebalanceColors.lightGrey,
-                containerColor = if (readOnly) Color.Transparent else RebalanceColors.white,
-                focusedIndicatorColor = if (readOnly) Color.Transparent else RebalanceColors.lightGrey,
-                textColor =  if (readOnly) RebalanceColors.white else RebalanceColors.lightGrey,
-                disabledIndicatorColor = if (readOnly) Color.Transparent else RebalanceColors.lightGrey,
-                focusedLabelColor = if (readOnly) Color.Transparent else RebalanceColors.lightGrey,
-                unfocusedIndicatorColor = if (readOnly) Color.Transparent else RebalanceColors.lightGrey,
-                unfocusedLabelColor = if (readOnly) Color.Transparent else RebalanceColors.lightGrey,
+                cursorColor = if (readOnly) Color.Transparent else RebalanceColors.white,
+                containerColor = if (readOnly) Color.Transparent else Color.Transparent,
+                focusedIndicatorColor = if (readOnly) Color.Transparent else RebalanceColors.white,
+                textColor =  if (readOnly) RebalanceColors.white else RebalanceColors.white,
+                disabledIndicatorColor = if (readOnly) Color.Transparent else RebalanceColors.white,
+                focusedLabelColor = if (readOnly) Color.Transparent else RebalanceColors.white,
+                unfocusedIndicatorColor = if (readOnly) Color.Transparent else RebalanceColors.white,
+                unfocusedLabelColor = if (readOnly) Color.Transparent else RebalanceColors.white,
             ),
 
             enabled = true,

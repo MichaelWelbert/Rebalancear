@@ -74,7 +74,7 @@ fun WalletScreenComponent(
                     }
                 },
 
-                backgroundColor = RebalanceColors.darkGrey,
+                backgroundColor = RebalanceColors.strongDarkBlue,
                 elevation = 10.dp
             )
         },
@@ -84,7 +84,7 @@ fun WalletScreenComponent(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
-                    .background(RebalanceColors.darkGrey),
+                    .background(RebalanceColors.strongDarkBlue),
             ) {
                 Column {
                     LazyColumn {

@@ -12,6 +12,9 @@ interface IRebalanceColors {
     val lightBlue: Color
     val darkBlue: Color
 
+    val strongDarkBlue: Color
+    val strongLightBlue: Color
+
     val lightRed: Color
     val darkRed: Color
 
@@ -39,14 +42,19 @@ object RebalanceColors : IRebalanceColors {
     override val lightBlue = Color(0xFF007B9E)
     override val darkBlue = Color(0xFF006B8A)
 
-    override val lightGrey = Color(0xFF535353)
+    override val lightGrey = Color(0xFF909096)
     override val darkGrey = Color(0xFF2D2C35)
+
+    override val strongDarkBlue = Color(0xFF16152E)
+    override val strongLightBlue = Color(0xFF1E1D34)
+
+
 
     override val lightYellow = Color(0xFFFABA4B)
     override val darkYellow = Color(0xFFBD783C)
 
-    override val lightGreen= Color(0xFF5BEBC8)
-    override val darkGreen= Color(0xFF326458)
+    override val lightGreen = Color(0xFF5BEBC8)
+    override val darkGreen = Color(0xFF326458)
 
 
     override val black = Color.Black
