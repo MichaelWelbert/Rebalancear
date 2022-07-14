@@ -6,7 +6,7 @@ object RebalanceStrings {
     const val wallet_asset_type_BONDS = "RENDA FIXA"
     const val wallet_asset_type_STOCKS = "AÇÔES"
     const val wallet_asset_type_CRYPTO = "CRYPTOMOEDAS"
-    const val wallet_asset_invested_amount = "Investi"
+    const val wallet_asset_invested_amount = "Investido"
     const val wallet_asset_percentage_owned = "Tenho"
     const val wallet_asset_percentage_goal = "Quero"
     const val wallet_asset_status_contribute = "Aportar"
