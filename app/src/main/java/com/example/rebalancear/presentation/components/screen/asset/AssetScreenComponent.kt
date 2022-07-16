@@ -160,8 +160,8 @@ fun AssetScreenComponent(
                             subtitle = "Deseja editar seu objetivo esse ativo? Faça isso por aqui!",
                             icon = R.drawable.ic_edit,
                             colors = listOf(
-                                RebalanceColors.darkGreen,
-                                RebalanceColors.lightGreen
+                                RebalanceColors.green300,
+                                RebalanceColors.green100
                             ),
                             onClick = {}
                         )

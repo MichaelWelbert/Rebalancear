@@ -3,6 +3,7 @@ package com.example.rebalancear.presentation.components.screen.wallet.components
 
 import android.icu.text.NumberFormat
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
@@ -13,13 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
+import com.example.rebalancear.R
 import com.example.rebalancear.core.AssetTypes
 import com.example.rebalancear.core.ContributeState
 import com.example.rebalancear.core.RebalanceStrings
@@ -35,19 +35,29 @@ fun AssetCardComponent(
     navController: NavController,
     asset: WalletAssetPresenter
 ) {
+    val colorList = getColors(asset.contributeState)
+    val color0 = colorList[0]
+    val color100 = colorList[1]
+    val color200 = colorList[2]
+    val color300 = colorList[3]
+    val color500 = colorList[5]
 
     BoxWithConstraints(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                top = 16.dp,
-                end = 16.dp,
-                start = 16.dp,
-            ),
+        modifier = Modifier.clickable {
+            navController.navigate(Routes.AssetScreen.route + "/${asset.code}")
+        }
     ) {
         val boxWidth = this.maxWidth
 
-        Column() {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = 16.dp,
+                    end = 16.dp,
+                    start = 16.dp,
+                ),
+        ) {
             Spacer(
                 modifier = Modifier
                     .height(10.dp)
@@ -56,33 +66,36 @@ fun AssetCardComponent(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(12))
+                    .clip(RoundedCornerShape(topStart = 40.dp, bottomStart = 20.dp, bottomEnd = 35.dp, topEnd = 20.dp))
                     .background(
                         brush = Brush.linearGradient(
-                            colors = getColorsStatus(asset.contributeState),
+                            colors = listOf(
+                                color200,
+                                color100,
+                            )
                         )
                     )
-                    .padding(top = 32.dp, bottom = 32.dp, start = 20.dp, end = 20.dp)
+                    .padding(top = 36.dp, bottom = 36.dp, start = 28.dp, end = 28.dp),
+
+                horizontalArrangement = Arrangement.SpaceBetween
 
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(0.3f)
                 ) {
                     Text(
                         modifier = Modifier,
                         text = "R$${NumberFormat.getInstance().format(asset.investedAmount)}",
-                        color = RebalanceColors.black,
-                        style = ReBalanceTypography.Strong3,
+                        color = color500,
+                        style = ReBalanceTypography.Strong5,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
                     Text(
                         modifier = Modifier,
                         text = RebalanceStrings.wallet_asset_invested_amount,
-                        color = RebalanceColors.black,
-                        style = ReBalanceTypography.Strong2,
+                        color = color500,
+                        style = ReBalanceTypography.Strong1,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -90,77 +103,89 @@ fun AssetCardComponent(
 
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(0.2f)
                 ) {
                     Text(
-                        modifier = Modifier.fillMaxSize(),
                         text = "${NumberFormat.getInstance().format(asset.percentageGoal)}%",
-                        color = RebalanceColors.black,
-                        style = ReBalanceTypography.Strong3,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        modifier = Modifier.fillMaxSize(),
-                        text = RebalanceStrings.wallet_asset_percentage_owned,
-                        color = RebalanceColors.black,
-                        style = ReBalanceTypography.Strong2,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center
-                    )
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(0.2f)
-                ) {
-                    Text(
-                        modifier = Modifier.fillMaxSize(),
-                        text = "${NumberFormat.getInstance().format(asset.percentageOwned)}%",
-                        color = RebalanceColors.black,
-                        style = ReBalanceTypography.Strong3,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        modifier = Modifier.fillMaxSize(),
-                        text = RebalanceStrings.wallet_asset_percentage_owned,
-                        color = RebalanceColors.black,
-                        style = ReBalanceTypography.Strong2,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center
-                    )
-                }
-
-                Column(
-                    modifier = Modifier.weight(0.25f),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        modifier = Modifier.fillMaxSize(),
-                        text = getTextStatus(asset.contributeState),
-                        color = getColorCodeStatus(asset.contributeState),
+                        color = color500,
                         style = ReBalanceTypography.Strong5,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.End
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = RebalanceStrings.wallet_asset_percentage_goal,
+                        color = color500,
+                        style = ReBalanceTypography.Strong1,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Center
                     )
                 }
+
+                Column(
+                ) {
+                    Text(
+                        text = "${NumberFormat.getInstance().format(asset.percentageOwned)}%",
+                        color = color500,
+                        style = ReBalanceTypography.Strong5,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = RebalanceStrings.wallet_asset_percentage_owned,
+                        color = color500,
+                        style = ReBalanceTypography.Strong1,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Center
+                    )
+                }
+
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Spacer(modifier = Modifier.width(70.dp))
+                }
             }
+
+
         }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomEnd)
+                .padding(
+                    top = 40.dp,
+                    end = 32.dp,
+                    start = 24.dp,
+                )
+        ) {
+            Icon(
+                modifier = Modifier
+                    .size(100.dp)
+                    .align(Alignment.BottomEnd),
+                painter = painterResource(id = getiCONStatus(asset.contributeState)),
+                contentDescription = null,
+                tint = color200
+            )
+        }
+
         Box(
             modifier = Modifier
                 .width((boxWidth.value * 0.4).dp)
                 .align(Alignment.TopStart)
-                .clip(RoundedCornerShape(35))
-                .background(getColorCodeStatus(asset.contributeState))
+                .padding(
+                    top = 16.dp,
+                    end = 16.dp,
+                    start = 24.dp,
+                )
+                .clip(RoundedCornerShape(topStart = 60.dp, bottomStart = 2.dp, bottomEnd = 80.dp, topEnd = 80.dp))
+
+                .background(color300)
 
         ) {
             Text(
@@ -168,193 +193,43 @@ fun AssetCardComponent(
                     .fillMaxWidth()
                     .padding(4.dp),
                 text = asset.code,
-                color = RebalanceColors.white,
+                color = color0,
                 style = ReBalanceTypography.Strong3,
                 textAlign = TextAlign.Center
             )
         }
-
-    }
-
-
-    /*  androidx.compose.material.Card(
-          modifier = Modifier
-              .fillMaxWidth()
-              .padding(
-                  top = 16.dp,
-                  end = 16.dp,
-                  start = 16.dp,
-              ),
-          elevation = 2.dp,
-          shape = RoundedCornerShape(12),
-          onClick = {
-              navController.navigate(Routes.AssetScreen.route + "/${asset.code}")
-          }
-      ) {
-          Row(
-              modifier = Modifier
-                  .fillMaxWidth()
-                  .background(
-                      brush = Brush.linearGradient(
-                          colors = getColorsStatus(asset.contributeState),
-                      )
-                  ),
-              verticalAlignment = Alignment.CenterVertically
-          ) {
-              Column(
-                  modifier = Modifier
-                      .padding(start = 24.dp)
-                      .fillMaxWidth()
-                      .weight(0.6f)
-              ) {
-                  Text(
-                      modifier = Modifier
-                          .padding(top = 8.dp),
-                      text = asset.code,
-                      color = RebalanceColors.white,
-                      style = ReBalanceTypography.Strong5,
-                  )
-                  Text(
-                      modifier = Modifier.padding(start = 4.dp),
-                      text = "${RebalanceStrings.wallet_asset_type}: ${getTypeText(asset.assetType)}",
-                      color = RebalanceColors.white,
-                      style = ReBalanceTypography.Body1.copy(fontWeight = FontWeight(800), fontSize = 8.sp),
-                  )
-
-                  Row(
-                      modifier = Modifier.padding(
-                          top = 12.dp,
-                          bottom = 12.dp,
-                          start = 4.dp
-                      ),
-                      horizontalArrangement = Arrangement.SpaceBetween
-                  ) {
-                      Column(
-                          modifier = Modifier
-                              .fillMaxWidth()
-                              .weight(0.5f, true),
-                          horizontalAlignment = Alignment.Start
-                      ) {
-                          Text(
-                              modifier = Modifier,
-                              text = "R$ ${NumberFormat.getInstance().format(asset.investedAmount)}",
-                              color = RebalanceColors.white,
-                              style = ReBalanceTypography.Strong3,
-                          )
-                          Text(
-                              modifier = Modifier,
-                              text = RebalanceStrings.wallet_asset_invested_amount,
-                              color = RebalanceColors.white,
-                              style = ReBalanceTypography.Strong1,
-                          )
-                      }
-
-                      Column(
-                          modifier = Modifier
-                              .fillMaxWidth()
-                              .weight(0.25f, true),
-                          horizontalAlignment = Alignment.CenterHorizontally
-                      ) {
-                          Text(
-                              modifier = Modifier,
-                              text = "${NumberFormat.getInstance().format(asset.percentageOwned)}%",
-                              color = RebalanceColors.white,
-                              style = ReBalanceTypography.Strong3,
-                          )
-                          Text(
-                              modifier = Modifier,
-                              text = RebalanceStrings.wallet_asset_percentage_owned,
-                              color = RebalanceColors.white,
-                              style = ReBalanceTypography.Strong1,
-                          )
-                      }
-
-                      Column(
-                          modifier = Modifier
-                              .fillMaxWidth()
-                              .weight(0.25f, true)
-                              .padding(
-                                  start = 12.dp
-                              ),
-                          horizontalAlignment = Alignment.CenterHorizontally
-                      ) {
-                          Text(
-                              modifier = Modifier,
-                              text = "${NumberFormat.getInstance().format(asset.percentageGoal)}%",
-                              color = RebalanceColors.white,
-                              style = ReBalanceTypography.Strong3,
-                          )
-                          Text(
-                              modifier = Modifier,
-                              text = RebalanceStrings.wallet_asset_percentage_goal,
-                              color = RebalanceColors.white,
-                              style = ReBalanceTypography.Strong1,
-                          )
-                      }
-
-                  }
-              }
-              Column(
-                  modifier = Modifier
-                      .padding(start = 24.dp, end = 12.dp)
-                      .weight(0.4f),
-                  horizontalAlignment = Alignment.CenterHorizontally,
-                  verticalArrangement = Arrangement.Center
-              ) {
-
-                  Column {
-                      Text(
-                          modifier = Modifier,
-                          text = getTextStatus(asset.contributeState),
-                          color = RebalanceColors.white,
-                          style = ReBalanceTypography.Strong5,
-                      )
-                  }
-              }
-          }
-      }
-
-
-     */
-
-}
-
-private fun getColorCodeStatus(status: ContributeState): Color {
-    return when (status) {
-        ContributeState.CONTRIBUTE -> RebalanceColors.darkGreen
-        ContributeState.WAIT -> RebalanceColors.darkOrange
     }
 }
 
-private fun getColorsStatus(status: ContributeState): List<Color> {
+
+private fun getColors(status: ContributeState): List<Color> {
     return when (status) {
         ContributeState.CONTRIBUTE -> {
             listOf(
-                RebalanceColors.normalGreen,
-                RebalanceColors.lightGreen,
+                RebalanceColors.green0,
+                RebalanceColors.green100,
+                RebalanceColors.green200,
+                RebalanceColors.green300,
+                RebalanceColors.green400,
+                RebalanceColors.green500,
             )
         }
         ContributeState.WAIT -> {
             listOf(
-                RebalanceColors.normalOrange,
-                RebalanceColors.lightOrange,
+                RebalanceColors.orange0,
+                RebalanceColors.orange100,
+                RebalanceColors.orange200,
+                RebalanceColors.orange300,
+                RebalanceColors.orange400,
+                RebalanceColors.orange500,
             )
         }
     }
 }
 
-private fun getTextStatus(status: ContributeState): String {
+private fun getiCONStatus(status: ContributeState): Int {
     return when (status) {
-        ContributeState.CONTRIBUTE -> RebalanceStrings.wallet_asset_status_contribute
-        ContributeState.WAIT -> RebalanceStrings.wallet_asset_status_wait
-    }
-}
-
-private fun getTypeText(type: AssetTypes): String {
-    return when (type) {
-        AssetTypes.STOCKS -> RebalanceStrings.wallet_asset_type_STOCKS
-        AssetTypes.FIIS -> RebalanceStrings.wallet_asset_type_FIIS
-        AssetTypes.BONDS -> RebalanceStrings.wallet_asset_type_BONDS
-        AssetTypes.CRYPTO -> RebalanceStrings.wallet_asset_type_CRYPTO
+        ContributeState.CONTRIBUTE -> R.drawable.ic_comprar
+        ContributeState.WAIT -> R.drawable.ic_esperar
     }
 }

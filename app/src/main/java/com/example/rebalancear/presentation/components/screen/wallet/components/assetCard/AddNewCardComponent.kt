@@ -91,7 +91,7 @@ fun AddNewCardComponent(
                         modifier = Modifier
                             .size(56.dp)
                             .fillMaxWidth(),
-                        painter = painterResource(id = R.drawable.ic_add),
+                        painter = painterResource(id = R.drawable.ic_esperar),
                         contentDescription = null,
                         tint = RebalanceColors.darkGrey.copy(alpha = 0.7f)
                     )
