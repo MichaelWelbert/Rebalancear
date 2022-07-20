@@ -18,15 +18,15 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.rebalancear.R
 
-private val Mulish = FontFamily(
-    Font(R.font.mulish_medium, FontWeight.Medium),
-    Font(R.font.mulish_extra_bold, FontWeight.ExtraBold),
-    Font(R.font.mulish_black_italic, FontWeight.Black)
+private val Roboto = FontFamily(
+    Font(R.font.roboto_medium, FontWeight.Medium),
+    Font(R.font.roboto_black, FontWeight.ExtraBold),
+    Font(R.font.roboto_black_italic, FontWeight.Black)
 )
 
 object ReBalanceTypography {
     val Tittle = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.Black,
         fontStyle = FontStyle.Italic,
         fontSize = 18.sp,
@@ -36,7 +36,7 @@ object ReBalanceTypography {
 
 
     val Body1 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontSize = 10.sp,
@@ -45,7 +45,7 @@ object ReBalanceTypography {
     )
 
     val Body2 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontSize = 12.sp,
@@ -54,7 +54,7 @@ object ReBalanceTypography {
     )
 
     val Body3 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontSize = 14.sp,
@@ -63,7 +63,7 @@ object ReBalanceTypography {
     )
 
     val Body4 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontSize = 16.sp,
@@ -72,7 +72,7 @@ object ReBalanceTypography {
     )
 
     val Body5 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontSize = 18.sp,
@@ -81,7 +81,7 @@ object ReBalanceTypography {
     )
 
     val Strong1 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 10.sp,
@@ -90,7 +90,7 @@ object ReBalanceTypography {
     )
 
     val Strong2 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 12.sp,
@@ -99,7 +99,7 @@ object ReBalanceTypography {
     )
 
     val Strong3 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 14.sp,
@@ -108,7 +108,7 @@ object ReBalanceTypography {
     )
 
     val Strong4 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 16.sp,
@@ -117,7 +117,7 @@ object ReBalanceTypography {
     )
 
     val Strong5 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 18.sp,
@@ -126,7 +126,7 @@ object ReBalanceTypography {
     )
 
     val Paragraph1 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 10.sp,
@@ -135,7 +135,7 @@ object ReBalanceTypography {
     )
 
     val Paragraph2 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 12.sp,
@@ -144,7 +144,7 @@ object ReBalanceTypography {
     )
 
     val Paragraph3 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 14.sp,
@@ -153,7 +153,7 @@ object ReBalanceTypography {
     )
 
     val Paragraph4 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 16.sp,
@@ -162,7 +162,7 @@ object ReBalanceTypography {
     )
 
     val Paragraph5 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 18.sp,
@@ -171,7 +171,7 @@ object ReBalanceTypography {
     )
 
     val Heading1 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 36.sp,
@@ -180,7 +180,7 @@ object ReBalanceTypography {
     )
 
     val Heading2 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 32.sp,
@@ -189,7 +189,7 @@ object ReBalanceTypography {
     )
 
     val Heading3 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 28.sp,
@@ -198,7 +198,7 @@ object ReBalanceTypography {
     )
 
     val Heading4 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 24.sp,
@@ -207,7 +207,7 @@ object ReBalanceTypography {
     )
 
     val Heading5 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 22.sp,
@@ -216,7 +216,7 @@ object ReBalanceTypography {
     )
 
     val Heading6 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 20.sp,
@@ -225,7 +225,7 @@ object ReBalanceTypography {
     )
 
     val Display1 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 60.sp,
@@ -234,7 +234,7 @@ object ReBalanceTypography {
     )
 
     val Display2 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 48.sp,
@@ -243,7 +243,7 @@ object ReBalanceTypography {
     )
 
     val Display3 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 44.sp,
@@ -252,7 +252,7 @@ object ReBalanceTypography {
     )
 
     val Display4 = TextStyle(
-        fontFamily = Mulish,
+        fontFamily = Roboto,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontSize = 40.sp,
@@ -262,7 +262,7 @@ object ReBalanceTypography {
 }
 
 val ComposeTypography = Typography(
-    defaultFontFamily = Mulish,
+    defaultFontFamily = Roboto,
     h1 = ReBalanceTypography.Heading1,
     h2 = ReBalanceTypography.Heading2,
     h3 = ReBalanceTypography.Heading3,

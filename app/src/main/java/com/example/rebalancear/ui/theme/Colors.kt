@@ -19,15 +19,31 @@ interface IRebalanceColors {
     val lightRed: Color
     val darkRed: Color
 
-    val lightOrange: Color
-    val normalOrange: Color
-    val darkOrange: Color
+    val lightred: Color
+    val normalred: Color
+    val darkred: Color
 
     val lightYellow: Color
     val darkYellow: Color
 
     val lightGrey: Color
     val darkGrey: Color
+
+
+    val neutral0: Color
+    val neutral100: Color
+    val neutral200: Color
+    val neutral300: Color
+    val neutral400: Color
+    val neutral500: Color
+
+
+    val purple0: Color
+    val purple100: Color
+    val purple200: Color
+    val purple300: Color
+    val purple400: Color
+    val purple500: Color
 
     val green0: Color
     val green100: Color
@@ -36,14 +52,12 @@ interface IRebalanceColors {
     val green400: Color
     val green500: Color
 
-
-
-    val orange0: Color
-    val orange100: Color
-    val orange200: Color
-    val orange300: Color
-    val orange400: Color
-    val orange500: Color
+    val red0: Color
+    val red100: Color
+    val red200: Color
+    val red300: Color
+    val red400: Color
+    val red500: Color
 }
 
 object RebalanceColors : IRebalanceColors {
@@ -64,27 +78,45 @@ object RebalanceColors : IRebalanceColors {
     override val strongDarkBlue = Color(0xFF21152E)
     override val strongLightBlue = Color(0xFF271D34)
 
-    override val lightOrange = Color(0xFFF58948)
-    override val normalOrange = Color(0xFFBD6B3A)
-    override val darkOrange = Color(0xFFC64C01)
+    override val lightred = Color(0xFFF58948)
+    override val normalred = Color(0xFFBD6B3A)
+    override val darkred = Color(0xFFC64C01)
 
     override val lightYellow = Color(0xFFFABA4B)
     override val darkYellow = Color(0xFFBD783C)
 
 
-    override val green0 =  Color(0xFFCAF8ED)
-    override val green100 = Color(0xFF56CEB2)
-    override val green200 = Color(0xFF368075)
-    override val green300 = Color(0xFF2F4F48)
-    override val green400 =Color(0xFF294541)
-    override val green500 =  Color(0xFF1D312E)
+    override val neutral0 =  Color(0xFFD8D2DD)
+    override val neutral100 = Color(0xFFBBB5BD)
+    override val neutral200 = Color(0xFF838086)
+    override val neutral300 = Color(0xFF434147)
+    override val neutral400 =Color(0xFF312D33)
+    override val neutral500 =  Color(0xFF2D2930)
 
-    override val orange0 =  Color(0xFFF8D7CA)
-    override val orange100 = Color(0xFFCE7856)
-    override val orange200 = Color(0xFF804D36)
-    override val orange300 = Color(0xFF4F392F)
-    override val orange400 =Color(0xFF453129)
-    override val orange500 =  Color(0xFF31211D)
+
+
+    override val green0 =  Color(0xFFB0EDFC)
+    override val green100 = Color(0xFF66AFAD)
+    override val green200 = Color(0xFF36807E)
+    override val green300 = Color(0xFF2F4B4F)
+    override val green400 =Color(0xFF294545)
+    override val green500 =  Color(0xFF1D3031)
+
+
+    override val red0 =   Color(0xFFF8CAD7)
+    override val red100 = Color(0xFFCE7E7E)
+    override val red200 = Color(0xFF80364B)
+    override val red300 = Color(0xFF4F2F38)
+    override val red400 =Color(0xFF452930)
+    override val red500 = Color(0xFF311D22)
+
+
+    override val purple0 =  Color(0xFFDDCAF8)
+    override val purple100 = Color(0xFF8066AF)
+    override val purple200 = Color(0xFF593680)
+    override val purple300 = Color(0xFF352F4F)
+    override val purple400 =Color(0xFF352945)
+    override val purple500 =   Color(0xFF251D31)
 
 
     override val black = Color.Black

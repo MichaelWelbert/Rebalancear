@@ -31,19 +31,23 @@ fun RecordAssetComponent(
 ) {
     androidx.compose.material.Card(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth() .padding(horizontal = 12.dp),
         elevation = 3.dp,
         shape = RoundedCornerShape(28),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(brush = Brush.linearGradient(colors = getColorsStatus(recordType))),
+                .background(brush = Brush.linearGradient(colors = listOf(
+                    RebalanceColors.neutral300,
+                    RebalanceColors.neutral300,
+                ))),
+
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth().padding(16.dp),
+                    .fillMaxWidth().padding(horizontal = 16.dp, vertical = 20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
@@ -54,13 +58,13 @@ fun RecordAssetComponent(
                     Text(
                         modifier = Modifier,
                         text = "R$ ${NumberFormat.getInstance().format(asset.investedAmount)}",
-                        color = RebalanceColors.white,
+                        color =  RebalanceColors.neutral100,
                         style = ReBalanceTypography.Strong2,
                     )
                     Text(
                         modifier = Modifier,
-                        text = RebalanceStrings.wallet_asset_invested_amount,
-                        color = RebalanceColors.white,
+                        text = getTextStatus(recordType),
+                        color = getColorsStatus(recordType),
                         style = ReBalanceTypography.Strong1,
                     )
                 }
@@ -72,13 +76,13 @@ fun RecordAssetComponent(
                     Text(
                         modifier = Modifier,
                         text = "25",
-                        color = RebalanceColors.white,
+                        color =  RebalanceColors.neutral100,
                         style = ReBalanceTypography.Strong2,
                     )
                     Text(
                         modifier = Modifier,
                         text = RebalanceStrings.asset_record_unit,
-                        color = RebalanceColors.white,
+                        color = RebalanceColors.neutral0,
                         style = ReBalanceTypography.Strong1,
                     )
                 }
@@ -90,13 +94,13 @@ fun RecordAssetComponent(
                     Text(
                         modifier = Modifier,
                         text = "R$34,20",
-                        color = RebalanceColors.white,
+                        color = RebalanceColors.neutral100,
                         style = ReBalanceTypography.Strong2,
                     )
                     Text(
                         modifier = Modifier,
-                        text = RebalanceStrings.asset_record_paid,
-                        color = RebalanceColors.white,
+                        text =  RebalanceStrings.asset_record_value,
+                        color = RebalanceColors.neutral0,
                         style = ReBalanceTypography.Strong1,
                     )
                 }
@@ -105,7 +109,7 @@ fun RecordAssetComponent(
                     modifier = Modifier
                         .size(32.dp)
                         .shadow(elevation = 2.dp, RoundedCornerShape(20.dp))
-                        .background(color = RebalanceColors.lightGrey)
+                        .background(color = RebalanceColors.red200)
                         .clickable {
 
                         },
@@ -115,7 +119,7 @@ fun RecordAssetComponent(
                         modifier = Modifier.size(16.dp),
                         painter = painterResource(id = R.drawable.ic_delete),
                         contentDescription = null,
-                        tint = RebalanceColors.white
+                        tint = RebalanceColors.red100
                     )
                 }
             }
@@ -123,19 +127,24 @@ fun RecordAssetComponent(
     }
 }
 
-private fun getColorsStatus(type: RecordType): List<Color> {
+private fun getColorsStatus(type: RecordType): Color {
     return when (type) {
-        RecordType.BUY -> {
-            listOf(
-                RebalanceColors.darkOceanBlue,
-                RebalanceColors.lightOceanBlue,
-            )
-        }
-        RecordType.SELL -> {
-            listOf(
-                RebalanceColors.darkRed,
-                RebalanceColors.lightRed,
-            )
-        }
+        RecordType.BUY -> RebalanceColors.green100
+        RecordType.SELL -> RebalanceColors.red100
+    }
+}
+
+private fun getTextStatus(type: RecordType): String {
+    return when (type) {
+        RecordType.BUY -> RebalanceStrings.asset_record_invested_amount
+        RecordType.SELL -> RebalanceStrings.asset_record_sold_amount
+    }
+}
+
+
+private fun getTextActionStatus(type: RecordType): String {
+    return when (type) {
+        RecordType.BUY -> RebalanceStrings.wallet_asset_invested_amount
+        RecordType.SELL -> RebalanceStrings.wallet_asset_invested_amount
     }
 }

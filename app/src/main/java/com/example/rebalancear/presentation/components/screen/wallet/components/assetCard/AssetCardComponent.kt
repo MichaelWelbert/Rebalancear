@@ -2,6 +2,7 @@ package com.example.rebalancear.presentation.components.screen.wallet.components
 
 
 import android.icu.text.NumberFormat
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,7 +21,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.rebalancear.R
-import com.example.rebalancear.core.AssetTypes
 import com.example.rebalancear.core.ContributeState
 import com.example.rebalancear.core.RebalanceStrings
 import com.example.rebalancear.ui.theme.ReBalanceTypography
@@ -29,18 +29,16 @@ import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 import com.example.rebalancear.routes.Routes
 
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun AssetCardComponent(
     navController: NavController,
     asset: WalletAssetPresenter
 ) {
     val colorList = getColors(asset.contributeState)
-    val color0 = colorList[0]
-    val color100 = colorList[1]
     val color200 = colorList[2]
-    val color300 = colorList[3]
-    val color500 = colorList[5]
+    val color400 = colorList[4]
+
 
     BoxWithConstraints(
         modifier = Modifier.clickable {
@@ -63,20 +61,19 @@ fun AssetCardComponent(
                     .height(10.dp)
                     .width(10.dp)
             )
+
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(topStart = 40.dp, bottomStart = 20.dp, bottomEnd = 35.dp, topEnd = 20.dp))
-                    .background(
-                        brush = Brush.linearGradient(
-                            colors = listOf(
-                                color200,
-                                color100,
-                            )
-                        )
-                    )
-                    .padding(top = 36.dp, bottom = 36.dp, start = 28.dp, end = 28.dp),
-
+                    .clip(RoundedCornerShape(20))
+                    .background(color200)
+                    .padding(
+                        top = 40.dp,
+                        bottom = 28.dp,
+                        start = 28.dp,
+                        end = 28.dp
+                    ),
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ) {
@@ -86,7 +83,7 @@ fun AssetCardComponent(
                     Text(
                         modifier = Modifier,
                         text = "R$${NumberFormat.getInstance().format(asset.investedAmount)}",
-                        color = color500,
+                        color = RebalanceColors.white,
                         style = ReBalanceTypography.Strong5,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -94,7 +91,7 @@ fun AssetCardComponent(
                     Text(
                         modifier = Modifier,
                         text = RebalanceStrings.wallet_asset_invested_amount,
-                        color = color500,
+                        color = RebalanceColors.white,
                         style = ReBalanceTypography.Strong1,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -106,7 +103,7 @@ fun AssetCardComponent(
                 ) {
                     Text(
                         text = "${NumberFormat.getInstance().format(asset.percentageGoal)}%",
-                        color = color500,
+                        color = RebalanceColors.white,
                         style = ReBalanceTypography.Strong5,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -114,7 +111,7 @@ fun AssetCardComponent(
                     )
                     Text(
                         text = RebalanceStrings.wallet_asset_percentage_goal,
-                        color = color500,
+                        color = RebalanceColors.white,
                         style = ReBalanceTypography.Strong1,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -126,7 +123,7 @@ fun AssetCardComponent(
                 ) {
                     Text(
                         text = "${NumberFormat.getInstance().format(asset.percentageOwned)}%",
-                        color = color500,
+                        color = RebalanceColors.white,
                         style = ReBalanceTypography.Strong5,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -134,7 +131,7 @@ fun AssetCardComponent(
                     )
                     Text(
                         text = RebalanceStrings.wallet_asset_percentage_owned,
-                        color = color500,
+                        color = RebalanceColors.white,
                         style = ReBalanceTypography.Strong1,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -147,19 +144,27 @@ fun AssetCardComponent(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Spacer(modifier = Modifier.width(70.dp))
+                    Text(
+                        text = getStatus(asset.contributeState),
+                        color = RebalanceColors.white,
+                        style = ReBalanceTypography.Strong5,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
 
 
         }
 
+        /*
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomEnd)
                 .padding(
-                    top = 40.dp,
+                    top = 37.dp,
                     end = 32.dp,
                     start = 24.dp,
                 )
@@ -170,10 +175,12 @@ fun AssetCardComponent(
                     .align(Alignment.BottomEnd),
                 painter = painterResource(id = getiCONStatus(asset.contributeState)),
                 contentDescription = null,
-                tint = color200
+                tint = color400
             )
         }
 
+
+         */
         Box(
             modifier = Modifier
                 .width((boxWidth.value * 0.4).dp)
@@ -181,11 +188,11 @@ fun AssetCardComponent(
                 .padding(
                     top = 16.dp,
                     end = 16.dp,
-                    start = 24.dp,
+                    start = 16.dp,
                 )
                 .clip(RoundedCornerShape(topStart = 60.dp, bottomStart = 2.dp, bottomEnd = 80.dp, topEnd = 80.dp))
 
-                .background(color300)
+                .background(color400)
 
         ) {
             Text(
@@ -193,7 +200,7 @@ fun AssetCardComponent(
                     .fillMaxWidth()
                     .padding(4.dp),
                 text = asset.code,
-                color = color0,
+                color = Color.White,
                 style = ReBalanceTypography.Strong3,
                 textAlign = TextAlign.Center
             )
@@ -216,20 +223,20 @@ private fun getColors(status: ContributeState): List<Color> {
         }
         ContributeState.WAIT -> {
             listOf(
-                RebalanceColors.orange0,
-                RebalanceColors.orange100,
-                RebalanceColors.orange200,
-                RebalanceColors.orange300,
-                RebalanceColors.orange400,
-                RebalanceColors.orange500,
+                RebalanceColors.red0,
+                RebalanceColors.red100,
+                RebalanceColors.red200,
+                RebalanceColors.red300,
+                RebalanceColors.red400,
+                RebalanceColors.red500,
             )
         }
     }
 }
 
-private fun getiCONStatus(status: ContributeState): Int {
+private fun getStatus(status: ContributeState): String {
     return when (status) {
-        ContributeState.CONTRIBUTE -> R.drawable.ic_comprar
-        ContributeState.WAIT -> R.drawable.ic_esperar
+        ContributeState.CONTRIBUTE -> "Comprar"
+        ContributeState.WAIT -> "Esperar"
     }
 }

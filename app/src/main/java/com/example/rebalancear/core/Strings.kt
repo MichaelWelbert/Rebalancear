@@ -15,8 +15,8 @@ object RebalanceStrings {
 
 
 
-
+    const val asset_record_invested_amount= "Investido"
+    const val asset_record_sold_amount= "Vendido"
     const val asset_record_unit = "Unidades"
-    const val asset_record_paid = "Paguei"
-
+    const val asset_record_value = "Valor"
 }
