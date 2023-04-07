@@ -1,13 +1,21 @@
 package com.example.rebalancear.data
 
 
-
 import com.example.rebalancear.core.AssetType
+import com.example.rebalancear.data.adapters.WalletAssetAdapter
+import com.example.rebalancear.data.room.dao.WalletAssetDao
+import com.example.rebalancear.data.room.database.AppDatabase
+import com.example.rebalancear.data.room.entities.WalletAssetModel
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.repository.IWalletAssetRepository
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.last
 import javax.inject.Inject
 
-class WalletAssetRepository @Inject constructor() : IWalletAssetRepository {
+class WalletAssetRepository @Inject constructor(
+    private val walletAssetDataBase: WalletAssetDao,
+    private  val walletAssetAdater: WalletAssetAdapter
+) : IWalletAssetRepository {
 
 
     private var mocklist = mutableListOf(
@@ -93,8 +101,12 @@ class WalletAssetRepository @Inject constructor() : IWalletAssetRepository {
 
         )
 
-    override fun getWalletAssets(): List<WalletAsset> {
-        return mocklist
+    override suspend fun getWalletAssets(): List<WalletAsset> {
+        val walletAssetModel: List<WalletAssetModel> = walletAssetDataBase.getAll()
+        val walletAssets = walletAssetAdater.buildWalletAssets(walletAssetModel)
+
+
+        return walletAssets
     }
 
     override fun getWalletAsset(code: String): WalletAsset? {
@@ -105,8 +117,14 @@ class WalletAssetRepository @Inject constructor() : IWalletAssetRepository {
         return walletAsset
     }
 
-    override fun addWalletAsset(asset: WalletAsset) {
-        TODO("Not yet implemented")
+    override suspend fun addWalletAsset(code: String, units: Double) {
+        val walletAssetModel = WalletAssetModel(code = code, units = units)
+        walletAssetDataBase.insertAll(walletAssetModel)
+    }
+
+    override suspend fun hasWalletAsset(code: String) : Boolean {
+        val walletAsset = walletAssetDataBase.findByCode(code)
+        return walletAsset != null
     }
 
     override fun removeWalletAsset(code: String) {

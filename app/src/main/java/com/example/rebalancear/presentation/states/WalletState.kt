@@ -1,12 +1,9 @@
 package com.example.rebalancear.presentation.states
 
 
-import com.example.rebalancear.core.ResultError
-import com.example.rebalancear.core.StateStatus
+import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 
-data class WalletState(
-    val status: StateStatus = StateStatus.WAIT,
-    val walletAssets: List<String> = emptyList(),
-    val patrimony: Double = 0.0,
-    val error: ResultError? = null,
+
+internal data class WalletState(
+    val state: PageState<List<WalletAssetPresenter>> = PageState.Undefined()
 )

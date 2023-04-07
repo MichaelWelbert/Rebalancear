@@ -11,7 +11,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class RepositoriesMode {
+abstract class RepositoriesModel {
     @Binds
     @ViewModelScoped
     abstract fun provideIWalletAssetRepository(

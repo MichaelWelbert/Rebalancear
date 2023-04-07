@@ -1,7 +1,7 @@
 package com.example.rebalancear.core
 
-sealed class ResultRequest<T>(val data: T? = null, val error: ResultError? = null) {
-    class Success<T>(data: T) : ResultRequest<T>(data)
-    class Loading<T>(data: T? = null) : ResultRequest<T>(data)
-    class Error<T>(resultError: ResultError) : ResultRequest<T>(error = resultError)
+sealed class ResultRequest<T>{
+    class Success<T>(val data: T) : ResultRequest<T>()
+    class Loading<T> : ResultRequest<T>()
+    class Error<T>(val resultError: ResultError) : ResultRequest<T>()
 }

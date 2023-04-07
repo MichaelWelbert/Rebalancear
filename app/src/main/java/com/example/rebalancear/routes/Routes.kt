@@ -1,5 +1,6 @@
 package com.example.rebalancear.routes
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -9,7 +10,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.rebalancear.presentation.screen.asset.AssetScreenComponent
 import com.example.rebalancear.presentation.screen.wallet.WalletScreenComponent
-import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 
 sealed class Routes(val route: String) {
     object WalletScreen : Routes(route = "wallet_screen")
@@ -27,6 +27,7 @@ fun MakeRoutes(navController: NavHostController) {
         composable(
             route = Routes.WalletScreen.route
         ) {
+            Log.d("michael", "entrou1")
             WalletScreenComponent(navController, hiltViewModel())
         }
 
