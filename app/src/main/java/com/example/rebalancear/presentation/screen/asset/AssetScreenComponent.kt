@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.pendulum.ui.theme.RebalanceColors
+import com.example.rebalancear.ui.theme.RebalanceColors
 
 
 @OptIn(ExperimentalMaterial3Api::class)

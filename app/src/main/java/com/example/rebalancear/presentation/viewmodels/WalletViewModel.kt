@@ -1,6 +1,5 @@
 package com.example.rebalancear.presentation.viewmodels
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.usecases.*
+import com.example.rebalancear.presentation.events.WalletAssetScreenEvents
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 import com.example.rebalancear.presentation.states.PageState
 import com.example.rebalancear.presentation.states.WalletState
@@ -36,6 +36,14 @@ internal class WalletViewModel @Inject constructor(
         loadWalletAssets()
     }
 
+    fun onTriggerEvent(event: WalletAssetScreenEvents) {
+        when (event) {
+            is WalletAssetScreenEvents.OnAddWalletAsset -> {
+                addWalletAsset(event.code, event.units)
+            }
+        }
+    }
+
     private fun loadWalletAssets() {
         getWalletAssetsUseCase().onEach { result ->
             _walletState = when (result) {
@@ -54,12 +62,9 @@ internal class WalletViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    private fun addWalletAsset(code: String, units: Int) {
+    private fun addWalletAsset(code: String, units: Double) {
 
-        val unitsFormat = units.toDouble()
-
-
-        addWalletAssetUseCase(code,unitsFormat).onEach { result ->
+        addWalletAssetUseCase(code,units).onEach { result ->
             when (result) {
                 is ResultRequest.Error -> {
 

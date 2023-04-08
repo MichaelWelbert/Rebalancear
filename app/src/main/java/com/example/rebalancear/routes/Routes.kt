@@ -13,7 +13,6 @@ import com.example.rebalancear.presentation.screen.wallet.WalletScreenComponent
 
 sealed class Routes(val route: String) {
     object WalletScreen : Routes(route = "wallet_screen")
-    object AddAssetScreen : Routes(route = "add_asset_screen")
     object AssetScreen : Routes(route = "asset_screen")
 }
 

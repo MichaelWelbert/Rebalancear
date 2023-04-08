@@ -6,10 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 
 import androidx.navigation.compose.rememberNavController
-import com.example.pendulum.ui.theme.RebalanceTheme
+import com.example.rebalancear.ui.theme.RebalanceTheme
 import com.example.rebalancear.routes.MakeRoutes
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 
 @AndroidEntryPoint

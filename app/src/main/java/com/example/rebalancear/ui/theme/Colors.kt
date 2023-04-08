@@ -1,4 +1,4 @@
-package com.example.pendulum.ui.theme
+package com.example.rebalancear.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
