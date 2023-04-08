@@ -16,7 +16,10 @@ class GetWalletAssetsUseCase @Inject constructor(
         try {
             emit(ResultRequest.Loading())
             val assets = repository.getWalletAssets()
-            emit(ResultRequest.Success(assets))
+            assets.collect { walletAsset ->
+                emit(ResultRequest.Success(walletAsset))
+            }
+
         } catch (e: Exception) {
             emit(ResultRequest.Error(ResultError.CannotFindData()))
         }

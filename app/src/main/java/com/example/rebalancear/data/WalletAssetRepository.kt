@@ -4,17 +4,16 @@ package com.example.rebalancear.data
 import com.example.rebalancear.core.AssetType
 import com.example.rebalancear.data.adapters.WalletAssetAdapter
 import com.example.rebalancear.data.room.dao.WalletAssetDao
-import com.example.rebalancear.data.room.database.AppDatabase
 import com.example.rebalancear.data.room.entities.WalletAssetModel
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.repository.IWalletAssetRepository
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class WalletAssetRepository @Inject constructor(
     private val walletAssetDataBase: WalletAssetDao,
-    private  val walletAssetAdater: WalletAssetAdapter
+    private val walletAssetAdater: WalletAssetAdapter
 ) : IWalletAssetRepository {
 
 
@@ -101,12 +100,11 @@ class WalletAssetRepository @Inject constructor(
 
         )
 
-    override suspend fun getWalletAssets(): List<WalletAsset> {
-        val walletAssetModel: List<WalletAssetModel> = walletAssetDataBase.getAll()
-        val walletAssets = walletAssetAdater.buildWalletAssets(walletAssetModel)
-
-
-        return walletAssets
+    override suspend fun getWalletAssets(): Flow<List<WalletAsset>> = flow {
+        walletAssetDataBase.getAll().collect { walletAssetModel ->
+            val walletAssets = walletAssetAdater.buildWalletAssets(walletAssetModel).toMutableList()
+            emit(walletAssets)
+        }
     }
 
     override fun getWalletAsset(code: String): WalletAsset? {
@@ -122,7 +120,7 @@ class WalletAssetRepository @Inject constructor(
         walletAssetDataBase.insertAll(walletAssetModel)
     }
 
-    override suspend fun hasWalletAsset(code: String) : Boolean {
+    override suspend fun hasWalletAsset(code: String): Boolean {
         val walletAsset = walletAssetDataBase.findByCode(code)
         return walletAsset != null
     }

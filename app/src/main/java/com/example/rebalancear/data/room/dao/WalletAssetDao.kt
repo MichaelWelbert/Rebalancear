@@ -2,11 +2,12 @@ package com.example.rebalancear.data.room.dao
 
 import androidx.room.*
 import com.example.rebalancear.data.room.entities.WalletAssetModel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WalletAssetDao {
     @Query("SELECT * FROM WalletAssetModel")
-    suspend fun getAll(): List<WalletAssetModel>
+    fun getAll(): Flow<List<WalletAssetModel>>
 
     @Delete
     suspend fun deleteAll(vararg wallet: WalletAssetModel)
