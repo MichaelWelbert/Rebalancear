@@ -40,11 +40,9 @@ internal class WalletViewModel @Inject constructor(
     fun onTriggerEvent(event: WalletAssetScreenEvents) {
         when (event) {
             is WalletAssetScreenEvents.OnAddWalletAsset -> {
-                addWalletAsset(event.code, event.units)
+                addWalletAsset(event.code, event.units, event.goal)
             }
-            is WalletAssetScreenEvents.OnAddWalletAsset -> {
-                addWalletAsset(event.code, event.units)
-            }
+
         }
     }
 
@@ -67,9 +65,9 @@ internal class WalletViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    private fun addWalletAsset(code: String, units: Double) {
+    private fun addWalletAsset(code: String, units: Double, goal: Double) {
 
-        addWalletAssetUseCase(code, units).onEach { result ->
+        addWalletAssetUseCase(code, units,  goal).onEach { result ->
             when (result) {
                 is ResultRequest.Error -> {
 

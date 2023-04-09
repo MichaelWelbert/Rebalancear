@@ -16,7 +16,7 @@ import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
 internal fun AddWalletAssetDialog(
     modifier: Modifier = Modifier,
     enable: Boolean,
-    onAdd: (code: String, units: Double) -> Unit,
+    onAdd: (code: String, units: Double, goal: Double) -> Unit,
     onCancel: () -> Unit
 ) {
     if (enable) {
@@ -36,11 +36,12 @@ internal fun AddWalletAssetDialog(
 @Composable
 private fun DialogWalletAsset(
     modifier: Modifier = Modifier,
-    onAdd: (code: String, units: Double) -> Unit,
+    onAdd: (code: String, units: Double, goal: Double) -> Unit,
     onCancel: () -> Unit,
 ) {
     var code by remember { mutableStateOf("") }
     var units by remember { mutableStateOf("") }
+    var goal by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier,
@@ -62,6 +63,16 @@ private fun DialogWalletAsset(
             textStyle = ReBalanceTypography.Strong3,
             modifier = Modifier
         )
+
+        TextField(
+            value = goal,
+            onValueChange = { goal = it },
+            label = { Text("Enter goal") },
+            maxLines = 2,
+            textStyle = ReBalanceTypography.Strong3,
+            modifier = Modifier
+        )
+
         Row() {
             TextButton(onClick = {
                 onCancel()
@@ -70,7 +81,7 @@ private fun DialogWalletAsset(
             }
 
             TextButton(onClick = {
-                onAdd(code, units.toDouble())
+                onAdd(code, units.toDouble(), goal.toDouble())
             }) {
                 Text(text = "Adicionar")
             }

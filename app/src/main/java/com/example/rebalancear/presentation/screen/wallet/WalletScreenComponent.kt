@@ -44,9 +44,9 @@ internal fun WalletScreenComponent(
                             .padding(8.dp),
                         walletAssets = walletState.state.data.assets,
                         navController = navController,
-                        onAddwalleAssetCard = { code, units ->
+                        onAddwalleAssetCard = { code, units, goal ->
                             walletViewModel.onTriggerEvent(
-                                WalletAssetScreenEvents.OnAddWalletAsset(code = code, units = units)
+                                WalletAssetScreenEvents.OnAddWalletAsset(code = code, units = units, goal = goal)
                             )
                         }
                     )

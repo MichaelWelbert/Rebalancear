@@ -20,7 +20,7 @@ internal fun WalletAssetCardsContent(
     modifier: Modifier = Modifier,
     walletAssets: List<WalletAssetPresenter>,
     navController: NavController,
-    onAddwalleAssetCard: (code: String, units: Double) -> Unit,
+    onAddwalleAssetCard: (code: String, units: Double, goal: Double) -> Unit,
 ) {
     var enableAddCardDialog by remember { mutableStateOf(false) }
 
@@ -52,8 +52,8 @@ internal fun WalletAssetCardsContent(
                 .background(RebalanceColors.neutral0)
                 .align(Alignment.Center),
             enable = enableAddCardDialog,
-            onAdd = { code, units ->
-                onAddwalleAssetCard(code, units)
+            onAdd = { code, units, goal ->
+                onAddwalleAssetCard(code, units, goal)
                 enableAddCardDialog = false
             },
             onCancel = { enableAddCardDialog = false }

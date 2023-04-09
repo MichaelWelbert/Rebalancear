@@ -115,8 +115,8 @@ class WalletAssetRepository @Inject constructor(
         return walletAsset
     }
 
-    override suspend fun addWalletAsset(code: String, units: Double) {
-        val walletAssetModel = WalletAssetModel(code = code, units = units)
+    override suspend fun addWalletAsset(code: String, units: Double, goal: Double) {
+        val walletAssetModel = WalletAssetModel(code = code, units = units, goal = goal)
         walletAssetDataBase.insertAll(walletAssetModel)
     }
 

@@ -10,15 +10,16 @@ import javax.inject.Inject
 class AddWalletAssetUseCase @Inject constructor(
     private val repository: IWalletAssetRepository
 ) {
-    operator fun invoke(code: String, units: Double): Flow<ResultRequest<Unit>> = flow {
-        emit(ResultRequest.Loading())
+    operator fun invoke(code: String, units: Double, goal: Double): Flow<ResultRequest<Unit>> =
+        flow {
+            emit(ResultRequest.Loading())
 
-        if(repository.hasWalletAsset(code)) {
-            emit(ResultRequest.Error(ResultError.CodeAlreadyAdd()))
-            return@flow
+            if (repository.hasWalletAsset(code)) {
+                emit(ResultRequest.Error(ResultError.CodeAlreadyAdd()))
+                return@flow
+            }
+
+            repository.addWalletAsset(code, units, goal)
+            emit(ResultRequest.Success(Unit))
         }
-
-        repository.addWalletAsset(code, units)
-        emit(ResultRequest.Success(Unit))
-    }
 }
