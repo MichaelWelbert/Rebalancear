@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class WalletAssetModel(
+data class WalletAssetRoomEntity(
     val units: Double,
     val goal: Double,
     @PrimaryKey

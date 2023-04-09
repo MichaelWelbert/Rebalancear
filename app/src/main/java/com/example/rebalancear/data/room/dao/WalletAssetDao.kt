@@ -1,25 +1,25 @@
 package com.example.rebalancear.data.room.dao
 
 import androidx.room.*
-import com.example.rebalancear.data.room.entities.WalletAssetModel
+import com.example.rebalancear.data.room.entities.WalletAssetRoomEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WalletAssetDao {
-    @Query("SELECT * FROM WalletAssetModel")
-    fun getAll(): Flow<List<WalletAssetModel>>
+    @Query("SELECT * FROM WalletAssetRoomEntity")
+    fun getAll(): Flow<List<WalletAssetRoomEntity>>
 
     @Delete
-    suspend fun deleteAll(vararg wallet: WalletAssetModel)
+    suspend fun deleteAll(vararg wallet: WalletAssetRoomEntity)
 
-    @Query("SELECT * FROM WalletAssetModel WHERE code LIKE :code")
-    suspend fun findByCode(code: String): WalletAssetModel?
+    @Query("SELECT * FROM WalletAssetRoomEntity WHERE code LIKE :code")
+    suspend fun findByCode(code: String): WalletAssetRoomEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg wallet: WalletAssetModel)
+    suspend fun insertAll(vararg wallet: WalletAssetRoomEntity)
 
     @Delete
-    suspend fun delete(wallet: WalletAssetModel)
+    suspend fun delete(wallet: WalletAssetRoomEntity)
 
 
 }

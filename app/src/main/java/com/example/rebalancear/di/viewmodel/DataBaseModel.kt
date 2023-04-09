@@ -21,7 +21,7 @@ class DataBaseModel {
         @ApplicationContext applicationContext: Context,
     ): WalletAssetDao {
         val db = Room.databaseBuilder(
-            applicationContext, AppDatabase::class.java, "Database"
+            applicationContext, AppDatabase::class.java, "AppDataBase"
         ).build()
 
         return db.walletAssetDao()

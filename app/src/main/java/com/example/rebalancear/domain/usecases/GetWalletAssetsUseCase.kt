@@ -14,10 +14,19 @@ class GetWalletAssetsUseCase @Inject constructor(
 ) {
     operator fun invoke(): Flow<ResultRequest<List<WalletAsset>>> = flow {
         try {
-            emit(ResultRequest.Loading())
             val assets = repository.getWalletAssets()
-            assets.collect { walletAsset ->
-                emit(ResultRequest.Success(walletAsset))
+            assets.collect { result ->
+                when(result) {
+                    is ResultRequest.Error -> {
+                        emit(ResultRequest.Error(ResultError.CannotFindData()))
+                    }
+                    is ResultRequest.Loading -> {
+                        emit(ResultRequest.Loading())
+                    }
+                    is ResultRequest.Success -> {
+                        emit(ResultRequest.Success(result.data))
+                    }
+                }
             }
 
         } catch (e: Exception) {

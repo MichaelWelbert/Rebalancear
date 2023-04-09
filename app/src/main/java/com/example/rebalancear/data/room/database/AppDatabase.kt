@@ -3,11 +3,11 @@ package com.example.rebalancear.data.room.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.rebalancear.data.room.dao.WalletAssetDao
-import com.example.rebalancear.data.room.entities.WalletAssetModel
+import com.example.rebalancear.data.room.entities.WalletAssetRoomEntity
 
 
 @Database(
-    entities = [WalletAssetModel::class],
+    entities = [WalletAssetRoomEntity::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
