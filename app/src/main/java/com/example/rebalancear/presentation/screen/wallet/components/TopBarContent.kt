@@ -13,8 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rebalancear.core.strings.WalletScreenStrings
-import com.example.rebalancear.ui.theme.ReBalanceTypography
-import com.example.rebalancear.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
+import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 
 @Composable
 internal fun TopbarContent(

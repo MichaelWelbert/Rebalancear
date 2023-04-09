@@ -17,8 +17,8 @@ import com.example.rebalancear.core.strings.WalletScreenStrings
 import com.example.rebalancear.domain.status.ContributeStatus
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 import com.example.rebalancear.routes.Routes
-import com.example.rebalancear.ui.theme.ReBalanceTypography
-import com.example.rebalancear.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
+import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 
 
 @OptIn(ExperimentalMaterial3Api::class)

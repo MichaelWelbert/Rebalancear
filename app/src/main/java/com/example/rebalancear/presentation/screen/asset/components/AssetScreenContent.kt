@@ -12,7 +12,7 @@ import com.example.rebalancear.presentation.presenters.AssetPresenter
 import com.example.rebalancear.presentation.screen.SimpleAlertDialog
 import com.example.rebalancear.presentation.viewmodels.AssetViewModel
 import com.example.rebalancear.routes.Routes
-import com.example.rebalancear.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

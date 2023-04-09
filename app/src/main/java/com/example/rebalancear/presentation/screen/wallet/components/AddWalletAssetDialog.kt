@@ -10,7 +10,7 @@ import androidx.compose.material.TextButton
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.example.rebalancear.ui.theme.ReBalanceTypography
+import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
 
 @Composable
 internal fun AddWalletAssetDialog(

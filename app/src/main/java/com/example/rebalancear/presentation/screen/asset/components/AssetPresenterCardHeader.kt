@@ -14,8 +14,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.rebalancear.R
-import com.example.rebalancear.ui.theme.ReBalanceTypography
-import com.example.rebalancear.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
+import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 
 @Composable
 internal fun AssetPresenterCardHeader(

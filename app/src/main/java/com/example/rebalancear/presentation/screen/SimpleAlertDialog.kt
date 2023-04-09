@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.rebalancear.ui.theme.ReBalanceTypography
+import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
 
 @Composable
 fun SimpleAlertDialog(content: String, onDismiss: () -> Unit, onConfirm: () -> Unit) {

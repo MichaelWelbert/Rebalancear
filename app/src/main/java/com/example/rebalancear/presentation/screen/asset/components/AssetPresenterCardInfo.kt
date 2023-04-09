@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import com.example.rebalancear.ui.theme.ReBalanceTypography
+import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
 
 @Composable
 internal fun AssetPresenterCardInfo(

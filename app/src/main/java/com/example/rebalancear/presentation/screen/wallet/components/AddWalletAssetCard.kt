@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.material.Card as Cardx
 import com.example.rebalancear.routes.Routes
-import com.example.rebalancear.ui.theme.ReBalanceTypography
-import com.example.rebalancear.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
+import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 import com.example.rebalancear.R
 import androidx.compose.material3.*
 import com.example.rebalancear.core.strings.WalletScreenStrings

@@ -16,8 +16,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rebalancear.presentation.presenters.AssetPresenter
-import com.example.rebalancear.ui.theme.ReBalanceTypography
-import com.example.rebalancear.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
+import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 
 @Composable
 internal fun AssetPresenterInvestmentTip(

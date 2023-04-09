@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
-import com.example.rebalancear.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 
 @Composable
 internal fun WalletAssetCardsContent(

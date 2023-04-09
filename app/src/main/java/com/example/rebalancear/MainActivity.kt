@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 
 import androidx.navigation.compose.rememberNavController
-import com.example.rebalancear.ui.theme.RebalanceTheme
+import com.example.rebalancear.presentation.ui.theme.RebalanceTheme
 import com.example.rebalancear.routes.MakeRoutes
 import dagger.hilt.android.AndroidEntryPoint
 

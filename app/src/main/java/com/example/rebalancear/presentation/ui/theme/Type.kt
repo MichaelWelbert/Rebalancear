@@ -1,4 +1,4 @@
-package com.example.rebalancear.ui.theme
+package com.example.rebalancear.presentation.ui.theme
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface

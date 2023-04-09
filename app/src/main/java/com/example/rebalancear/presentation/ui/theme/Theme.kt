@@ -1,8 +1,8 @@
-package com.example.rebalancear.ui.theme
+package com.example.rebalancear.presentation.ui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import com.example.rebalancear.ui.theme.ComposeTypography
+import com.example.rebalancear.presentation.ui.theme.ComposeTypography
 
 @Composable
 fun RebalanceTheme(

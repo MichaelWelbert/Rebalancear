@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import com.example.rebalancear.presentation.events.WalletAssetScreenEvents
 import com.example.rebalancear.presentation.screen.wallet.components.TopbarContent
 import com.example.rebalancear.presentation.screen.wallet.components.WalletAssetCardsContent
-import com.example.rebalancear.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 import com.example.rebalancear.presentation.states.PageState
 import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 
