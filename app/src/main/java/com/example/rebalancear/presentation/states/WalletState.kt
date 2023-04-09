@@ -1,9 +1,9 @@
 package com.example.rebalancear.presentation.states
 
 
-import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
+import com.example.rebalancear.presentation.presenters.WalletPresenter
 
 
 internal data class WalletState(
-    val state: PageState<List<WalletAssetPresenter>> = PageState.Undefined()
+    val state: PageState<WalletPresenter> = PageState.Undefined()
 )

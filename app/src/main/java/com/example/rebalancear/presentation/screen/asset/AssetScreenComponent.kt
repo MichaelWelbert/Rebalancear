@@ -1,37 +1,38 @@
 package com.example.rebalancear.presentation.screen.asset
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.rebalancear.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.screen.asset.components.AssetScreenContent
+import com.example.rebalancear.presentation.states.PageState
+import com.example.rebalancear.presentation.viewmodels.AssetViewModel
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AssetScreenComponent(
+internal fun AssetScreenComponent(
     navController: NavController,
+    assetViewModel: AssetViewModel,
 ) {
-    Scaffold(
-        content = { innerPadding ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .background(RebalanceColors.neutral500)
-                    .padding(horizontal = 16.dp),
-            ) {
+
+    val assetState = assetViewModel.assetState
 
 
-
-
-            }
+    when (assetState.state) {
+        is PageState.Error -> {
         }
-    )
+        is PageState.Loading -> {
+
+        }
+        is PageState.Success -> {
+            AssetScreenContent(
+                navController = navController,
+                asset = assetState.state.data,
+                assetViewModel = assetViewModel
+            )
+        }
+        is PageState.Undefined -> {
+
+        }
+    }
+
+
 }

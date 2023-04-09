@@ -10,6 +10,7 @@ import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.usecases.*
 import com.example.rebalancear.presentation.events.WalletAssetScreenEvents
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
+import com.example.rebalancear.presentation.presenters.WalletPresenter
 import com.example.rebalancear.presentation.states.PageState
 import com.example.rebalancear.presentation.states.WalletState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,6 +42,9 @@ internal class WalletViewModel @Inject constructor(
             is WalletAssetScreenEvents.OnAddWalletAsset -> {
                 addWalletAsset(event.code, event.units)
             }
+            is WalletAssetScreenEvents.OnAddWalletAsset -> {
+                addWalletAsset(event.code, event.units)
+            }
         }
     }
 
@@ -55,8 +59,9 @@ internal class WalletViewModel @Inject constructor(
                 }
                 is ResultRequest.Success -> {
                     val patrimony = calculatePatrimonyUseCase(result.data)
-                    val walletAssetPresenter = getWalletAssetPresenter(result.data, patrimony)
-                    WalletState(state = PageState.Success(walletAssetPresenter))
+                    val assets = getWalletAssetPresenter(result.data, patrimony)
+                    val walletPresenter = WalletPresenter(assets = assets, patrimony = patrimony)
+                    WalletState(state = PageState.Success(walletPresenter))
                 }
             }
         }.launchIn(viewModelScope)
@@ -64,7 +69,7 @@ internal class WalletViewModel @Inject constructor(
 
     private fun addWalletAsset(code: String, units: Double) {
 
-        addWalletAssetUseCase(code,units).onEach { result ->
+        addWalletAssetUseCase(code, units).onEach { result ->
             when (result) {
                 is ResultRequest.Error -> {
 
@@ -80,7 +85,10 @@ internal class WalletViewModel @Inject constructor(
     }
 
 
-    private fun getWalletAssetPresenter(walletAsset: List<WalletAsset>, patrimony: Double): List<WalletAssetPresenter> {
+    private fun getWalletAssetPresenter(
+        walletAsset: List<WalletAsset>,
+        patrimony: Double
+    ): List<WalletAssetPresenter> {
         return walletAsset.map { asset ->
             val investedAmount = getInvestedAmountUseCase(
                 units = asset.units,

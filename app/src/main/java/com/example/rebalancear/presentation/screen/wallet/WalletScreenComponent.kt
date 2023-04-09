@@ -25,24 +25,24 @@ internal fun WalletScreenComponent(
     navController: NavController,
     walletViewModel: WalletViewModel,
 ) {
-    val walletState = walletViewModel.walletState.state
+    val walletState = walletViewModel.walletState
 
-    Scaffold(
-        topBar = {
-            TopbarContent(patrimony = 2000.00)
-        },
-        content = { innerPadding ->
-            when (walletState) {
-                is PageState.Error -> {}
-                is PageState.Loading -> {}
-                is PageState.Success -> {
+    when (walletState.state) {
+        is PageState.Error -> {}
+        is PageState.Loading -> {}
+        is PageState.Success -> {
+            Scaffold(
+                topBar = {
+                    TopbarContent(walletState.state.data.patrimony)
+                },
+                content = { innerPadding ->
                     WalletAssetCardsContent(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding)
                             .background(RebalanceColors.neutral500)
                             .padding(8.dp),
-                        walletAssets = walletState.data,
+                        walletAssets = walletState.state.data.assets,
                         navController = navController,
                         onAddwalleAssetCard = { code, units ->
                             walletViewModel.onTriggerEvent(
@@ -51,9 +51,10 @@ internal fun WalletScreenComponent(
                         }
                     )
                 }
-                is PageState.Undefined -> {}
-            }
+            )
         }
-    )
+        is PageState.Undefined -> {}
+    }
+
 }
 
