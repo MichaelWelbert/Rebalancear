@@ -26,20 +26,8 @@ internal fun AssetScreenContent(
     var enableDeleteCardDialog by remember { mutableStateOf(false) }
 
     Scaffold(
-        topBar = {
-            TopbarContent(code = asset.code,
-                onClickDelete = { enableDeleteCardDialog = true },
-                onClickBack = { navController.navigate(Routes.WalletScreen.route) }
-            )
-        },
         content = { innerPadding ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .background(RebalanceColors.neutral500)
-                    .padding(horizontal = 16.dp),
-            ) {
+            Box() {
                 if (enableDeleteCardDialog) {
                     SimpleAlertDialog(
                         content = AssetScreenStrings.asset_delete_dialog_text,
@@ -51,7 +39,15 @@ internal fun AssetScreenContent(
                         },
                     )
                 } else {
-                    AssetPresenterCard(asset = asset)
+                    AssetPresenterCard(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                            .padding(horizontal = 16.dp),
+                        asset = asset,
+                        onClickBack = { navController.navigate(Routes.WalletScreen.route) },
+                        onClickDelete = { enableDeleteCardDialog = true },
+                    )
                 }
             }
         }

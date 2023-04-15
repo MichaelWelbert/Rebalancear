@@ -1,23 +1,17 @@
 package com.example.rebalancear.presentation.screen.wallet.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.TextField
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -35,16 +29,16 @@ internal fun AddWalletAssetDialog(
     if (enable) {
         Box(modifier = modifier
             .fillMaxSize()
-            .background(color = RebalanceColors.neutral500.copy(alpha = 0.9f))
+            .background(color = RebalanceColors.blackColor.copy(alpha = 0.5f))
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
-            ) { }) {
+            ) { onCancel() }) {
             DialogWalletAsset(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 48.dp)
-                    .background(RebalanceColors.neutral300, RoundedCornerShape(20.dp))
+                    .padding(horizontal = 40.dp)
+                    .background(RebalanceColors.neutral0, RoundedCornerShape(20.dp))
                     .align(Alignment.Center),
                 onAdd = onAdd,
                 onCancel = onCancel,
@@ -71,13 +65,11 @@ private fun DialogWalletAsset(
 
     Card(
         modifier = modifier,
-        border = BorderStroke(
-            1.dp, RebalanceColors.neutral500.copy(alpha = 0.5f),
-        ),
-        colors = CardDefaults.cardColors(RebalanceColors.neutral400)
+        colors = CardDefaults.cardColors(RebalanceColors.neutral0),
+        elevation =  CardDefaults.elevatedCardElevation(defaultElevation = 5.dp),
 
     ) {
-        Column(modifier = Modifier.padding(24.dp)) {
+        Column(modifier = Modifier.padding(32.dp)) {
 
             OutlinedTextField(
                 modifier = Modifier,
@@ -87,14 +79,14 @@ private fun DialogWalletAsset(
                 placeholder = {
                     Text(
                         "BBAS3",
-                        color = RebalanceColors.neutral0.copy(alpha = 0.3f),
+                        color = RebalanceColors.blackColor.copy(alpha = 0.3f),
                         style = ReBalanceTypography.Strong3,
                     )
                 },
                 label = {
                     Text(
-                        "Código da ação",
-                        color = RebalanceColors.neutral0.copy(alpha = 0.8f),
+                        "Código",
+                        color = RebalanceColors.blackColor.copy(alpha = 0.8f),
                         style = ReBalanceTypography.Strong3,
                     )
                 },
@@ -102,42 +94,51 @@ private fun DialogWalletAsset(
                 textStyle = ReBalanceTypography.Strong3,
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    errorCursorColor = RebalanceColors.red100,
-                    errorBorderColor = RebalanceColors.red100,
-                    containerColor = RebalanceColors.neutral300,
-                    unfocusedBorderColor = RebalanceColors.neutral200,
-                    focusedBorderColor = RebalanceColors.neutral200,
-                    cursorColor = RebalanceColors.neutral200,
-                    textColor = RebalanceColors.neutral0
+                    errorCursorColor = RebalanceColors.wrongColor,
+                    errorBorderColor = RebalanceColors.wrongColor,
+                    containerColor = RebalanceColors.whiteColor,
+                    unfocusedBorderColor = RebalanceColors.greyColor,
+                    focusedBorderColor = RebalanceColors.primaryColor,
+                    cursorColor = RebalanceColors.blackColor,
+                    textColor = RebalanceColors.blackColor
                 )
             )
 
             if(codeError) {
                 Text(
-                    "código Invalido",
-                    color = RebalanceColors.red100,
-                    style = ReBalanceTypography.Body3,
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Código inválido. Por favor, informe um código de ação existente.",
+                    color = RebalanceColors.wrongColor,
+                    style = ReBalanceTypography.Body2,
+                )
+            } else {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text ="Qual é o código da ação que você gostaria de adicionar?",
+                    color = RebalanceColors.blackColor.copy(alpha = 0.3f),
+                    style = ReBalanceTypography.Body2,
                 )
             }
+
 
             Spacer(modifier = Modifier.height(4.dp))
 
             OutlinedTextField(
                 modifier = Modifier,
                 value = units,
-                onValueChange = { units = it },
+                onValueChange = { units = it  },
                 isError = unitsError,
                 label = {
                     Text(
                         "Quantidade",
-                        color = RebalanceColors.neutral0.copy(alpha = 0.8f),
+                        color = RebalanceColors.blackColor.copy(alpha = 0.8f),
                         style = ReBalanceTypography.Strong3,
                     )
                 },
                 placeholder = {
                     Text(
                         "10",
-                        color = RebalanceColors.neutral0.copy(alpha = 0.3f),
+                        color = RebalanceColors.blackColor.copy(alpha = 0.3f),
                         style = ReBalanceTypography.Strong3,
                     )
                 },
@@ -145,23 +146,32 @@ private fun DialogWalletAsset(
                 textStyle = ReBalanceTypography.Strong3,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    errorCursorColor = RebalanceColors.red100,
-                    errorBorderColor = RebalanceColors.red100,
-                    containerColor = RebalanceColors.neutral300,
-                    unfocusedBorderColor = RebalanceColors.neutral200,
-                    focusedBorderColor = RebalanceColors.neutral200,
-                    cursorColor = RebalanceColors.neutral200,
-                    textColor = RebalanceColors.neutral0
+                    errorCursorColor = RebalanceColors.wrongColor,
+                    errorBorderColor = RebalanceColors.wrongColor,
+                    containerColor = RebalanceColors.whiteColor,
+                    unfocusedBorderColor = RebalanceColors.greyColor,
+                    focusedBorderColor = RebalanceColors.primaryColor,
+                    cursorColor = RebalanceColors.blackColor,
+                    textColor = RebalanceColors.blackColor
                 )
             )
 
             if(unitsError) {
                 Text(
-                    "Quantidade invalida",
-                    color = RebalanceColors.red100,
-                    style = ReBalanceTypography.Body3,
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Quantidade inválida. Por favor, informe a quantidade de ações que você possui.",
+                    color = RebalanceColors.wrongColor,
+                    style = ReBalanceTypography.Body2,
+                )
+            } else {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text ="Quantas ações você possui desse ativo?",
+                    color = RebalanceColors.blackColor.copy(alpha = 0.3f),
+                    style = ReBalanceTypography.Body2,
                 )
             }
+
 
             Spacer(modifier = Modifier.height(4.dp))
 
@@ -173,14 +183,14 @@ private fun DialogWalletAsset(
                 placeholder = {
                     Text(
                         "5",
-                        color = RebalanceColors.neutral0.copy(alpha = 0.3f),
+                        color = RebalanceColors.blackColor.copy(alpha = 0.3f),
                         style = ReBalanceTypography.Strong3,
                     )
                 },
                 label = {
                     Text(
                         "Meta",
-                        color = RebalanceColors.neutral0.copy(alpha = 0.8f),
+                        color = RebalanceColors.blackColor.copy(alpha = 0.8f),
                         style = ReBalanceTypography.Strong3,
                     )
                 },
@@ -188,21 +198,29 @@ private fun DialogWalletAsset(
                 textStyle = ReBalanceTypography.Strong3,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    errorCursorColor = RebalanceColors.red100,
-                    errorBorderColor = RebalanceColors.red100,
-                    containerColor = RebalanceColors.neutral300,
-                    unfocusedBorderColor = RebalanceColors.neutral200,
-                    focusedBorderColor = RebalanceColors.neutral200,
-                    cursorColor = RebalanceColors.neutral200,
-                    textColor = RebalanceColors.neutral0
+                    errorCursorColor = RebalanceColors.wrongColor,
+                    errorBorderColor = RebalanceColors.wrongColor,
+                    containerColor = RebalanceColors.whiteColor,
+                    unfocusedBorderColor = RebalanceColors.greyColor,
+                    focusedBorderColor = RebalanceColors.primaryColor,
+                    cursorColor = RebalanceColors.blackColor,
+                    textColor = RebalanceColors.blackColor
                 )
             )
 
             if(goalError) {
                 Text(
-                    "meta invalida",
-                    color = RebalanceColors.red100,
-                    style = ReBalanceTypography.Body3,
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Porcentagem inválida. Certifique-se de digitar um número entre 0 e 100%.",
+                    color = RebalanceColors.wrongColor,
+                    style = ReBalanceTypography.Body2,
+                )
+            } else {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text ="Quantos % da ação você deseja ter na sua carteira de investimentos?",
+                    color = RebalanceColors.blackColor.copy(alpha = 0.3f),
+                    style = ReBalanceTypography.Body2,
                 )
             }
 
@@ -235,7 +253,7 @@ private fun DialogWalletAsset(
                         defaultElevation = 2.dp
                     ),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = RebalanceColors.green200
+                        containerColor = RebalanceColors.yellow100
                     ),
                     shape = RoundedCornerShape(20),
 
@@ -263,7 +281,7 @@ private fun DialogWalletAsset(
                         defaultElevation = 2.dp
                     ),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = RebalanceColors.red200
+                        containerColor = RebalanceColors.primaryColor
                     ),
                     shape = RoundedCornerShape(20),
 

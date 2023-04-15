@@ -10,7 +10,7 @@ object WalletScreenStrings {
     const val wallet_asset_type_CRYPTO = "CRYPTOMOEDAS"
     const val wallet_asset_invested_amount = "Investido"
     const val wallet_asset_percentage_owned = "Tenho"
-    const val wallet_asset_percentage_goal = "Quero"
+    const val wallet_asset_percentage_goal = "Meta"
     const val wallet_asset_status_contribute = "Comprar"
     const val wallet_asset_status_wait = "Esperar"
     const val wallet_patrimony = "Patrimônio"

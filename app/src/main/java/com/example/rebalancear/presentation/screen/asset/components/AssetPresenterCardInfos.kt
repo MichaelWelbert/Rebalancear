@@ -1,17 +1,11 @@
 package com.example.rebalancear.presentation.screen.asset.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.rebalancear.core.strings.AssetScreenStrings
 import com.example.rebalancear.presentation.presenters.AssetPresenter
-import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
 import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 
 @Composable
@@ -39,7 +33,7 @@ internal fun AssetPresenterCardInfos (
         Spacer(modifier = Modifier.height(4.dp))
 
         AssetPresenterCardInfo(
-            title = AssetScreenStrings.asset_info_goal,
+            title = AssetScreenStrings.asset_info_percent,
             description = String.format("%.0f", asset.unitsGoal),
             color = RebalanceColors.neutral0
         )

@@ -3,17 +3,23 @@ package com.example.rebalancear.presentation.screen.wallet
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.rebalancear.presentation.events.WalletAssetScreenEvents
 import com.example.rebalancear.presentation.screen.wallet.components.AddWalletAssetDialog
 import com.example.rebalancear.presentation.screen.wallet.components.TopbarContent
 import com.example.rebalancear.presentation.screen.wallet.components.WalletAssetCardsContent
 import com.example.rebalancear.presentation.states.PageState
+import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
 import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 
@@ -40,26 +46,30 @@ internal fun WalletScreenComponent(
         is PageState.Success -> {
             Box() {
                 Scaffold(
-                    topBar = {
-                        TopbarContent(walletState.state.data.patrimony)
-                    },
                     content = { innerPadding ->
                         WalletAssetCardsContent(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(innerPadding)
-                                .background(RebalanceColors.neutral500)
-                                .padding(8.dp),
+                                .background(RebalanceColors.whiteColor)
+                                .padding(10.dp),
                             walletAssets = walletState.state.data.assets,
                             onClickCard = { code ->
                                 walletViewModel.onTriggerEvent(
                                     WalletAssetScreenEvents.OnClickAsset(code)
                                 )
                             },
-                            onClickAddCard = {
-                                enableAddCardDialog = true
-                            }
                         )
+                    },
+                    floatingActionButton = {
+                        FloatingActionButton(
+                            onClick = { enableAddCardDialog = true },
+                            containerColor = RebalanceColors.primaryColor,
+                            contentColor = RebalanceColors.whiteColor,
+                            shape = RoundedCornerShape(16.dp)
+                        ){
+                            Icon(Icons.Filled.Add,"")
+                        }
                     }
                 )
 
