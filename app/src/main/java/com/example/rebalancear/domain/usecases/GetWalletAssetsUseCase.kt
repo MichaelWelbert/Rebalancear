@@ -5,9 +5,11 @@ import com.example.rebalancear.core.ResultError
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.repository.IWalletAssetRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 class GetWalletAssetsUseCase @Inject constructor(
     private val repository: IWalletAssetRepository

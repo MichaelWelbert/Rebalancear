@@ -1,10 +1,14 @@
 package com.example.rebalancear.presentation.screen.asset
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
+import com.example.rebalancear.presentation.events.AssetNavigationEvent
 import com.example.rebalancear.presentation.screen.asset.components.AssetScreenContent
 import com.example.rebalancear.presentation.states.PageState
 import com.example.rebalancear.presentation.viewmodels.AssetViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 
 @Composable
@@ -14,6 +18,7 @@ internal fun AssetScreenComponent(
 ) {
 
     val assetState = assetViewModel.assetState
+    val navigationEvent = assetViewModel.navigationEvent
 
 
     when (assetState.state) {
@@ -34,5 +39,15 @@ internal fun AssetScreenComponent(
         }
     }
 
+    LaunchedEffect(key1 = Unit) {
+        navigationEvent.onEach { navigationEvent ->
+            when(navigationEvent) {
+                AssetNavigationEvent.OnAssetNavigationBack -> {
+                    navController.previousBackStackEntry?.savedStateHandle ?.set("refresh", true)
+                    navController.navigateUp()
+                }
+            }
 
+        }.launchIn(this)
+    }
 }

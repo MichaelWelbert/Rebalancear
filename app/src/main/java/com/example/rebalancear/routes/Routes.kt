@@ -13,6 +13,7 @@ import androidx.navigation.navArgument
 import com.example.rebalancear.presentation.screen.asset.AssetScreenComponent
 import com.example.rebalancear.presentation.screen.wallet.WalletScreenComponent
 import com.example.rebalancear.presentation.viewmodels.AssetViewModel
+import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 
 sealed class Routes(val route: String) {
     object WalletScreen : Routes(route = "wallet_screen")
@@ -30,7 +31,8 @@ fun MakeRoutes(navController: NavHostController) {
         composable(
             route = Routes.WalletScreen.route
         ) {
-            WalletScreenComponent(navController, hiltViewModel())
+            val viewmodel: WalletViewModel = hiltViewModel()
+            WalletScreenComponent(navController, viewmodel)
         }
 
         composable(

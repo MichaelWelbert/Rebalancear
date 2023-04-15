@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.rebalancear.core.strings.AssetScreenStrings
+import com.example.rebalancear.presentation.events.AssetScreenEvents
 import com.example.rebalancear.presentation.presenters.AssetPresenter
 import com.example.rebalancear.presentation.screen.SimpleAlertDialog
 import com.example.rebalancear.presentation.viewmodels.AssetViewModel
@@ -44,9 +45,9 @@ internal fun AssetScreenContent(
                         content = AssetScreenStrings.asset_delete_dialog_text,
                         onDismiss = { enableDeleteCardDialog = false },
                         onConfirm = {
-                            enableDeleteCardDialog = false
-                            //TODO: DELETE ASSET
-                            navController.navigate(Routes.WalletScreen.route)
+                            assetViewModel.onTriggerEvent(
+                                event = AssetScreenEvents.OnDeleteAsset(asset.code)
+                            )
                         },
                     )
                 } else {

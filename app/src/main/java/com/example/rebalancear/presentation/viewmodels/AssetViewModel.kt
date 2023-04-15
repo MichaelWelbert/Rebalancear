@@ -1,7 +1,6 @@
 package com.example.rebalancear.presentation.viewmodels
 
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,16 +10,21 @@ import com.example.rebalancear.core.ResultError
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.usecases.*
+import com.example.rebalancear.presentation.events.AssetScreenEvents
+import com.example.rebalancear.presentation.events.AssetNavigationEvent
 import com.example.rebalancear.presentation.presenters.AssetPresenter
 import com.example.rebalancear.presentation.states.AssetState
 import com.example.rebalancear.presentation.states.PageState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
 internal class AssetViewModel @Inject constructor(
+    val deleteWalletAssetUseCase: DeleteWalletAssetUseCase,
     val getContributeStateUseCase: GetContributeStateUseCase,
     val getInvestedAmountUseCase: GetInvestedAmountUseCase,
     val getWalletAssetsUseCase: GetWalletAssetsUseCase,
@@ -34,6 +38,14 @@ internal class AssetViewModel @Inject constructor(
     private var _assetState by mutableStateOf(AssetState())
     val assetState get() = _assetState
 
+    private val _navigationEvent = MutableSharedFlow<AssetNavigationEvent>()
+    val navigationEvent = _navigationEvent.asSharedFlow()
+
+    fun onTriggerEvent(event: AssetScreenEvents) {
+        when (event) {
+            is AssetScreenEvents.OnDeleteAsset -> deleteAsset(event.code)
+        }
+    }
 
     fun loadWalletAssets(code: String?) {
         if (code == null || code == "") {
@@ -62,6 +74,24 @@ internal class AssetViewModel @Inject constructor(
             }.launchIn(viewModelScope)
         }
     }
+
+    private fun deleteAsset(code: String) {
+
+        deleteWalletAssetUseCase(code).onEach { result ->
+            when (result) {
+                is ResultRequest.Error -> {
+
+                }
+                is ResultRequest.Loading -> {
+
+                }
+                is ResultRequest.Success -> {
+                    _navigationEvent.emit(AssetNavigationEvent.OnAssetNavigationBack)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
 
     private fun getAssetPresenter(asset: WalletAsset, patrimony: Double): AssetPresenter {
 

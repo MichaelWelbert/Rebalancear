@@ -9,6 +9,7 @@ interface IRebalanceColors {
     val neutral200: Color
     val neutral300: Color
     val neutral400: Color
+    val neutral450: Color
     val neutral500: Color
 
 
@@ -49,6 +50,7 @@ object RebalanceColors : IRebalanceColors {
     override val neutral200 = Color(0xFF838086)
     override val neutral300 = Color(0xFF4C4B55)
     override val neutral400 =Color(0xFF403F4B)
+    override val neutral450 =Color(0xFF35343D)
     override val neutral500 =  Color(0xFF2D2C35)
 
     override val green0 =  Color(0xFFB0EDFC)

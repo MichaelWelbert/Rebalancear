@@ -8,14 +8,18 @@ import androidx.lifecycle.viewModelScope
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.usecases.*
+import com.example.rebalancear.presentation.events.WalletAssetNavigationEvent
 import com.example.rebalancear.presentation.events.WalletAssetScreenEvents
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 import com.example.rebalancear.presentation.presenters.WalletPresenter
 import com.example.rebalancear.presentation.states.PageState
 import com.example.rebalancear.presentation.states.WalletState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,9 +36,12 @@ internal class WalletViewModel @Inject constructor(
     private var _walletState by mutableStateOf(WalletState())
     val walletState get() = _walletState
 
+    private val _navigationEvent = MutableSharedFlow<WalletAssetNavigationEvent>()
+    val navigationEvent = _navigationEvent.asSharedFlow()
+
 
     init {
-        loadWalletAssets()
+        loadPage()
     }
 
     fun onTriggerEvent(event: WalletAssetScreenEvents) {
@@ -42,7 +49,29 @@ internal class WalletViewModel @Inject constructor(
             is WalletAssetScreenEvents.OnAddWalletAsset -> {
                 addWalletAsset(event.code, event.units, event.goal)
             }
+            WalletAssetScreenEvents.RefreshPage -> refreshPage()
+            WalletAssetScreenEvents.ResetPage -> resetPage()
+            is WalletAssetScreenEvents.OnClickAsset -> onClickAsset(event.code)
+        }
+    }
 
+    private fun resetPage() {
+        _walletState = WalletState()
+    }
+
+    private fun refreshPage() {
+        resetPage()
+        loadPage()
+
+    }
+
+    private fun loadPage() {
+        loadWalletAssets()
+    }
+
+    private fun onClickAsset(code: String) {
+        viewModelScope.launch {
+            _navigationEvent.emit(WalletAssetNavigationEvent.OnNavigationAsset(code))
         }
     }
 

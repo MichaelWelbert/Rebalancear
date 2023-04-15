@@ -24,7 +24,7 @@ import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WalletAssetCard(
-    navController: NavController,
+    onClickCard : (code: String) -> Unit,
     asset: WalletAssetPresenter
 ) {
     Card(
@@ -32,13 +32,12 @@ fun WalletAssetCard(
             .fillMaxWidth()
             .padding(horizontal = 12.dp)
             .clickable {
-                navController.navigate(Routes.AssetScreen.route + "/${asset.code}")
+               onClickCard(asset.code)
             },
-        border = BorderStroke(
-            1.dp, RebalanceColors.neutral300,
-        ),
+
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(RebalanceColors.neutral400)
+        colors = CardDefaults.cardColors(RebalanceColors.neutral400),
+        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
 
     ) {
         CardContent(asset)
