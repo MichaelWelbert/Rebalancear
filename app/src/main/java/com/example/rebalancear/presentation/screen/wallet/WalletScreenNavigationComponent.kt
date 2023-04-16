@@ -40,7 +40,7 @@ private fun HandleNavigationParameters(
 ) {
     val savedStateHandler = navController.currentBackStackEntry?.savedStateHandle?: return
 
-    TryReloadPage(
+    TryReloadPageOnDeleteAsset(
         savedStateHandler,
         walletViewModel,
         onReload = { disableRefreshOnStateHandler(navController) }
@@ -49,12 +49,12 @@ private fun HandleNavigationParameters(
 
 
 @Composable
-private fun TryReloadPage(
+private fun TryReloadPageOnDeleteAsset(
     saveStateHandler: SavedStateHandle,
     walletViewModel: WalletViewModel = hiltViewModel(),
     onReload: () -> Unit,
 ) {
-    saveStateHandler.getStateFlow<Boolean?>("refresh", false)
+    saveStateHandler.getStateFlow<Boolean?>("refreshOnDelete", false)
         .collectAsState().value?.let {
             if (it) {
                 walletViewModel.onTriggerEvent(event = WalletAssetScreenEvents.RefreshPage)
@@ -64,5 +64,5 @@ private fun TryReloadPage(
 }
 
 private fun disableRefreshOnStateHandler(navController: NavController) {
-    navController.currentBackStackEntry?.savedStateHandle?.set("refresh", false)
+    navController.currentBackStackEntry?.savedStateHandle?.set("refreshOnDelete", false)
 }

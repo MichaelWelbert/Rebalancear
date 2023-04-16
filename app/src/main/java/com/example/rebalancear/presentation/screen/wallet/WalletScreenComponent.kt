@@ -67,9 +67,12 @@ internal fun WalletScreenComponent(
                             containerColor = RebalanceColors.primaryColor,
                             contentColor = RebalanceColors.whiteColor,
                             shape = RoundedCornerShape(16.dp)
-                        ){
-                            Icon(Icons.Filled.Add,"")
+                        ) {
+                            Icon(Icons.Filled.Add, "")
                         }
+                    },
+                    snackbarHost =  {
+
                     }
                 )
 

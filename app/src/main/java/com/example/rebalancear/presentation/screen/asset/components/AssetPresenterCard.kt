@@ -1,6 +1,5 @@
 package com.example.rebalancear.presentation.screen.asset.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
@@ -12,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -20,7 +18,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.example.rebalancear.R
 import com.example.rebalancear.core.strings.AssetScreenStrings
-import com.example.rebalancear.core.strings.WalletScreenStrings
 import com.example.rebalancear.domain.status.ContributeStatus
 import com.example.rebalancear.presentation.presenters.AssetPresenter
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
@@ -31,14 +28,12 @@ import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 internal fun AssetPresenterCard(
     modifier: Modifier = Modifier,
     asset: AssetPresenter,
-    onClickDelete: () -> Unit,
     onClickBack: () -> Unit,
 ) {
-    val statusColor200 = getColors200(asset.contributeState)
-    val statusColor100 = getColors100(asset.contributeState)
+
     Column {
         Surface(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .height(70.dp)
                 .shadow(10.dp, clip = false)
@@ -66,7 +61,7 @@ internal fun AssetPresenterCard(
                 )
 
 
-                IconButton(onClick = onClickBack) {
+                IconButton(onClick = {}) {
                     Icon(
                         Icons.Filled.MoreVert, "", tint = RebalanceColors.secondaryColor
                     )
@@ -240,16 +235,3 @@ private fun getProgress(currentValue: Double, goalValue: Double): Float {
     }
 }
 
-private fun getColors100(status: ContributeStatus): Color {
-    return when (status) {
-        ContributeStatus.CONTRIBUTE -> RebalanceColors.green100
-        ContributeStatus.WAIT -> RebalanceColors.red100
-    }
-}
-
-private fun getColors200(status: ContributeStatus): Color {
-    return when (status) {
-        ContributeStatus.CONTRIBUTE -> RebalanceColors.green200
-        ContributeStatus.WAIT -> RebalanceColors.red200
-    }
-}

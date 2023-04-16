@@ -1,6 +1,5 @@
 package com.example.rebalancear.presentation.screen.asset.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text

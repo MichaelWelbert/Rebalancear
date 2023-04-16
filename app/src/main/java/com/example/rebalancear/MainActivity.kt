@@ -18,8 +18,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             RebalanceTheme {
-                val navHostController = rememberNavController()
-                MakeRoutes(navController = navHostController)
+                MakeRoutes()
             }
         }
     }

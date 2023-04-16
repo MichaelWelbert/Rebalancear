@@ -43,7 +43,7 @@ internal fun AssetScreenComponent(
         navigationEvent.onEach { navigationEvent ->
             when(navigationEvent) {
                 AssetNavigationEvent.OnAssetNavigationBack -> {
-                    navController.previousBackStackEntry?.savedStateHandle ?.set("refresh", true)
+                    navController.previousBackStackEntry?.savedStateHandle ?.set("refreshOnDelete", true)
                     navController.navigateUp()
                 }
             }
