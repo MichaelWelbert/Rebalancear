@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.rebalancear.presentation.screen.asset.AssetScreenComponent
+import com.example.rebalancear.presentation.screen.intro.IntroScreenComponent
 import com.example.rebalancear.presentation.screen.splash.SplashScreenComponent
 import com.example.rebalancear.presentation.screen.wallet.WalletScreenComponent
 import com.example.rebalancear.presentation.viewmodels.AssetViewModel
@@ -20,6 +21,7 @@ sealed class Routes(val route: String) {
     object WalletScreen : Routes(route = "wallet_screen")
     object AssetScreen : Routes(route = "asset_screen")
     object SplashScreen : Routes(route = "splash_screen")
+    object IntroScreen : Routes(route = "intro_screen")
 }
 
 @SuppressLint("RememberReturnType")
@@ -35,7 +37,13 @@ fun MakeRoutes(
         composable(
             route = Routes.SplashScreen.route
         ) {
-            SplashScreenComponent(navController)
+            SplashScreenComponent(navController = navController)
+        }
+
+        composable(
+            route = Routes.IntroScreen.route
+        ) {
+            IntroScreenComponent(navController = navController)
         }
 
         composable(

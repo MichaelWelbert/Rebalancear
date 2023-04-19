@@ -19,7 +19,10 @@ import com.example.rebalancear.routes.Routes
 import kotlinx.coroutines.delay
 
 @Composable
-internal fun SplashScreenComponent(navController: NavController) {
+internal fun SplashScreenComponent(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
     var startAnimation by remember { mutableStateOf(Status.HIDE) }
     val alphaAnimation = animateFloatAsState(
         targetValue = when (startAnimation) {
@@ -30,7 +33,10 @@ internal fun SplashScreenComponent(navController: NavController) {
         animationSpec = tween(durationMillis = 2000)
     )
 
-    Splash(alpha = alphaAnimation.value)
+    Splash(
+        modifier = modifier,
+        alpha = alphaAnimation.value
+    )
 
     LaunchedEffect(key1 = true) {
         startAnimation = Status.ENABLE
@@ -38,8 +44,7 @@ internal fun SplashScreenComponent(navController: NavController) {
         startAnimation = Status.DISABLE
         delay(1000)
         navController.popBackStack()
-        navController.navigate(Routes.WalletScreen.route)
-
+        navController.navigate(Routes.IntroScreen.route)
     }
 
 
@@ -52,9 +57,12 @@ internal enum class Status {
 }
 
 @Composable
-internal fun Splash(alpha: Float) {
+internal fun Splash(
+    modifier: Modifier,
+    alpha: Float
+) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(RebalanceColors.whiteColor),
         contentAlignment = Alignment.Center
