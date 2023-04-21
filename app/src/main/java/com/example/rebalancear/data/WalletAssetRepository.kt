@@ -110,9 +110,16 @@ class WalletAssetRepository @Inject constructor(
         return mocklist.find { it.code.equals(code, ignoreCase = true) }
     }
 
-    override suspend fun addWalletAsset(code: String, units: Double, goal: Double) {
-        val walletAssetRoomEntity = WalletAssetRoomEntity(code = code.uppercase(Locale.ROOT), units = units, goal = goal)
+    override suspend fun addWalletAsset(
+        code: String,
+        units: Double,
+        goal: Double
+    ): Flow<ResultRequest<Unit>> = flow {
+        emit(ResultRequest.Loading())
+        val walletAssetRoomEntity =
+            WalletAssetRoomEntity(code = code.uppercase(Locale.ROOT), units = units, goal = goal)
         walletAssetDataBase.insertAll(walletAssetRoomEntity)
+        emit(ResultRequest.Success(Unit))
     }
 
     override suspend fun deleteWalletAsset(code: String) {

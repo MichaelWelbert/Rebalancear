@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.usecases.*
+import com.example.rebalancear.presentation.events.WalletAssetPageEvent
 import com.example.rebalancear.presentation.events.WalletAssetNavigationEvent
 import com.example.rebalancear.presentation.events.WalletAssetScreenEvents
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
@@ -38,6 +39,9 @@ internal class WalletViewModel @Inject constructor(
 
     private val _navigationEvent = MutableSharedFlow<WalletAssetNavigationEvent>()
     val navigationEvent = _navigationEvent.asSharedFlow()
+
+    private val _walletAssetPageEvent = MutableSharedFlow<WalletAssetPageEvent>()
+    val alletAssetPageEvent = _walletAssetPageEvent.asSharedFlow()
 
 
     init {
@@ -105,7 +109,7 @@ internal class WalletViewModel @Inject constructor(
 
                 }
                 is ResultRequest.Success -> {
-
+                    _walletAssetPageEvent.emit(WalletAssetPageEvent.OnAddNewAsset)
                 }
             }
         }.launchIn(viewModelScope)

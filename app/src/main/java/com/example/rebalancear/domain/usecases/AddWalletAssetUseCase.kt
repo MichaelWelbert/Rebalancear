@@ -12,14 +12,25 @@ class AddWalletAssetUseCase @Inject constructor(
 ) {
     operator fun invoke(code: String, units: Double, goal: Double): Flow<ResultRequest<Unit>> =
         flow {
-            emit(ResultRequest.Loading())
-
             if (repository.hasWalletAsset(code)) {
                 emit(ResultRequest.Error(ResultError.CodeAlreadyAdd()))
                 return@flow
             }
 
-            repository.addWalletAsset(code, units, goal)
-            emit(ResultRequest.Success(Unit))
+            val addResult = repository.addWalletAsset(code, units, goal)
+
+            addResult.collect { result ->
+                when (result) {
+                    is ResultRequest.Error -> {
+                        emit(ResultRequest.Error(ResultError.CannotFindData()))
+                    }
+                    is ResultRequest.Loading -> {
+                        emit(ResultRequest.Loading())
+                    }
+                    is ResultRequest.Success -> {
+                        emit(ResultRequest.Success(result.data))
+                    }
+                }
+            }
         }
 }

@@ -1,23 +1,30 @@
 package com.example.rebalancear.presentation.screen.wallet.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
 import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+
+val validDecimalregex = """\d{1,2}(,\d{0,2})?""".toRegex()
 
 @Composable
 internal fun AddWalletAssetDialog(
@@ -33,7 +40,7 @@ internal fun AddWalletAssetDialog(
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
-            ) { onCancel() }) {
+            ) { }) {
             DialogWalletAsset(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -63,18 +70,35 @@ private fun DialogWalletAsset(
     var unitsError by remember { mutableStateOf(false) }
     var goalError by remember { mutableStateOf(false) }
 
+    var codeFocused by remember { mutableStateOf(false) }
+    var unitsFocused by remember { mutableStateOf(false) }
+    var goalFocused by remember { mutableStateOf(false) }
+
+
+    val focusRequester = FocusRequester()
+
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(RebalanceColors.neutral0),
-        elevation =  CardDefaults.elevatedCardElevation(defaultElevation = 5.dp),
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 5.dp),
 
-    ) {
+        ) {
         Column(modifier = Modifier.padding(32.dp)) {
 
             OutlinedTextField(
-                modifier = Modifier,
+                modifier = Modifier
+                    .focusRequester(focusRequester)
+                    .onFocusChanged {
+                        codeFocused = it.isFocused
+                    },
                 value = code,
-                onValueChange = { code = it },
+                onValueChange = {
+                    if (it.length > 6) return@OutlinedTextField
+
+                    code = it.filter { symbol ->
+                        symbol.isLetterOrDigit()
+                    }
+                },
                 isError = codeError,
                 placeholder = {
                     Text(
@@ -104,7 +128,7 @@ private fun DialogWalletAsset(
                 )
             )
 
-            if(codeError) {
+            if (codeError) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Código inválido. Por favor, informe um código de ação existente.",
@@ -114,9 +138,9 @@ private fun DialogWalletAsset(
             } else {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text ="Qual é o código da ação que você gostaria de adicionar?",
-                    color = RebalanceColors.blackColor.copy(alpha = 0.3f),
-                    style = ReBalanceTypography.Body2,
+                    text = "Qual é o código da ação que você gostaria de adicionar?",
+                    color = getFocusedColor(codeFocused),
+                    style = getFocusedStyle(codeFocused),
                 )
             }
 
@@ -124,9 +148,18 @@ private fun DialogWalletAsset(
             Spacer(modifier = Modifier.height(4.dp))
 
             OutlinedTextField(
-                modifier = Modifier,
+                modifier = Modifier.onFocusChanged {
+                    unitsFocused = it.isFocused
+                },
                 value = units,
-                onValueChange = { units = it  },
+                onValueChange = {
+                    if (it.length > 10) return@OutlinedTextField
+
+                    units = it.filter { symbol ->
+                        symbol.isDigit()
+                    }
+
+                },
                 isError = unitsError,
                 label = {
                     Text(
@@ -144,7 +177,7 @@ private fun DialogWalletAsset(
                 },
                 singleLine = true,
                 textStyle = ReBalanceTypography.Strong3,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     errorCursorColor = RebalanceColors.wrongColor,
                     errorBorderColor = RebalanceColors.wrongColor,
@@ -156,7 +189,7 @@ private fun DialogWalletAsset(
                 )
             )
 
-            if(unitsError) {
+            if (unitsError) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Quantidade inválida. Por favor, informe a quantidade de ações que você possui.",
@@ -166,9 +199,9 @@ private fun DialogWalletAsset(
             } else {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text ="Quantas ações você possui desse ativo?",
-                    color = RebalanceColors.blackColor.copy(alpha = 0.3f),
-                    style = ReBalanceTypography.Body2,
+                    text = "Quantas ações você possui desse ativo?",
+                    color = getFocusedColor(unitsFocused),
+                    style = getFocusedStyle(unitsFocused),
                 )
             }
 
@@ -176,9 +209,14 @@ private fun DialogWalletAsset(
             Spacer(modifier = Modifier.height(4.dp))
 
             OutlinedTextField(
-                modifier = Modifier,
+                modifier = Modifier.onFocusChanged {
+                    goalFocused = it.isFocused
+                },
                 value = goal,
-                onValueChange = { goal = it },
+                onValueChange = {
+                    if (it.isEmpty()) goal = it
+                    if (it.matches(validDecimalregex)) goal = it
+                },
                 isError = goalError,
                 placeholder = {
                     Text(
@@ -208,7 +246,7 @@ private fun DialogWalletAsset(
                 )
             )
 
-            if(goalError) {
+            if (goalError) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Porcentagem inválida. Certifique-se de digitar um número entre 0 e 100%.",
@@ -218,11 +256,14 @@ private fun DialogWalletAsset(
             } else {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text ="Quantos % da ação você deseja ter na sua carteira de investimentos?",
-                    color = RebalanceColors.blackColor.copy(alpha = 0.3f),
-                    style = ReBalanceTypography.Body2,
+                    text = "Quantos % da ação você deseja ter na sua carteira de investimentos?",
+                    color = getFocusedColor(goalFocused),
+                    style = getFocusedStyle(goalFocused),
                 )
             }
+
+
+
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -232,16 +273,16 @@ private fun DialogWalletAsset(
             ) {
                 Button(
                     onClick = {
-                        if(code.isBlank())
+                        if (code.isBlank())
                             codeError = true
 
-                        if(units.isBlank())
+                        if (units.isBlank())
                             unitsError = true
 
-                        if(goal.isBlank())
+                        if (goal.isBlank())
                             goalError = true
 
-                        if(codeError || unitsError || goalError)
+                        if (codeError || unitsError || goalError)
                             return@Button
 
                         onAdd(code, units.toDouble(), goal.toDouble())
@@ -298,4 +339,23 @@ private fun DialogWalletAsset(
             }
         }
     }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+}
+
+
+private fun getFocusedColor(isFocus: Boolean): Color {
+    return if (isFocus)
+        RebalanceColors.blackColor
+    else
+        RebalanceColors.blackColor.copy(alpha = 0.3f)
+}
+
+private fun getFocusedStyle(isFocus: Boolean): TextStyle {
+    return if (isFocus)
+        ReBalanceTypography.Strong2
+    else
+        ReBalanceTypography.Body2
 }

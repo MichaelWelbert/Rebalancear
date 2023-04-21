@@ -26,18 +26,9 @@ import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 import com.example.rebalancear.routes.Routes
 import com.google.accompanist.pager.HorizontalPagerIndicator
 
-/*
-O Balance é o aplicativo ideal para quem quer investir na bolsa de valores sem complicação. Com ele, você define suas metas de ações e acompanha seu progresso de maneira super fácil.
-
-Adicione uma ação à sua carteira e defina qual a porcentagem que deseja alcançar com ela. O Balance auxilia na gestão dos seus investimentos e te ajuda a atingir seus objetivos de forma eficiente.
-
-Sempre que você tiver uma meta em aberto, o aplicativo te avisará e informará o valor necessário para alcançá-la. Dessa forma, você estará sempre atualizado e não perderá oportunidades de investimento.
- */
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun IntroScreenComponent(
-    modifier: Modifier = Modifier,
     navController: NavController,
 ) {
     //create https://www.google.com/search?q=intro+app+compose+slide+change+screen&sxsrf=APwXEdcYQt0f5zuypx-XsYTYjAo15GA_rg%3A1681655792135&ei=8Ac8ZMz4B_zf5OUP7eCz4AM&oq=intro+app+compose+slide&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAxgAMgUIIRCgATIFCCEQoAE6BAgjECc6CwgAEIAEELEDEIMBOg4ILhCDARDUAhCxAxCKBToFCAAQgAQ6CAgAEIAEELEDOg4ILhCABBCxAxDHARDRAzoRCC4QgAQQsQMQgwEQxwEQ0QM6BwgAEIoFEEM6CwguEIMBELEDEIAEOg4ILhCDARCxAxCABBDqBDoLCAAQigUQsQMQgwE6DQguEIoFEMcBENEDEEM6CAguEIAEELEDOhkILhCDARCxAxCABBDqBBDcBBDeBBDgBBgBOgoIABCKBRCxAxBDOgcILhANEIAEOgcIABANEIAEOgQIABADOgUILhCABDoICAAQgAQQywE6BggAEBYQHjoICAAQFhAeEA86BAghEBU6CAghEBYQHhAdOgoIIRAWEB4QDxAdSgQIQRgAUABY-BpgqSpoAHAAeACAAZ4CiAHyIJIBBjAuMTcuNpgBAKABAcABAdoBBggBEAEYFA&sclient=gws-wiz-serp#fpstate=ive&vld=cid:533c64b5,vid:6dRwaXH2cYA
