@@ -1,13 +1,15 @@
 package com.example.rebalancear.data
 
 
-import com.example.rebalancear.core.AssetType
 import com.example.rebalancear.core.ResultError
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.data.adapters.WalletAssetAdapter
 import com.example.rebalancear.data.models.WalletAssetPriceModel
-import com.example.rebalancear.data.room.dao.WalletAssetDao
+import com.example.rebalancear.data.room.dao.AssetDataDao
+import com.example.rebalancear.data.room.entities.MarketPriceRoomEntity
 import com.example.rebalancear.data.room.entities.WalletAssetRoomEntity
+import com.example.rebalancear.data.yahoofinance.IMarket
+import com.example.rebalancear.data.yahoofinance.Stock
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.repository.IWalletAssetRepository
 import kotlinx.coroutines.flow.Flow
@@ -16,76 +18,15 @@ import java.util.*
 import javax.inject.Inject
 
 class WalletAssetRepository @Inject constructor(
-    private val walletAssetDataBase: WalletAssetDao,
+    private val assetDataBase: AssetDataDao,
+    private val market: IMarket,
     private val walletAssetAdater: WalletAssetAdapter
 ) : IWalletAssetRepository {
-
-
-    private var mocklist = mutableListOf(
-        WalletAssetPriceModel(
-            code = "BBSE3",
-            unitPrice = 28.48,
-            type = AssetType.NATIONAL_STOCKS
-        ),
-
-        WalletAssetPriceModel(
-            code = "ITSA4",
-
-            unitPrice = 9.32,
-            type = AssetType.NATIONAL_STOCKS
-        ),
-        WalletAssetPriceModel(
-            code = "SAPR11",
-            unitPrice = 18.50,
-            type = AssetType.NATIONAL_STOCKS
-        ),
-        WalletAssetPriceModel(
-            code = "AESB3",
-            unitPrice = 10.03,
-            type = AssetType.NATIONAL_STOCKS
-        ),
-        WalletAssetPriceModel(
-            code = "TAEE11",
-            unitPrice = 41.65,
-            type = AssetType.NATIONAL_STOCKS
-        ),
-        WalletAssetPriceModel(
-            code = "RANI3",
-            type = AssetType.NATIONAL_STOCKS
-        ),
-        WalletAssetPriceModel(
-            code = "WIZS3",
-            unitPrice = 8.52,
-            type = AssetType.NATIONAL_STOCKS
-        ),
-        WalletAssetPriceModel(
-            code = "SOJA3",
-            unitPrice = 12.46,
-            type = AssetType.NATIONAL_STOCKS
-        ),
-        WalletAssetPriceModel(
-            code = "CSAN3",
-            unitPrice = 20.83,
-            type = AssetType.NATIONAL_STOCKS
-        ),
-        WalletAssetPriceModel(
-            code = "SIMH3",
-            unitPrice = 11.18,
-            type = AssetType.NATIONAL_STOCKS
-        ),
-
-        WalletAssetPriceModel(
-            code = "BBAS3",
-            unitPrice = 20.34,
-            type = AssetType.NATIONAL_STOCKS
-        ),
-
-        )
 
     override suspend fun getWalletAssets(): Flow<ResultRequest<List<WalletAsset>>> = flow {
         emit(ResultRequest.Loading())
 
-        walletAssetDataBase.getAll().collect { userAssetsInfo ->
+        assetDataBase.getWalletAssetAll().collect { userAssetsInfo ->
             val dontHaveCode = userAssetsInfo.any { asset ->
                 findAssetPrice(asset.code) == null
             }
@@ -102,12 +43,19 @@ class WalletAssetRepository @Inject constructor(
             }
 
             emit(ResultRequest.Success(walletAssets))
-
         }
     }
 
-    private fun findAssetPrice(code: String): WalletAssetPriceModel? {
-        return mocklist.find { it.code.equals(code, ignoreCase = true) }
+    private suspend fun findAssetPrice(code: String): WalletAssetPriceModel? {
+        val dataBaseWallet = assetDataBase.findMarketPriceByCode(code.uppercase())
+        val walletAssetPrice = dataBaseWallet?.let { marketAsset ->
+            WalletAssetPriceModel(
+                marketAsset.code,
+                marketAsset.price
+            )
+        }
+
+        return walletAssetPrice
     }
 
     override suspend fun addWalletAsset(
@@ -116,19 +64,37 @@ class WalletAssetRepository @Inject constructor(
         goal: Double
     ): Flow<ResultRequest<Unit>> = flow {
         emit(ResultRequest.Loading())
-        val walletAssetRoomEntity =
-            WalletAssetRoomEntity(code = code.uppercase(Locale.ROOT), units = units, goal = goal)
-        walletAssetDataBase.insertAll(walletAssetRoomEntity)
-        emit(ResultRequest.Success(Unit))
+        val stockPrice = market.getStockPrice(Stock(code))
+
+        if (stockPrice == null)
+            emit(ResultRequest.Error(ResultError.CannotFindStocks()))
+        else {
+            val walletAssetPriceRoomEntity =
+                MarketPriceRoomEntity(code = code.uppercase(), price = stockPrice)
+
+            val walletAssetRoomEntity =
+                WalletAssetRoomEntity(
+                    code = code.uppercase(Locale.ROOT),
+                    units = units,
+                    goal = goal
+                )
+
+            assetDataBase.insertWalletAssetAll(walletAssetRoomEntity)
+            assetDataBase.insertMarketPriceAll(walletAssetPriceRoomEntity)
+
+            emit(ResultRequest.Success(Unit))
+        }
     }
 
     override suspend fun deleteWalletAsset(code: String) {
-        val walletAsset = walletAssetDataBase.findByCode(code.uppercase(Locale.ROOT))
-        walletAsset?.let { walletAssetDataBase.delete(it) }
+
+        val walletAsset = assetDataBase.findWalletAssetByCode(code.uppercase(Locale.ROOT))
+        walletAsset?.let { assetDataBase.deleteWalletAsset(it) }
     }
 
     override suspend fun hasWalletAsset(code: String): Boolean {
-        val walletAsset = walletAssetDataBase.findByCode(code.uppercase(Locale.ROOT))
+
+        val walletAsset = assetDataBase.findWalletAssetByCode(code.uppercase(Locale.ROOT))
         return walletAsset != null
     }
 
@@ -144,9 +110,4 @@ class WalletAssetRepository @Inject constructor(
         TODO("Not yet implemented")
     }
 
-}
-
-fun getDolarPrice(price: Double): Double {
-    val dolarPrice = 5.4
-    return price * dolarPrice
 }

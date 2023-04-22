@@ -14,7 +14,6 @@ class WalletAssetAdapter @Inject constructor() {
             code = userAssetInfo.code,
             units = userAssetInfo.units,
             percentGoal = userAssetInfo.goal,
-            type = assetPriceModel.type,
             unitPrice = assetPriceModel.unitPrice,
         )
     }

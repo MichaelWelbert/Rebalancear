@@ -139,7 +139,7 @@ internal fun AssetPresenterCard(
                                 style = ReBalanceTypography.Body2,
                             )
                             Text(
-                                text = "R$ ${String.format("%.2f", asset.investedAmount)}",
+                                text = "R$ ${String.format("%.2f", asset.unitPrice)}",
                                 color = RebalanceColors.blackColor,
                                 style = ReBalanceTypography.Strong3,
                             )

@@ -1,9 +1,8 @@
 package com.example.rebalancear.di.viewmodel
 
+import com.example.rebalancear.data.yahoofinance.YahooFinanceClient
 import android.content.Context
-import androidx.room.Room
-import com.example.rebalancear.data.room.dao.AssetDataDao
-import com.example.rebalancear.data.room.database.AppDatabase
+import com.example.rebalancear.data.yahoofinance.IMarket
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,18 +12,17 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class DataBaseModel {
+class ApiModel {
     @Provides
     @ViewModelScoped
-    fun provideAppDatabaseRepository(
+    fun provideApiCliente(
         @ApplicationContext applicationContext: Context,
-    ): AssetDataDao {
-        val db = Room.databaseBuilder(
-            applicationContext, AppDatabase::class.java, "BalancxDataBase"
-        ).build()
-
-        return db.assetDataDao()
+    ): IMarket {
+        return YahooFinanceClient(apiKey)
     }
 
-
+    companion object {
+        private const val apiKey =
+            "7c42dbe9c8msh88fb8327c8c9c4fp1d6cb5jsnb2f8c1a72539"
+    }
 }
