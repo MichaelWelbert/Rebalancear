@@ -1,7 +1,6 @@
 package com.example.rebalancear.presentation.screen.wallet.components
 
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -41,42 +40,7 @@ fun WalletAssetCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
 
     ) {
-        when (asset.contributeState) {
-            ContributeStatus.CONTRIBUTE -> {
-                LinearProgressIndicator(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = RebalanceColors.rightColor,
-                    trackColor = RebalanceColors.whiteColor
-                )
-            }
-            ContributeStatus.WAIT -> {
-                LinearProgressIndicator(
-                    modifier = Modifier.fillMaxWidth(),
-                    progress = 0.0f,
-                    color = RebalanceColors.wrongColor,
-                    trackColor = RebalanceColors.whiteColor
-                )
-            }
-        }
         CardContent(asset)
-        when (asset.contributeState) {
-            ContributeStatus.CONTRIBUTE -> {
-                LinearProgressIndicator(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = RebalanceColors.rightColor,
-                    trackColor = RebalanceColors.whiteColor
-                )
-            }
-            ContributeStatus.WAIT -> {
-                LinearProgressIndicator(
-                    modifier = Modifier.fillMaxWidth(),
-                    progress = 0.0f,
-                    color = RebalanceColors.wrongColor,
-                    trackColor = RebalanceColors.whiteColor
-                )
-            }
-        }
-
     }
 }
 

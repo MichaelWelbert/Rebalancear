@@ -64,7 +64,8 @@ class WalletAssetRepository @Inject constructor(
         goal: Double
     ): Flow<ResultRequest<Unit>> = flow {
         emit(ResultRequest.Loading())
-        val stockPrice = market.getStockPrice(Stock(code))
+        val stockPriceInDataBase = findAssetPrice(code)
+        val stockPrice = stockPriceInDataBase?.unitPrice ?: market.getStockPrice(Stock(code))
 
         if (stockPrice == null)
             emit(ResultRequest.Error(ResultError.CannotFindStocks()))
