@@ -12,8 +12,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -27,7 +25,7 @@ import com.example.rebalancear.presentation.states.base.VisibleState
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
 import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 
-val validDecimalregex = """\d{1,2}(,\d{0,2})?""".toRegex()
+val validDecimalregex = """\d{1,2}(.\d{0,2})?""".toRegex()
 
 @Composable
 internal fun AddWalletAssetDialog(
@@ -36,7 +34,6 @@ internal fun AddWalletAssetDialog(
     onAdd: (code: String, units: Double, goal: Double) -> Unit,
     onCancel: () -> Unit
 ) {
-    Log.d("michael", addAssetState.visibility.toString())
     when (addAssetState.visibility) {
         VisibleState.Hide -> Unit
         VisibleState.Show -> {
@@ -92,7 +89,7 @@ private fun DialogWalletAsset(
         ) { },
         colors = CardDefaults.cardColors(RebalanceColors.neutral0),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 5.dp),
-        ) {
+    ) {
 
         Column(modifier = Modifier.padding(32.dp)) {
             AddCardTextField(
@@ -142,12 +139,13 @@ private fun DialogWalletAsset(
                 placeholderText = "5",
                 labelText = "Meta",
                 hasError = goalError,
-                errorText = "Porcentagem inválida. Certifique-se de digitar um número entre 0 e 100%.",
+                errorText = "Porcentagem inválida. Certifique-se de digitar um número entre 0.01 e 100%.",
                 tipsText = "Quantos % da ação você deseja ter na sua carteira de investimentos?",
                 onFocusRequestChanged = { goalFocused = it },
                 onTextChanged = {
-                    if (it.isEmpty()) goal = it
-                    if (it.matches(validDecimalregex)) goal = it
+                    val text = it.replace(",", ".")
+                    if (text.isEmpty()) goal = text
+                    if (text.matches(validDecimalregex)) goal = text
                 }
             )
 
@@ -161,14 +159,10 @@ private fun DialogWalletAsset(
                     is RequestState.Error -> {
                         AddCardButton(
                             onClick = {
-                                if (code.isBlank())
-                                    codeError = true
-
-                                if (units.isBlank())
-                                    unitsError = true
-
-                                if (goal.isBlank())
-                                    goalError = true
+                                codeError = code.isBlank()
+                                unitsError = units.isBlank()
+                                goalError =
+                                    goal.isBlank() || goal.toDouble() <= 0.00 || goal.toDouble() > 100
 
                                 if (codeError || unitsError || goalError)
                                     return@AddCardButton
@@ -192,14 +186,10 @@ private fun DialogWalletAsset(
                     is RequestState.Undefined -> {
                         AddCardButton(
                             onClick = {
-                                if (code.isBlank())
-                                    codeError = true
-
-                                if (units.isBlank())
-                                    unitsError = true
-
-                                if (goal.isBlank())
-                                    goalError = true
+                                codeError = code.isBlank()
+                                unitsError = units.isBlank()
+                                goalError =
+                                    goal.isBlank() || goal.toDouble() <= 0.00 || goal.toDouble() > 100
 
                                 if (codeError || unitsError || goalError)
                                     return@AddCardButton
