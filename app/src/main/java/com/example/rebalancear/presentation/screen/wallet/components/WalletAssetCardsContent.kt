@@ -3,18 +3,17 @@ package com.example.rebalancear.presentation.screen.wallet.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.AppBarDefaults
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
+import com.example.rebalancear.presentation.screen.tip.SimpleToolUpCenterArrowtip
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
 import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 
@@ -22,6 +21,7 @@ import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 internal fun WalletAssetCardsContent(
     modifier: Modifier = Modifier,
     walletAssets: List<WalletAssetPresenter>,
+    seeWalletAssetToolTipVisibility: Boolean,
     onClickCard: (code: String) -> Unit,
 ) {
     Column {
@@ -47,12 +47,16 @@ internal fun WalletAssetCardsContent(
         }
         LazyColumn(modifier = modifier) {
             items(walletAssets) { asset ->
+
+
                 Spacer(modifier = Modifier.height(8.dp))
                 WalletAssetCard(
                     onClickCard = onClickCard,
                     asset = asset
                 )
+                WalletAssetTooltip(seeWalletAssetToolTipVisibility)
                 Spacer(modifier = Modifier.height(8.dp))
+
             }
 
             item() {
@@ -61,4 +65,17 @@ internal fun WalletAssetCardsContent(
         }
     }
 
+}
+
+
+@Composable
+fun WalletAssetTooltip(visibility: Boolean) {
+    SimpleToolUpCenterArrowtip(
+        modifier = Modifier
+            .padding(horizontal = 12.dp)
+            .padding(top = 4.dp),
+        visibility = visibility,
+        title = "Veja as informações do seu novo item:",
+        subtitle = "Para ver mais detalhes sobre o item, clique nele. Você poderá também alterar suas informações e fazer as mudanças necessárias."
+    )
 }

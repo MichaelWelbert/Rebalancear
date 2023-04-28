@@ -36,13 +36,14 @@ internal fun WalletScreenComponent(
     val navigationEvent = walletViewModel.navigationEvent
     WalletScreenNavigationComponent(navController, navigationEvent)
 
-    val pageEvent = walletViewModel.alletAssetPageEvent
+    walletViewModel.alletAssetPageEvent
 
     val walletState = walletViewModel.walletState
 
     val addAssetState = walletViewModel.addAssetState
 
-    var toolTipVisible by remember { mutableStateOf(false) }
+    var addCardButtonToolTipVisible by remember { mutableStateOf(false) }
+    var seeWalletAssetToolTipVisibility by remember { mutableStateOf(false) }
 
 
     when (walletState.state) {
@@ -61,6 +62,7 @@ internal fun WalletScreenComponent(
                                 .padding(innerPadding)
                                 .background(RebalanceColors.whiteColor)
                                 .padding(10.dp),
+                            seeWalletAssetToolTipVisibility = seeWalletAssetToolTipVisibility,
                             walletAssets = walletState.state.data.assets,
                             onClickCard = { code ->
                                 walletViewModel.onTriggerEvent(
@@ -71,7 +73,7 @@ internal fun WalletScreenComponent(
                     },
                     floatingActionButton = {
                         FloatingButtonWithToolTip(
-                            toolTipVisible = toolTipVisible,
+                            toolTipVisible = addCardButtonToolTipVisible,
                             onClickFloatingButton = {
                                 walletViewModel.onTriggerEvent(
                                     WalletAssetScreenEvents.OnClickAddAssetButton
@@ -109,10 +111,20 @@ internal fun WalletScreenComponent(
     LaunchedEffect(addAssetState.visibility, walletState.state) {
         when (walletState.state) {
             is RequestState.Success -> {
-                toolTipVisible = when (addAssetState.visibility) {
+                addCardButtonToolTipVisible = when (addAssetState.visibility) {
                     is VisibleState.Hide -> {
                         delay(1.0.seconds)
                         walletState.state.data.assets.isEmpty()
+                    }
+                    is VisibleState.Show -> {
+                        false
+                    }
+                }
+
+                seeWalletAssetToolTipVisibility= when (addAssetState.visibility) {
+                    is VisibleState.Hide -> {
+                        delay(1.0.seconds)
+                        walletState.state.data.assets.size == 1
                     }
                     is VisibleState.Show -> {
                         false
