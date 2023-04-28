@@ -14,17 +14,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.rebalancear.presentation.events.WalletAssetPageEvent
 import com.example.rebalancear.presentation.events.WalletAssetScreenEvents
+import com.example.rebalancear.presentation.screen.error.ErrorPageComponent
 import com.example.rebalancear.presentation.screen.tip.SimpleToolDownArrowtip
 import com.example.rebalancear.presentation.screen.wallet.components.AddWalletAssetDialog
 import com.example.rebalancear.presentation.screen.wallet.components.WalletAssetCardsContent
-import com.example.rebalancear.presentation.states.PageState
+import com.example.rebalancear.presentation.states.base.RequestState
+import com.example.rebalancear.presentation.states.base.VisibleState
 import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlin.time.Duration.Companion.seconds
 
 
@@ -41,17 +40,18 @@ internal fun WalletScreenComponent(
 
     val walletState = walletViewModel.walletState
 
+    val addAssetState = walletViewModel.addAssetState
+
     var toolTipVisible by remember { mutableStateOf(false) }
-
-    var enableAddCardDialog by remember { mutableStateOf(false) }
-
 
 
     when (walletState.state) {
-        is PageState.Error -> {}
-        is PageState.Loading -> {}
-        is PageState.Success -> {
-
+        is RequestState.Error -> {
+            val error = walletState.state.resultError
+            ErrorPageComponent(message = error.message)
+        }
+        is RequestState.Loading -> {}
+        is RequestState.Success -> {
             Box() {
                 Scaffold(
                     content = { innerPadding ->
@@ -72,7 +72,11 @@ internal fun WalletScreenComponent(
                     floatingActionButton = {
                         FloatingButtonWithToolTip(
                             toolTipVisible = toolTipVisible,
-                            onClickFloatingButton = { enableAddCardDialog = true }
+                            onClickFloatingButton = {
+                                walletViewModel.onTriggerEvent(
+                                    WalletAssetScreenEvents.OnClickAddAssetButton
+                                )
+                            }
                         )
                     },
                     snackbarHost = {
@@ -81,7 +85,7 @@ internal fun WalletScreenComponent(
                 )
 
                 AddWalletAssetDialog(
-                    enable = enableAddCardDialog,
+                    addAssetState = addAssetState,
                     onAdd = { code, units, goal ->
                         walletViewModel.onTriggerEvent(
                             WalletAssetScreenEvents.OnAddWalletAsset(
@@ -91,42 +95,33 @@ internal fun WalletScreenComponent(
                             )
                         )
                     },
-                    onCancel = { enableAddCardDialog = false }
+                    onCancel = {
+                        walletViewModel.onTriggerEvent(
+                            WalletAssetScreenEvents.OnClickToDismissAddAssetButton
+                        )
+                    }
                 )
             }
         }
-        is PageState.Undefined -> {}
+        is RequestState.Undefined -> {}
     }
 
-    LaunchedEffect(walletState.state) {
+    LaunchedEffect(addAssetState.visibility, walletState.state) {
         when (walletState.state) {
-            is PageState.Success -> {
-                delay(1.0.seconds)
-                toolTipVisible = walletState.state.data.assets.isEmpty() && !enableAddCardDialog
+            is RequestState.Success -> {
+                toolTipVisible = when (addAssetState.visibility) {
+                    is VisibleState.Hide -> {
+                        delay(1.0.seconds)
+                        walletState.state.data.assets.isEmpty()
+                    }
+                    is VisibleState.Show -> {
+                        false
+                    }
+                }
             }
             else -> Unit
         }
     }
-
-    LaunchedEffect(enableAddCardDialog) {
-        when (walletState.state) {
-            is PageState.Success -> {
-                delay(1.0.seconds)
-                toolTipVisible = !enableAddCardDialog && walletState.state.data.assets.isEmpty()
-            }
-            else -> Unit
-        }
-    }
-
-    LaunchedEffect(key1 = Unit) {
-        pageEvent.onEach { pageEvent ->
-            when (pageEvent) {
-                WalletAssetPageEvent.OnAddNewAsset -> enableAddCardDialog = false
-            }
-
-        }.launchIn(this)
-    }
-
 }
 
 @Composable

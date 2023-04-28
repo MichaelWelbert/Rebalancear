@@ -5,4 +5,6 @@ sealed class WalletAssetScreenEvents {
     data class OnClickAsset(val code: String) : WalletAssetScreenEvents()
     object RefreshPage : WalletAssetScreenEvents()
     object ResetPage : WalletAssetScreenEvents()
+    object OnClickAddAssetButton : WalletAssetScreenEvents()
+    object OnClickToDismissAddAssetButton : WalletAssetScreenEvents()
 }

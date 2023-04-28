@@ -14,7 +14,7 @@ import com.example.rebalancear.presentation.events.AssetScreenEvents
 import com.example.rebalancear.presentation.events.AssetNavigationEvent
 import com.example.rebalancear.presentation.presenters.AssetPresenter
 import com.example.rebalancear.presentation.states.AssetState
-import com.example.rebalancear.presentation.states.PageState
+import com.example.rebalancear.presentation.states.base.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -49,25 +49,25 @@ internal class AssetViewModel @Inject constructor(
 
     fun loadWalletAssets(code: String?) {
         if (code == null || code == "") {
-            _assetState = AssetState(state = PageState.Error(ResultError.CannotFindData()))
+            _assetState = AssetState(state = RequestState.Error(ResultError.CannotFindData()))
         } else {
             getWalletAssetsUseCase().onEach { result ->
                 when (result) {
                     is ResultRequest.Error -> {
-                        _assetState = AssetState(state = PageState.Error(result.resultError))
+                        _assetState = AssetState(state = RequestState.Error(result.resultError))
                     }
                     is ResultRequest.Loading -> {
-                        _assetState = AssetState(state = PageState.Loading())
+                        _assetState = AssetState(state = RequestState.Loading())
                     }
                     is ResultRequest.Success -> {
                         val assets = result.data
                         val asset = assets.find { it.code == code }
                         _assetState = if (asset == null) {
-                            AssetState(state = PageState.Error(ResultError.CannotFindData()))
+                            AssetState(state = RequestState.Error(ResultError.CannotFindData()))
                         } else {
                             val patrimony = calculatePatrimonyUseCase(assets)
                             val assetPresenter = getAssetPresenter(asset, patrimony)
-                            AssetState(state = PageState.Success(assetPresenter))
+                            AssetState(state = RequestState.Success(assetPresenter))
                         }
                     }
                 }

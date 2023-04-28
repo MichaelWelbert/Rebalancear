@@ -20,7 +20,7 @@ class GetWalletAssetsUseCase @Inject constructor(
             assets.collect { result ->
                 when(result) {
                     is ResultRequest.Error -> {
-                        emit(ResultRequest.Error(ResultError.CannotFindData()))
+                        emit(ResultRequest.Error(ResultError.ServerError()))
                     }
                     is ResultRequest.Loading -> {
                         emit(ResultRequest.Loading())
@@ -30,9 +30,8 @@ class GetWalletAssetsUseCase @Inject constructor(
                     }
                 }
             }
-
         } catch (e: Exception) {
-            emit(ResultRequest.Error(ResultError.CannotFindData()))
+            emit(ResultRequest.Error(ResultError.ServerError()))
         }
     }
 }

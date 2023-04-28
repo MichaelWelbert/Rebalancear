@@ -13,8 +13,11 @@ import com.example.rebalancear.presentation.events.WalletAssetNavigationEvent
 import com.example.rebalancear.presentation.events.WalletAssetScreenEvents
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
 import com.example.rebalancear.presentation.presenters.WalletPresenter
-import com.example.rebalancear.presentation.states.PageState
+import com.example.rebalancear.presentation.states.AddAssetState
+import com.example.rebalancear.presentation.states.AssetState
+import com.example.rebalancear.presentation.states.base.RequestState
 import com.example.rebalancear.presentation.states.WalletState
+import com.example.rebalancear.presentation.states.base.VisibleState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -37,6 +40,9 @@ internal class WalletViewModel @Inject constructor(
     private var _walletState by mutableStateOf(WalletState())
     val walletState get() = _walletState
 
+    private var _addAssetState by mutableStateOf(AddAssetState())
+    val addAssetState get() = _addAssetState
+
     private val _navigationEvent = MutableSharedFlow<WalletAssetNavigationEvent>()
     val navigationEvent = _navigationEvent.asSharedFlow()
 
@@ -56,7 +62,17 @@ internal class WalletViewModel @Inject constructor(
             WalletAssetScreenEvents.RefreshPage -> refreshPage()
             WalletAssetScreenEvents.ResetPage -> resetPage()
             is WalletAssetScreenEvents.OnClickAsset -> onClickAsset(event.code)
+            WalletAssetScreenEvents.OnClickToDismissAddAssetButton -> onClickToDismissAddAssetButton()
+            WalletAssetScreenEvents.OnClickAddAssetButton -> onClickAddAssetButton()
         }
+    }
+
+    private fun onClickAddAssetButton() {
+        _addAssetState = AddAssetState(visibility = VisibleState.Show)
+    }
+
+    private fun onClickToDismissAddAssetButton() {
+        _addAssetState = AddAssetState(visibility = VisibleState.Hide)
     }
 
     private fun resetPage() {
@@ -83,33 +99,41 @@ internal class WalletViewModel @Inject constructor(
         getWalletAssetsUseCase().onEach { result ->
             _walletState = when (result) {
                 is ResultRequest.Error -> {
-                    WalletState(state = PageState.Error(result.resultError))
+                    WalletState(state = RequestState.Error(result.resultError))
                 }
                 is ResultRequest.Loading -> {
-                    WalletState(state = PageState.Loading())
+                    WalletState(state = RequestState.Loading())
                 }
                 is ResultRequest.Success -> {
                     val patrimony = calculatePatrimonyUseCase(result.data)
                     val assets = getWalletAssetPresenter(result.data, patrimony)
                     val walletPresenter = WalletPresenter(assets = assets, patrimony = patrimony)
-                    WalletState(state = PageState.Success(walletPresenter))
+                    WalletState(state = RequestState.Success(walletPresenter))
                 }
             }
         }.launchIn(viewModelScope)
     }
 
     private fun addWalletAsset(code: String, units: Double, goal: Double) {
-
-        addWalletAssetUseCase(code, units,  goal).onEach { result ->
-            when (result) {
+        addWalletAssetUseCase(code, units, goal).onEach { result ->
+            _addAssetState = when (result) {
                 is ResultRequest.Error -> {
-
+                    AddAssetState(
+                        visibility = VisibleState.Show,
+                        state = RequestState.Error(result.resultError)
+                    )
                 }
                 is ResultRequest.Loading -> {
-
+                    AddAssetState(
+                        visibility = VisibleState.Show,
+                        state = RequestState.Loading()
+                    )
                 }
                 is ResultRequest.Success -> {
-                    _walletAssetPageEvent.emit(WalletAssetPageEvent.OnAddNewAsset)
+                    AddAssetState(
+                        visibility = VisibleState.Hide,
+                        state = RequestState.Success(Unit)
+                    )
                 }
             }
         }.launchIn(viewModelScope)

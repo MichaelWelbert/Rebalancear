@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
 import com.example.rebalancear.presentation.events.AssetNavigationEvent
 import com.example.rebalancear.presentation.screen.asset.components.AssetScreenContent
-import com.example.rebalancear.presentation.states.PageState
+import com.example.rebalancear.presentation.states.base.RequestState
 import com.example.rebalancear.presentation.viewmodels.AssetViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -22,19 +22,19 @@ internal fun AssetScreenComponent(
 
 
     when (assetState.state) {
-        is PageState.Error -> {
+        is RequestState.Error -> {
         }
-        is PageState.Loading -> {
+        is RequestState.Loading -> {
 
         }
-        is PageState.Success -> {
+        is RequestState.Success -> {
             AssetScreenContent(
                 navController = navController,
                 asset = assetState.state.data,
                 assetViewModel = assetViewModel
             )
         }
-        is PageState.Undefined -> {
+        is RequestState.Undefined -> {
 
         }
     }

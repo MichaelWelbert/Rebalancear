@@ -21,6 +21,9 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.rebalancear.presentation.states.AddAssetState
+import com.example.rebalancear.presentation.states.base.RequestState
+import com.example.rebalancear.presentation.states.base.VisibleState
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
 import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 
@@ -29,29 +32,36 @@ val validDecimalregex = """\d{1,2}(,\d{0,2})?""".toRegex()
 @Composable
 internal fun AddWalletAssetDialog(
     modifier: Modifier = Modifier,
-    enable: Boolean,
+    addAssetState: AddAssetState,
     onAdd: (code: String, units: Double, goal: Double) -> Unit,
     onCancel: () -> Unit
 ) {
-    if (enable) {
-        Box(modifier = modifier
-            .fillMaxSize()
-            .background(color = RebalanceColors.blackColor.copy(alpha = 0.5f))
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null
-            ) { }) {
-            DialogWalletAsset(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 40.dp)
-                    .background(RebalanceColors.neutral0, RoundedCornerShape(20.dp))
-                    .align(Alignment.Center),
-                onAdd = onAdd,
-                onCancel = onCancel,
-            )
+    Log.d("michael", addAssetState.visibility.toString())
+    when (addAssetState.visibility) {
+        VisibleState.Hide -> Unit
+        VisibleState.Show -> {
+
+            Box(modifier = modifier
+                .fillMaxSize()
+                .background(color = RebalanceColors.blackColor.copy(alpha = 0.5f))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) { onCancel() }) {
+                DialogWalletAsset(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 40.dp)
+                        .background(RebalanceColors.neutral0, RoundedCornerShape(20.dp))
+                        .align(Alignment.Center),
+                    addAssetState = addAssetState,
+                    onAdd = onAdd,
+                    onCancel = onCancel,
+                )
+            }
         }
     }
+
 
 }
 
@@ -60,6 +70,7 @@ internal fun AddWalletAssetDialog(
 private fun DialogWalletAsset(
     modifier: Modifier = Modifier,
     onAdd: (code: String, units: Double, goal: Double) -> Unit,
+    addAssetState: AddAssetState,
     onCancel: () -> Unit,
 ) {
     var code by remember { mutableStateOf("") }
@@ -74,196 +85,71 @@ private fun DialogWalletAsset(
     var unitsFocused by remember { mutableStateOf(false) }
     var goalFocused by remember { mutableStateOf(false) }
 
-
-    val focusRequester = FocusRequester()
-
     Card(
-        modifier = modifier,
+        modifier = modifier.clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication = null
+        ) { },
         colors = CardDefaults.cardColors(RebalanceColors.neutral0),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 5.dp),
-
         ) {
+
         Column(modifier = Modifier.padding(32.dp)) {
-
-            OutlinedTextField(
-                modifier = Modifier
-                    .focusRequester(focusRequester)
-                    .onFocusChanged {
-                        codeFocused = it.isFocused
-                    },
-                value = code,
-                onValueChange = {
-                    if (it.length > 6) return@OutlinedTextField
-
-                    code = it.filter { symbol ->
-                        symbol.isLetterOrDigit()
-                    }
-                },
-                isError = codeError,
-                placeholder = {
-                    Text(
-                        "BBAS3",
-                        color = RebalanceColors.blackColor.copy(alpha = 0.3f),
-                        style = ReBalanceTypography.Strong3,
-                    )
-                },
-                label = {
-                    Text(
-                        "Código",
-                        color = RebalanceColors.blackColor.copy(alpha = 0.8f),
-                        style = ReBalanceTypography.Strong3,
-                    )
-                },
-                singleLine = true,
-                textStyle = ReBalanceTypography.Strong3,
+            AddCardTextField(
+                isFocused = codeFocused,
+                text = code,
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    errorCursorColor = RebalanceColors.wrongColor,
-                    errorBorderColor = RebalanceColors.wrongColor,
-                    containerColor = RebalanceColors.whiteColor,
-                    unfocusedBorderColor = RebalanceColors.greyColor,
-                    focusedBorderColor = RebalanceColors.primaryColor,
-                    cursorColor = RebalanceColors.blackColor,
-                    textColor = RebalanceColors.blackColor
-                )
+                placeholderText = "BBAS3",
+                labelText = "Código",
+                hasError = codeError,
+                errorText = "Código inválido. Por favor, informe um código de ação existente.",
+                tipsText = "Qual é o código da ação que você gostaria de adicionar?",
+                onFocusRequestChanged = { codeFocused = it },
+                onTextChanged = {
+                    if (it.length > 6) return@AddCardTextField
+                    val newCode = it.filter { symbol -> symbol.isLetterOrDigit() }
+                    code = newCode
+                }
             )
-
-            if (codeError) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Código inválido. Por favor, informe um código de ação existente.",
-                    color = RebalanceColors.wrongColor,
-                    style = ReBalanceTypography.Body2,
-                )
-            } else {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Qual é o código da ação que você gostaria de adicionar?",
-                    color = getFocusedColor(codeFocused),
-                    style = getFocusedStyle(codeFocused),
-                )
-            }
-
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            OutlinedTextField(
-                modifier = Modifier.onFocusChanged {
-                    unitsFocused = it.isFocused
-                },
-                value = units,
-                onValueChange = {
-                    if (it.length > 10) return@OutlinedTextField
+            AddCardTextField(
+                isFocused = unitsFocused,
+                text = units,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                placeholderText = "10",
+                labelText = "Quantidade",
+                hasError = unitsError,
+                errorText = "Quantidade inválida. Por favor, informe a quantidade de ações que você possui.",
+                tipsText = "Quantas ações você possui desse ativo?",
+                onFocusRequestChanged = { unitsFocused = it },
+                onTextChanged = {
+                    if (it.length > 10) return@AddCardTextField
 
                     units = it.filter { symbol ->
                         symbol.isDigit()
                     }
-
-                },
-                isError = unitsError,
-                label = {
-                    Text(
-                        "Quantidade",
-                        color = RebalanceColors.blackColor.copy(alpha = 0.8f),
-                        style = ReBalanceTypography.Strong3,
-                    )
-                },
-                placeholder = {
-                    Text(
-                        "10",
-                        color = RebalanceColors.blackColor.copy(alpha = 0.3f),
-                        style = ReBalanceTypography.Strong3,
-                    )
-                },
-                singleLine = true,
-                textStyle = ReBalanceTypography.Strong3,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    errorCursorColor = RebalanceColors.wrongColor,
-                    errorBorderColor = RebalanceColors.wrongColor,
-                    containerColor = RebalanceColors.whiteColor,
-                    unfocusedBorderColor = RebalanceColors.greyColor,
-                    focusedBorderColor = RebalanceColors.primaryColor,
-                    cursorColor = RebalanceColors.blackColor,
-                    textColor = RebalanceColors.blackColor
-                )
+                }
             )
-
-            if (unitsError) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Quantidade inválida. Por favor, informe a quantidade de ações que você possui.",
-                    color = RebalanceColors.wrongColor,
-                    style = ReBalanceTypography.Body2,
-                )
-            } else {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Quantas ações você possui desse ativo?",
-                    color = getFocusedColor(unitsFocused),
-                    style = getFocusedStyle(unitsFocused),
-                )
-            }
-
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            OutlinedTextField(
-                modifier = Modifier.onFocusChanged {
-                    goalFocused = it.isFocused
-                },
-                value = goal,
-                onValueChange = {
+            AddCardTextField(
+                isFocused = goalFocused,
+                text = goal,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                placeholderText = "5",
+                labelText = "Meta",
+                hasError = goalError,
+                errorText = "Porcentagem inválida. Certifique-se de digitar um número entre 0 e 100%.",
+                tipsText = "Quantos % da ação você deseja ter na sua carteira de investimentos?",
+                onFocusRequestChanged = { goalFocused = it },
+                onTextChanged = {
                     if (it.isEmpty()) goal = it
                     if (it.matches(validDecimalregex)) goal = it
-                },
-                isError = goalError,
-                placeholder = {
-                    Text(
-                        "5",
-                        color = RebalanceColors.blackColor.copy(alpha = 0.3f),
-                        style = ReBalanceTypography.Strong3,
-                    )
-                },
-                label = {
-                    Text(
-                        "Meta",
-                        color = RebalanceColors.blackColor.copy(alpha = 0.8f),
-                        style = ReBalanceTypography.Strong3,
-                    )
-                },
-                singleLine = true,
-                textStyle = ReBalanceTypography.Strong3,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    errorCursorColor = RebalanceColors.wrongColor,
-                    errorBorderColor = RebalanceColors.wrongColor,
-                    containerColor = RebalanceColors.whiteColor,
-                    unfocusedBorderColor = RebalanceColors.greyColor,
-                    focusedBorderColor = RebalanceColors.primaryColor,
-                    cursorColor = RebalanceColors.blackColor,
-                    textColor = RebalanceColors.blackColor
-                )
+                }
             )
-
-            if (goalError) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Porcentagem inválida. Certifique-se de digitar um número entre 0 e 100%.",
-                    color = RebalanceColors.wrongColor,
-                    style = ReBalanceTypography.Body2,
-                )
-            } else {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Quantos % da ação você deseja ter na sua carteira de investimentos?",
-                    color = getFocusedColor(goalFocused),
-                    style = getFocusedStyle(goalFocused),
-                )
-            }
-
-
-
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -271,77 +157,177 @@ private fun DialogWalletAsset(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Button(
-                    onClick = {
-                        if (code.isBlank())
-                            codeError = true
+                when (addAssetState.state) {
+                    is RequestState.Error -> {
+                        AddCardButton(
+                            onClick = {
+                                if (code.isBlank())
+                                    codeError = true
 
-                        if (units.isBlank())
-                            unitsError = true
+                                if (units.isBlank())
+                                    unitsError = true
 
-                        if (goal.isBlank())
-                            goalError = true
+                                if (goal.isBlank())
+                                    goalError = true
 
-                        if (codeError || unitsError || goalError)
-                            return@Button
+                                if (codeError || unitsError || goalError)
+                                    return@AddCardButton
 
-                        onAdd(code, units.toDouble(), goal.toDouble())
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f, false),
-                    elevation = ButtonDefaults.elevatedButtonElevation(
-                        defaultElevation = 2.dp
-                    ),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = RebalanceColors.yellow100
-                    ),
-                    shape = RoundedCornerShape(20),
+                                onAdd(code, units.toDouble(), goal.toDouble())
+                            },
+                            text = "Tentar novamente",
+                            buttonColor = RebalanceColors.wrongColor,
+                            errorText = addAssetState.state.resultError.message
+                        )
+                    }
+                    is RequestState.Loading -> {
+                        AddCardButton(
+                            enabled = false,
+                            onClick = {},
+                            text = "Analisando...",
+                            buttonColor = RebalanceColors.wrongColor,
+                        )
+                    }
+                    is RequestState.Success -> onCancel()
+                    is RequestState.Undefined -> {
+                        AddCardButton(
+                            onClick = {
+                                if (code.isBlank())
+                                    codeError = true
 
-                    ) {
-                    Text(
-                        modifier = Modifier.padding(4.dp),
-                        text = "Adicionar",
-                        color = RebalanceColors.neutral0,
-                        style = ReBalanceTypography.Strong3.copy(
-                            textAlign = TextAlign.Start
-                        ),
-                    )
-                }
+                                if (units.isBlank())
+                                    unitsError = true
 
-                Spacer(modifier = Modifier.width(16.dp))
+                                if (goal.isBlank())
+                                    goalError = true
 
-                Button(
-                    onClick = {
-                        onCancel()
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f, false),
-                    elevation = ButtonDefaults.elevatedButtonElevation(
-                        defaultElevation = 2.dp
-                    ),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = RebalanceColors.primaryColor
-                    ),
-                    shape = RoundedCornerShape(20),
+                                if (codeError || unitsError || goalError)
+                                    return@AddCardButton
 
-                    ) {
-                    Text(
-                        modifier = Modifier.padding(4.dp),
-                        text = "Cancelar",
-                        color = RebalanceColors.neutral0,
-                        style = ReBalanceTypography.Strong3.copy(
-                            textAlign = TextAlign.Start
-                        ),
-                    )
+                                onAdd(code, units.toDouble(), goal.toDouble())
+                            },
+                            text = "Adicionar",
+                            buttonColor = RebalanceColors.secondaryColor,
+                        )
+                    }
                 }
             }
         }
     }
+}
 
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
+@Composable
+private fun AddCardButton(
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    buttonColor: Color,
+    text: String,
+    errorText: String = "",
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = errorText,
+            color = RebalanceColors.wrongColor,
+            style = ReBalanceTypography.Strong3,
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Button(
+            enabled = enabled,
+            onClick = onClick,
+            modifier = Modifier.fillMaxWidth(),
+            elevation = ButtonDefaults.elevatedButtonElevation(
+                defaultElevation = 2.dp
+            ),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = buttonColor
+            ),
+            shape = RoundedCornerShape(20),
+
+            ) {
+            Text(
+                modifier = Modifier.padding(4.dp),
+                text = text,
+                color = RebalanceColors.neutral0,
+                style = ReBalanceTypography.Strong3.copy(
+                    textAlign = TextAlign.Start
+                ),
+            )
+        }
+    }
+}
+
+@Composable
+private fun AddCardTextField(
+    isFocused: Boolean,
+    text: String,
+    placeholderText: String,
+    labelText: String,
+    hasError: Boolean,
+    errorText: String,
+    keyboardOptions: KeyboardOptions,
+    tipsText: String,
+    onFocusRequestChanged: (isFocused: Boolean) -> Unit,
+    onTextChanged: (text: String) -> Unit,
+) {
+    OutlinedTextField(
+        modifier = Modifier
+            .onFocusChanged {
+                onFocusRequestChanged(it.isFocused)
+            },
+        value = text,
+        onValueChange = {
+            onTextChanged(it)
+        },
+        isError = hasError,
+        placeholder = {
+            Text(
+                placeholderText,
+                color = RebalanceColors.blackColor.copy(alpha = 0.3f),
+                style = ReBalanceTypography.Strong3,
+            )
+        },
+        label = {
+            Text(
+                labelText,
+                color = RebalanceColors.blackColor.copy(alpha = 0.8f),
+                style = ReBalanceTypography.Strong3,
+            )
+        },
+        singleLine = true,
+        textStyle = ReBalanceTypography.Strong3,
+        keyboardOptions = keyboardOptions,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            errorCursorColor = RebalanceColors.wrongColor,
+            errorBorderColor = RebalanceColors.wrongColor,
+            containerColor = RebalanceColors.whiteColor,
+            unfocusedBorderColor = RebalanceColors.greyColor,
+            focusedBorderColor = RebalanceColors.primaryColor,
+            cursorColor = RebalanceColors.blackColor,
+            textColor = RebalanceColors.blackColor
+        )
+    )
+
+    if (hasError) {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = errorText,
+            color = RebalanceColors.wrongColor,
+            style = ReBalanceTypography.Body2,
+        )
+    } else {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = tipsText,
+            color = getFocusedColor(isFocused),
+            style = getFocusedStyle(isFocused),
+        )
     }
 }
 
