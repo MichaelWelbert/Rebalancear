@@ -32,7 +32,7 @@ fun MakeRoutes(
 
     NavHost(
         navController = navController,
-        startDestination = Routes.WalletScreen.route
+        startDestination = Routes.SplashScreen.route
     ) {
         composable(
             route = Routes.SplashScreen.route

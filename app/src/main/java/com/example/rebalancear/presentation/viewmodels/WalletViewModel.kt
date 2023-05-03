@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.entities.WalletAsset
+import com.example.rebalancear.domain.status.ContributeStatus
 import com.example.rebalancear.domain.usecases.*
 import com.example.rebalancear.presentation.events.WalletAssetPageEvent
 import com.example.rebalancear.presentation.events.WalletAssetNavigationEvent
@@ -33,6 +34,7 @@ internal class WalletViewModel @Inject constructor(
     private val getInvestedAmountUseCase: GetInvestedAmountUseCase,
     private val getPercentageOwnedUseCase: GetPercentageOwnedUseCase,
     private val calculatePatrimonyUseCase: CalculatePatrimonyUseCase,
+    private val calculateGoalUseCase: CalculateGoalUseCase,
     private val addWalletAssetUseCase: AddWalletAssetUseCase,
 ) : ViewModel() {
 
@@ -106,8 +108,14 @@ internal class WalletViewModel @Inject constructor(
                 }
                 is ResultRequest.Success -> {
                     val patrimony = calculatePatrimonyUseCase(result.data)
+                    val goal = calculateGoalUseCase(result.data)
                     val assets = getWalletAssetPresenter(result.data, patrimony)
-                    val walletPresenter = WalletPresenter(assets = assets, patrimony = patrimony)
+                    val walletPresenter = WalletPresenter(
+                        assets = assets,
+                        patrimony = patrimony,
+                        goal = goal
+                    )
+
                     WalletState(state = RequestState.Success(walletPresenter))
                 }
             }
@@ -144,7 +152,7 @@ internal class WalletViewModel @Inject constructor(
         walletAsset: List<WalletAsset>,
         patrimony: Double
     ): List<WalletAssetPresenter> {
-        return walletAsset.map { asset ->
+        val walletAssets = walletAsset.map { asset ->
             val investedAmount = getInvestedAmountUseCase(
                 units = asset.units,
                 unitsPrice = asset.unitPrice
@@ -168,5 +176,12 @@ internal class WalletViewModel @Inject constructor(
                 contributeState = contributeState,
             )
         }
+
+        return orderAssetPresenter(walletAssets)
+    }
+
+    private fun orderAssetPresenter(walletAssets: List<WalletAssetPresenter>): List<WalletAssetPresenter> {
+        return walletAssets.sortedByDescending { it.percentGoal }
+            .sortedByDescending { it.contributeState == ContributeStatus.CONTRIBUTE }
     }
 }
