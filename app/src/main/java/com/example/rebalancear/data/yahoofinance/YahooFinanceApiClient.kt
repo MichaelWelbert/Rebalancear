@@ -4,7 +4,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class YahooFinanceClient(apiKey: String) :IMarket {
+class YahooFinanceClient(apiKey: String) : IMarket {
     private val api: YahooFinanceApi = Retrofit.Builder()
         .baseUrl("https://apidojo-yahoo-finance-v1.p.rapidapi.com/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -19,18 +19,22 @@ class YahooFinanceClient(apiKey: String) :IMarket {
         .build()
         .create(YahooFinanceApi::class.java)
 
-    override suspend fun getStockPrice(stock: Stock): Double? {
-        val response = api.getQuotes(stock.toString(), region = "BR", lang = "pt-BR")
+    override suspend fun getStock(code: String): Stock? {
+
+        val response = api.getQuotes("${code.uppercase()}.SA", region = "BR")
         if (!response.isSuccessful) {
             throw ApiException(response.code())
         }
+        val price = response.body()?.price?.marketPrice
+        val info = response.body()?.info
 
-        val quotes = response.body()?.quoteResponse?.quotes ?: emptyList()
-        val quote = quotes.firstOrNull { it.symbol == stock.toString() }
-        return quote?.price
+        return Stock(
+            symbol = code.uppercase(),
+            price = price?.raw,
+            LPA = info?.lpa?.raw,
+            VPA = info?.vpa?.raw
+        )
     }
 }
 
 class ApiException(val code: Int) : Exception()
-
-class SymbolNotFoundException(val symbol: String) : Exception()

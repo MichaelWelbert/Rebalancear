@@ -20,7 +20,7 @@ class DataBaseModel {
         @ApplicationContext applicationContext: Context,
     ): AssetDataDao {
         val db = Room.databaseBuilder(
-            applicationContext, AppDatabase::class.java, "BalanctDataBase"
+            applicationContext, AppDatabase::class.java, "BalancrDataBase"
         ).build()
 
         return db.assetDataDao()

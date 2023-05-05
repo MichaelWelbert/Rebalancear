@@ -43,7 +43,10 @@ internal fun AddWalletAssetDialog(
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
-                ) { onCancel() }) {
+                ) {
+                    if (addAssetState.state !is RequestState.Loading)
+                        onCancel()
+                }) {
                 DialogWalletAsset(
                     modifier = Modifier
                         .fillMaxWidth()

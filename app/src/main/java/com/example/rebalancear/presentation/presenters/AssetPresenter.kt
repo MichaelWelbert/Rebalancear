@@ -11,5 +11,6 @@ data class AssetPresenter(
     val percentOwned: Double = 0.0,
     val investedAmount: Double = 0.0,
     val investedAmountGoal: Double = 0.0,
+    val grahamFairPrice: Double = 0.0,
     val contributeState: ContributeStatus = ContributeStatus.WAIT,
 )

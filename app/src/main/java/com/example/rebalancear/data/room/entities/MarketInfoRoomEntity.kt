@@ -4,8 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class MarketPriceRoomEntity(
+data class MarketInfoRoomEntity(
     val price: Double,
+    val LPA: Double,
+    val VPA: Double,
     @PrimaryKey
     val code: String,
 )

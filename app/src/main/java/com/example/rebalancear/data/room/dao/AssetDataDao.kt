@@ -1,7 +1,7 @@
 package com.example.rebalancear.data.room.dao
 
 import androidx.room.*
-import com.example.rebalancear.data.room.entities.MarketPriceRoomEntity
+import com.example.rebalancear.data.room.entities.MarketInfoRoomEntity
 import com.example.rebalancear.data.room.entities.WalletAssetRoomEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -23,20 +23,20 @@ interface AssetDataDao {
     suspend fun deleteWalletAsset(wallet: WalletAssetRoomEntity)
 
 
-    @Query("SELECT * FROM MarketPriceRoomEntity")
-    fun getMarketPriceAll(): Flow<List<MarketPriceRoomEntity>>
+    @Query("SELECT * FROM MarketInfoRoomEntity")
+    fun getMarketInfoAll(): Flow<List<MarketInfoRoomEntity>>
 
     @Delete
-    suspend fun deleteMarketPriceAll(vararg wallet: MarketPriceRoomEntity)
+    suspend fun deleteMarketInfoAll(vararg wallet: MarketInfoRoomEntity)
 
-    @Query("SELECT * FROM MarketPriceRoomEntity WHERE code LIKE :code")
-    suspend fun findMarketPriceByCode(code: String): MarketPriceRoomEntity?
+    @Query("SELECT * FROM MarketInfoRoomEntity WHERE code LIKE :code")
+    suspend fun findMarketInfoByCode(code: String): MarketInfoRoomEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMarketPriceAll(vararg wallet: MarketPriceRoomEntity)
+    suspend fun insertMarketInfoAll(vararg wallet: MarketInfoRoomEntity)
 
     @Delete
-    suspend fun deleteMarketPrice(wallet: MarketPriceRoomEntity)
+    suspend fun deleteMarketInfo(wallet: MarketInfoRoomEntity)
 
 
 }

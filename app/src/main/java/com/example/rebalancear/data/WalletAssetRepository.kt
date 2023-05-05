@@ -4,12 +4,11 @@ package com.example.rebalancear.data
 import com.example.rebalancear.core.ResultError
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.data.adapters.WalletAssetAdapter
-import com.example.rebalancear.data.models.WalletAssetPriceModel
+import com.example.rebalancear.data.models.WalletAssetModel
 import com.example.rebalancear.data.room.dao.AssetDataDao
-import com.example.rebalancear.data.room.entities.MarketPriceRoomEntity
+import com.example.rebalancear.data.room.entities.MarketInfoRoomEntity
 import com.example.rebalancear.data.room.entities.WalletAssetRoomEntity
 import com.example.rebalancear.data.yahoofinance.IMarket
-import com.example.rebalancear.data.yahoofinance.Stock
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.repository.IWalletAssetRepository
 import kotlinx.coroutines.flow.Flow
@@ -46,12 +45,14 @@ class WalletAssetRepository @Inject constructor(
         }
     }
 
-    private suspend fun findAssetPrice(code: String): WalletAssetPriceModel? {
-        val dataBaseWallet = assetDataBase.findMarketPriceByCode(code.uppercase())
+    private suspend fun findAssetPrice(code: String): WalletAssetModel? {
+        val dataBaseWallet = assetDataBase.findMarketInfoByCode(code.uppercase())
         val walletAssetPrice = dataBaseWallet?.let { marketAsset ->
-            WalletAssetPriceModel(
-                marketAsset.code,
-                marketAsset.price
+            WalletAssetModel(
+                code = marketAsset.code,
+                unitPrice = marketAsset.price,
+                VPA = marketAsset.VPA,
+                LPA = marketAsset.LPA
             )
         }
 
@@ -64,25 +65,55 @@ class WalletAssetRepository @Inject constructor(
         goal: Double
     ): Flow<ResultRequest<Unit>> = flow {
         emit(ResultRequest.Loading())
-        val stockPriceInDataBase = findAssetPrice(code)
-        val stockPrice = stockPriceInDataBase?.unitPrice ?: market.getStockPrice(Stock(code))
+        try {
+            val stock = market.getStock(code)
 
-        if (stockPrice == null)
+            if (stock == null)
+                emit(ResultRequest.Error(ResultError.CannotFindStocks()))
+            else {
+                val stockPrice = stock.price ?: 0.0
+                val stockLPA = stock.LPA ?: 0.0
+                val stockVPA = stock.VPA ?: 0.0
+
+                val walletAssetInfoRoomEntity =
+                    MarketInfoRoomEntity(
+                        code = code.uppercase(),
+                        price = stockPrice,
+                        LPA = stockLPA,
+                        VPA = stockVPA
+                    )
+
+                val walletAssetRoomEntity =
+                    WalletAssetRoomEntity(
+                        code = code.uppercase(Locale.ROOT),
+                        units = units,
+                        goal = goal
+                    )
+
+                assetDataBase.insertWalletAssetAll(walletAssetRoomEntity)
+                assetDataBase.insertMarketInfoAll(walletAssetInfoRoomEntity)
+
+                emit(ResultRequest.Success(Unit))
+            }
+        } catch (e:Exception) {
+            emit(ResultRequest.Error(ResultError.CannotFindAsset()))
+        }
+
+    }
+
+    override suspend fun updateWalletAsset(
+        code: String,
+        units: Double,
+        goal: Double
+    ): Flow<ResultRequest<Unit>> = flow {
+        emit(ResultRequest.Loading())
+        val currentWalletAsset = assetDataBase.findWalletAssetByCode(code)
+
+        if (currentWalletAsset == null)
             emit(ResultRequest.Error(ResultError.CannotFindStocks()))
         else {
-            val walletAssetPriceRoomEntity =
-                MarketPriceRoomEntity(code = code.uppercase(), price = stockPrice)
-
-            val walletAssetRoomEntity =
-                WalletAssetRoomEntity(
-                    code = code.uppercase(Locale.ROOT),
-                    units = units,
-                    goal = goal
-                )
-
+            val walletAssetRoomEntity = currentWalletAsset.copy(units = units, goal = goal)
             assetDataBase.insertWalletAssetAll(walletAssetRoomEntity)
-            assetDataBase.insertMarketPriceAll(walletAssetPriceRoomEntity)
-
             emit(ResultRequest.Success(Unit))
         }
     }

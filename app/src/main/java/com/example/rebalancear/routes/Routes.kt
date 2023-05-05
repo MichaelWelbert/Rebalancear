@@ -27,7 +27,7 @@ sealed class Routes(val route: String) {
 @SuppressLint("RememberReturnType")
 @Composable
 fun MakeRoutes(
-    navController: NavHostController = rememberNavController(),
+    navController: NavHostController,
 ) {
 
     NavHost(

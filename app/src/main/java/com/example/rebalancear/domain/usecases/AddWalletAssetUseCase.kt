@@ -19,18 +19,6 @@ class AddWalletAssetUseCase @Inject constructor(
 
             val addResult = repository.addWalletAsset(code, units, goal)
 
-            addResult.collect { result ->
-                when (result) {
-                    is ResultRequest.Error -> {
-                        emit(ResultRequest.Error(ResultError.CannotFindData()))
-                    }
-                    is ResultRequest.Loading -> {
-                        emit(ResultRequest.Loading())
-                    }
-                    is ResultRequest.Success -> {
-                        emit(ResultRequest.Success(result.data))
-                    }
-                }
-            }
+            addResult.collect { result -> emit(result)}
         }
 }

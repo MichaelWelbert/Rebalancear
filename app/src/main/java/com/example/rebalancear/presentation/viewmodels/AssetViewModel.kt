@@ -1,6 +1,7 @@
 package com.example.rebalancear.presentation.viewmodels
 
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -32,6 +33,8 @@ internal class AssetViewModel @Inject constructor(
     val getPercentageOwnedUseCase: GetPercentageOwnedUseCase,
     val calculatePatrimonyUseCase: CalculatePatrimonyUseCase,
     val getUnitGoalUseCase: GetUnitGoalUseCase,
+    val updateWalletAssetUseCase: UpdateWalletAssetUseCase,
+    val getGrahamFairPriceUseCase: GetGrahamFairPriceUseCase
 ) : ViewModel() {
 
 
@@ -44,6 +47,11 @@ internal class AssetViewModel @Inject constructor(
     fun onTriggerEvent(event: AssetScreenEvents) {
         when (event) {
             is AssetScreenEvents.OnDeleteAsset -> deleteAsset(event.code)
+            is AssetScreenEvents.OnUpdateWalletAsset -> updateWalletAsset(
+                event.code,
+                event.units,
+                event.goal
+            )
         }
     }
 
@@ -74,6 +82,21 @@ internal class AssetViewModel @Inject constructor(
             }.launchIn(viewModelScope)
         }
     }
+
+    private fun updateWalletAsset(code: String, units: Double, goal: Double) {
+        updateWalletAssetUseCase(code, units, goal).onEach { result ->
+            when (result) {
+                is ResultRequest.Error -> {
+                }
+                is ResultRequest.Loading -> {
+                }
+                is ResultRequest.Success -> {
+
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
 
     private fun deleteAsset(code: String) {
 
@@ -120,6 +143,11 @@ internal class AssetViewModel @Inject constructor(
             assetType = asset.type
         )
 
+        val grahamFairPrice = getGrahamFairPriceUseCase(
+            LPA = asset.LPA,
+            VPA = asset.VPA
+        )
+
         return AssetPresenter(
             code = asset.code,
             units = asset.units,
@@ -129,7 +157,8 @@ internal class AssetViewModel @Inject constructor(
             investedAmount = investedAmount,
             investedAmountGoal = investedAmountGoal,
             contributeState = contributeState,
-            unitsGoal = unitsGoal
+            unitsGoal = unitsGoal,
+            grahamFairPrice = grahamFairPrice
         )
     }
 }

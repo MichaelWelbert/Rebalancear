@@ -41,6 +41,10 @@ internal fun AssetScreenContent(
                     currentGoal = asset.percentGoal,
                     currentUnits = asset.units,
                     onEdit = { units, goal ->
+                        assetViewModel.onTriggerEvent(
+                            AssetScreenEvents.OnUpdateWalletAsset(asset.code, units, goal)
+                        )
+
                         dialogStatus = DialogStatus.HIDE
                     },
                     onCancel = {

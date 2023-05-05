@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface IWalletAssetRepository {
     suspend fun getWalletAssets(): Flow<ResultRequest<List<WalletAsset>>>
     suspend fun addWalletAsset(code: String, units: Double, goal: Double) : Flow<ResultRequest<Unit>>
+    suspend fun updateWalletAsset(code: String, units: Double, goal: Double) : Flow<ResultRequest<Unit>>
     suspend fun deleteWalletAsset(code: String)
     suspend fun hasWalletAsset(code: String) : Boolean
     fun removeWalletAsset(code: String)

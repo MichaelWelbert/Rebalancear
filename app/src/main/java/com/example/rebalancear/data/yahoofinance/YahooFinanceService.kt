@@ -1,53 +1,48 @@
 package com.example.rebalancear.data.yahoofinance
 
 import com.google.gson.annotations.SerializedName
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
+
 interface YahooFinanceApi {
-    @GET("market/v2/get-quotes")
+    @GET("stock/v2/get-summary")
     suspend fun getQuotes(
-        @Query("symbols") symbols: String,
-        @Query("region") region: String = "US",
-        @Query("lang") lang: String = "en-US"
+        @Query("symbol") symbol: String,
+        @Query("region") region: String = "BR",
     ): Response<YahooFinanceResponse>
 }
 
 data class YahooFinanceResponse(
-    @SerializedName("quoteResponse")
-    val quoteResponse: QuoteResponse
+    @SerializedName("price")
+    val price: Price,
+    @SerializedName("defaultKeyStatistics")
+    val info: Info
 )
 
-data class QuoteResponse(
-    @SerializedName("result")
-    val quotes: List<Quote>,
-    @SerializedName("error")
-    val error: Error?
-)
-
-data class Quote(
-    @SerializedName("symbol")
-    val symbol: String,
+data class Price(
     @SerializedName("regularMarketPrice")
-    val price: Double
+    val marketPrice: Format,
 )
 
-data class Error(
-    @SerializedName("code")
-    val code: String,
-    @SerializedName("description")
-    val description: String
+data class Info(
+    @SerializedName("trailingEps")
+    val lpa: Format,
+    @SerializedName("bookValue")
+    val vpa: Format,
 )
+
+
+data class Format(
+    val raw: Double,
+    val fmt: String
+)
+
 
 data class Stock(
     val symbol: String,
-    val exchange: String = "SA",
-    val currency: String = "BRL"
-) {
-    override fun toString(): String {
-        return "$symbol.$exchange"
-    }
-}
+    val price: Double? = null,
+    val LPA: Double? = null,
+    val VPA: Double? = null,
+)

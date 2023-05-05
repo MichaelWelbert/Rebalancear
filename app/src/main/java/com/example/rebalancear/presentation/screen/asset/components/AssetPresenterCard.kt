@@ -126,8 +126,6 @@ internal fun AssetPresenterCard(
                                 )
                             }
                         }
-
-
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center

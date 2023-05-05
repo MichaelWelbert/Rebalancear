@@ -16,7 +16,7 @@ sealed class ResultError(val message: String) {
     class CodeAlreadyAdd(message: String = "Código já adicionado") : ResultError(message)
     class CodeNotFound(message: String = "Código não encontrado") : ResultError(message)
     class EmptyCode(message: String = "Digite um código válido") : ResultError(message)
-    class CannotFindAsset(message: String = "Não conseguimos encontrar o ativo") :
+    class CannotFindAsset(message: String = "Desculpe-nos pelo transtorno, não conseguimos encontrar o ativo") :
         ResultError(message)
 
     class ServerError(message: String = "Desculpe-nos pelo transtorno. Não foi possivel carregar os dados. Por favor, tente novamente mais tarde.") :

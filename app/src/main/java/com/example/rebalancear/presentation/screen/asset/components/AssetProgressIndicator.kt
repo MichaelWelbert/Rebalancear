@@ -5,6 +5,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rebalancear.domain.status.ContributeStatus
@@ -58,9 +59,13 @@ internal fun AssetProgressIndicator(
         )
 
         Row(
-            modifier = Modifier.fillMaxWidth(progress),
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .requiredWidthIn(min = 42.dp)
+                .fillMaxWidth(progress),
             horizontalArrangement = when (contributeStatus) {
-                ContributeStatus.CONTRIBUTE -> Arrangement.End
+                ContributeStatus.CONTRIBUTE -> if (progress < 0.2f)
+                    Arrangement.Start else Arrangement.End
                 ContributeStatus.WAIT -> Arrangement.Center
             }
 
@@ -75,4 +80,16 @@ internal fun AssetProgressIndicator(
     }
 }
 
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewProgress() {
+    AssetProgressIndicator(
+        title = "Porcentagem",
+        goalValue = "11,4%",
+        currentValue = "12,41%",
+        progress = 0.5f,
+        contributeStatus = ContributeStatus.CONTRIBUTE,
+    )
+}
 
