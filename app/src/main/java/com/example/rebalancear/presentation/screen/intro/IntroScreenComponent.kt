@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.rebalancear.R
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
@@ -30,20 +31,21 @@ import com.google.accompanist.pager.HorizontalPagerIndicator
 internal fun IntroScreenComponent(
     navController: NavController,
 ) {
+
     val pages = listOf(
         PageInfo(
             title = "Balance",
-            subTitle = "O Balance é o aplicativo ideal para quem quer investir na bolsa de valores sem complicação. Com ele, você define suas metas de ações e acompanha seu progresso de maneira super fácil. ",
-            image = R.drawable.onbord1
+            subTitle = "Seja bem-vindo ao Balance! Aqui, o controle dos seus investimentos está ao alcance das suas mãos. Defina suas metas financeiras e observe o seu progresso em uma experiência fácil e intuitiva. ",
+            image = R.drawable.mascot3
 
         ), PageInfo(
             title = "Gerencia ativos",
-            subTitle = "Adicione um ativo à sua carteira e defina qual a porcentagem que deseja alcançar com ele. O Balance auxilia na gestão dos seus investimentos e te ajuda a atingir seus objetivos de forma eficiente.",
-            image = R.drawable.onbord2
+            subTitle = "Diga adeus às oportunidades perdidas. Adicione diversos ativos e defina a proporção de cada um de acordo com seus objetivos financeiros. Nosso aplicativo mantém você informado sobre suas metas pendentes e o quanto você precisa investir para alcançá-las.",
+            image = R.drawable.mascot1
         ), PageInfo(
             title = "Alcance metas",
-            subTitle = "Sempre que você tiver uma meta em aberto, o aplicativo te avisará e informará o valor necessário para alcançá-la. Dessa forma, você estará sempre atualizado e não perderá oportunidades de investimento.",
-            image = R.drawable.onbord3
+            subTitle = "Prepare-se para uma experiência de investimento otimizada, sua jornada financeira começa agora!",
+            image = R.drawable.mascot2
         )
     )
     val pagerState = rememberPagerState()
@@ -52,7 +54,7 @@ internal fun IntroScreenComponent(
     Box(
         Modifier
             .fillMaxSize()
-            .background(RebalanceColors.whiteColor),
+            .background(RebalanceColors.primaryColor),
     ) {
         HorizontalPager(
             pageCount = 3,
@@ -73,8 +75,8 @@ internal fun IntroScreenComponent(
             HorizontalPagerIndicator(
                 pagerState = pagerState,
                 pageCount = 3,
-                activeColor = RebalanceColors.primaryColor,
-                inactiveColor = RebalanceColors.greyColor
+                activeColor = RebalanceColors.secondaryColor,
+                inactiveColor = RebalanceColors.whiteColor
             )
 
             if (pagerState.currentPage == pages.lastIndex) {
@@ -89,7 +91,7 @@ internal fun IntroScreenComponent(
                             defaultElevation = 2.dp
                         ),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = RebalanceColors.primaryColor
+                            containerColor = RebalanceColors.secondaryColor
                         ),
                         shape = RoundedCornerShape(20),
 
@@ -124,14 +126,11 @@ data class PageInfo(
 internal fun Page(
     pageInfo: PageInfo,
 ) {
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-
-        ) {
-
+    ) {
         Image(
             modifier = Modifier
                 .fillMaxWidth()
@@ -140,29 +139,41 @@ internal fun Page(
             contentDescription = null,
         )
 
-        Spacer(modifier = Modifier.height(36.dp))
-
-        Text(
+        Column(
             modifier = Modifier
-                .fillMaxWidth().padding(horizontal = 16.dp),
-            text = pageInfo.title,
-            color = RebalanceColors.blackColor.copy(alpha = 0.7f),
-            style = ReBalanceTypography.Strong5,
-            textAlign = TextAlign.Center
-        )
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
 
-        Spacer(modifier = Modifier.height(12.dp))
+            ) {
 
-        Text(
-            modifier = Modifier
-                .fillMaxWidth().padding(horizontal = 16.dp),
-            text = pageInfo.subTitle,
-            color = RebalanceColors.blackColor.copy(alpha = 0.7f),
-            style = ReBalanceTypography.Body3,
-            textAlign = TextAlign.Center
-        )
 
-        Spacer(modifier = Modifier.height(12.dp))
+
+            Spacer(modifier = Modifier.height(36.dp))
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                text = pageInfo.title,
+                color = RebalanceColors.whiteColor,
+                style = ReBalanceTypography.Strong5.copy(letterSpacing = (-1).sp),
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                text = pageInfo.subTitle,
+                color = RebalanceColors.whiteColor,
+                style = ReBalanceTypography.Body3,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+        }
     }
-
 }

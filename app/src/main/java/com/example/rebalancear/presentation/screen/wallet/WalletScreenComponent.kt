@@ -2,18 +2,28 @@ package com.example.rebalancear.presentation.screen.wallet
 
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.rebalancear.presentation.adsense.IAdSense
 import com.example.rebalancear.presentation.events.WalletAssetScreenEvents
 import com.example.rebalancear.presentation.screen.error.ErrorPageComponent
 import com.example.rebalancear.presentation.screen.tip.SimpleToolDownArrowtip
@@ -30,6 +40,7 @@ import kotlin.time.Duration.Companion.seconds
 @Composable
 internal fun WalletScreenComponent(
     navController: NavController,
+    adsense: IAdSense,
     walletViewModel: WalletViewModel,
 ) {
 
@@ -51,6 +62,7 @@ internal fun WalletScreenComponent(
             val error = walletState.state.resultError
             ErrorPageComponent(message = error.message)
         }
+
         is RequestState.Loading -> {}
         is RequestState.Success -> {
             Box() {
@@ -60,8 +72,8 @@ internal fun WalletScreenComponent(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(innerPadding)
-                                .background(RebalanceColors.whiteColor)
-                                .padding(10.dp),
+                                .background(RebalanceColors.primaryColor),
+                            adsense = adsense,
                             seeWalletAssetToolTipVisibility = seeWalletAssetToolTipVisibility,
                             walletAssets = walletState.state.data.assets,
                             onClickCard = { code ->
@@ -70,6 +82,7 @@ internal fun WalletScreenComponent(
                                 )
                             },
                         )
+
                     },
                     floatingActionButton = {
                         FloatingButtonWithToolTip(
@@ -105,6 +118,7 @@ internal fun WalletScreenComponent(
                 )
             }
         }
+
         is RequestState.Undefined -> {}
     }
 
@@ -116,21 +130,24 @@ internal fun WalletScreenComponent(
                         delay(1.0.seconds)
                         walletState.state.data.assets.isEmpty()
                     }
+
                     is VisibleState.Show -> {
                         false
                     }
                 }
 
-                seeWalletAssetToolTipVisibility= when (addAssetState.visibility) {
+                seeWalletAssetToolTipVisibility = when (addAssetState.visibility) {
                     is VisibleState.Hide -> {
                         delay(1.0.seconds)
                         walletState.state.data.assets.size == 1
                     }
+
                     is VisibleState.Show -> {
                         false
                     }
                 }
             }
+
             else -> Unit
         }
     }
@@ -157,7 +174,7 @@ private fun FloatingButtonWithToolTip(
 
         FloatingActionButton(
             onClick = onClickFloatingButton,
-            backgroundColor = RebalanceColors.primaryColor,
+            backgroundColor = RebalanceColors.secondaryColor,
             contentColor = RebalanceColors.whiteColor,
             shape = RoundedCornerShape(16.dp)
         ) {

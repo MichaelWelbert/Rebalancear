@@ -38,7 +38,7 @@ fun SimpleToolDownArrowtip(
         Column(modifier = modifier) {
             Box(
                 modifier = Modifier.background(
-                    RebalanceColors.blackColor.copy(alpha = 0.85f),
+                    RebalanceColors.whiteColor,
                     shape = RoundedCornerShape(16.dp)
                 ),
             ) {
@@ -49,7 +49,7 @@ fun SimpleToolDownArrowtip(
                 ) {
                     Text(
                         text = title,
-                        color = RebalanceColors.whiteColor,
+                        color = RebalanceColors.secondaryColor.copy(alpha = 0.85f),
                         style = ReBalanceTypography.Strong2
                     )
 
@@ -57,7 +57,7 @@ fun SimpleToolDownArrowtip(
 
                     Text(
                         text = subtitle,
-                        color = RebalanceColors.greyColor,
+                        color = RebalanceColors.primaryColor.copy(alpha = 0.85f),
                         style = ReBalanceTypography.Body2
                     )
                 }
@@ -66,7 +66,7 @@ fun SimpleToolDownArrowtip(
                 modifier = Modifier.align(Alignment.End).padding(end = 24.dp),
                 painter = painterResource(id = R.drawable.ic_arrow_down),
                 contentDescription = null,
-                tint = RebalanceColors.blackColor.copy(alpha = 0.85f)
+                tint = RebalanceColors.whiteColor
             )
         }
 

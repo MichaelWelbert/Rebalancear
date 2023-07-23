@@ -5,11 +5,19 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
@@ -22,6 +30,7 @@ internal fun SplashScreenComponent(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
+
     var startAnimation by remember { mutableStateOf(Status.HIDE) }
     val alphaAnimation = animateFloatAsState(
         targetValue = when (startAnimation) {
@@ -63,14 +72,17 @@ internal fun Splash(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(RebalanceColors.whiteColor),
+            .background(RebalanceColors.primaryColor),
         contentAlignment = Alignment.Center
     ) {
         Text(
             modifier = Modifier.alpha(alpha),
             text = "BALANCE",
-            color = RebalanceColors.primaryColor,
-            style = ReBalanceTypography.Tittle.copy(fontSize = 50.sp, letterSpacing = 5.sp),
+            color = RebalanceColors.whiteColor,
+            style = ReBalanceTypography.Strong5.copy(
+                fontSize = 24.sp,
+                letterSpacing = (-0.2).sp,
+            ),
         )
     }
 }

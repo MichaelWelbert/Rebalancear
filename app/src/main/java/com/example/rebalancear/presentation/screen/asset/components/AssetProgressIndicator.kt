@@ -53,8 +53,8 @@ internal fun AssetProgressIndicator(
                 .padding(horizontal = 16.dp),
             progress = progress,
             color = when (contributeStatus) {
-                ContributeStatus.CONTRIBUTE -> RebalanceColors.rightColor
-                ContributeStatus.WAIT -> RebalanceColors.wrongColor
+                ContributeStatus.CONTRIBUTE -> RebalanceColors.thirdColor
+                ContributeStatus.WAIT -> RebalanceColors.secondaryColor
             },
         )
 

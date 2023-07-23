@@ -39,7 +39,7 @@ internal fun AddWalletAssetDialog(
 
             Box(modifier = modifier
                 .fillMaxSize()
-                .background(color = RebalanceColors.blackColor.copy(alpha = 0.5f))
+                .background(color = RebalanceColors.primaryColor.copy(alpha = 0.85f))
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
@@ -51,7 +51,7 @@ internal fun AddWalletAssetDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 40.dp)
-                        .background(RebalanceColors.neutral0, RoundedCornerShape(20.dp))
+                        .background(RebalanceColors.whiteColor, RoundedCornerShape(20.dp))
                         .align(Alignment.Center),
                     addAssetState = addAssetState,
                     onAdd = onAdd,
@@ -89,7 +89,7 @@ private fun DialogWalletAsset(
             interactionSource = remember { MutableInteractionSource() },
             indication = null
         ) { },
-        colors = CardDefaults.cardColors(RebalanceColors.neutral0),
+        colors = CardDefaults.cardColors(RebalanceColors.whiteColor),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 5.dp),
     ) {
 
@@ -172,7 +172,7 @@ private fun DialogWalletAsset(
                                 onAdd(code, units.toDouble(), goal.toDouble())
                             },
                             text = "Tentar novamente",
-                            buttonColor = RebalanceColors.wrongColor,
+                            buttonColor = RebalanceColors.secondaryColor,
                             errorText = addAssetState.state.resultError.message
                         )
                     }
@@ -181,7 +181,7 @@ private fun DialogWalletAsset(
                             enabled = false,
                             onClick = {},
                             text = "Analisando...",
-                            buttonColor = RebalanceColors.wrongColor,
+                            buttonColor = RebalanceColors.secondaryColor,
                         )
                     }
                     is RequestState.Success -> onCancel()
@@ -223,7 +223,7 @@ private fun AddCardButton(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = errorText,
-            color = RebalanceColors.wrongColor,
+            color = RebalanceColors.secondaryColor,
             style = ReBalanceTypography.Strong3,
             textAlign = TextAlign.Center
         )
@@ -246,7 +246,7 @@ private fun AddCardButton(
             Text(
                 modifier = Modifier.padding(4.dp),
                 text = text,
-                color = RebalanceColors.neutral0,
+                color = RebalanceColors.whiteColor,
                 style = ReBalanceTypography.Strong3.copy(
                     textAlign = TextAlign.Start
                 ),
@@ -296,8 +296,8 @@ private fun AddCardTextField(
         textStyle = ReBalanceTypography.Strong3,
         keyboardOptions = keyboardOptions,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            errorCursorColor = RebalanceColors.wrongColor,
-            errorBorderColor = RebalanceColors.wrongColor,
+            errorCursorColor = RebalanceColors.secondaryColor,
+            errorBorderColor = RebalanceColors.secondaryColor,
             containerColor = RebalanceColors.whiteColor,
             unfocusedBorderColor = RebalanceColors.greyColor,
             focusedBorderColor = RebalanceColors.primaryColor,
@@ -310,7 +310,7 @@ private fun AddCardTextField(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = errorText,
-            color = RebalanceColors.wrongColor,
+            color = RebalanceColors.secondaryColor,
             style = ReBalanceTypography.Body2,
         )
     } else {

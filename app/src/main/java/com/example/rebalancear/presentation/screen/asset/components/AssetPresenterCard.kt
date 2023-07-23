@@ -10,7 +10,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -35,10 +34,8 @@ internal fun AssetPresenterCard(
         Surface(
             modifier = modifier
                 .fillMaxWidth()
-                .height(70.dp)
-                .shadow(10.dp, clip = false)
-                .zIndex(1f),
-            color = RebalanceColors.neutral0,
+                .height(70.dp),
+            color = RebalanceColors.primaryColor,
         ) {
             Row(
                 modifier = Modifier.padding(horizontal = 4.dp),
@@ -49,21 +46,21 @@ internal fun AssetPresenterCard(
                     onClick = onClickBack
                 ) {
                     Icon(
-                        Icons.Filled.ArrowBack, "", tint = RebalanceColors.secondaryColor
+                        Icons.Filled.ArrowBack, "", tint = RebalanceColors.whiteColor
                     )
                 }
 
                 Text(
                     text = asset.code.uppercase(),
-                    color = RebalanceColors.primaryColor,
-                    style = ReBalanceTypography.Tittle.copy(fontSize = 22.sp),
+                    color = RebalanceColors.whiteColor,
+                    style = ReBalanceTypography.Tittle.copy(fontSize = 18.sp),
                     textAlign = TextAlign.End
                 )
 
 
                 IconButton(onClick = {}) {
                     Icon(
-                        Icons.Filled.MoreVert, "", tint = RebalanceColors.secondaryColor
+                        Icons.Filled.MoreVert, "", tint = RebalanceColors.whiteColor
                     )
                 }
             }
@@ -112,7 +109,7 @@ internal fun AssetPresenterCard(
                             ContributeStatus.CONTRIBUTE -> {
                                 Text(
                                     text = "Em busca da \n meta".uppercase(),
-                                    color = RebalanceColors.rightColor,
+                                    color = RebalanceColors.thirdColor,
                                     style = ReBalanceTypography.Strong2.copy(letterSpacing = 1.4.sp),
                                     textAlign = TextAlign.Center,
                                 )
@@ -120,7 +117,7 @@ internal fun AssetPresenterCard(
                             ContributeStatus.WAIT -> {
                                 Text(
                                     text = "Você alcançou \n a meta".uppercase(),
-                                    color = RebalanceColors.wrongColor,
+                                    color = RebalanceColors.secondaryColor,
                                     style = ReBalanceTypography.Strong2.copy(letterSpacing = 1.4.sp),
                                     textAlign = TextAlign.Center,
                                 )
@@ -145,14 +142,14 @@ internal fun AssetPresenterCard(
                                 ContributeStatus.CONTRIBUTE -> {
                                     LinearProgressIndicator(
                                         modifier = Modifier.width(50.dp),
-                                        color = RebalanceColors.rightColor,
+                                        color = RebalanceColors.thirdColor,
                                         trackColor = RebalanceColors.whiteColor
                                     )
                                 }
                                 ContributeStatus.WAIT -> {
                                     LinearProgressIndicator(
                                         modifier = Modifier.width(50.dp),
-                                        color = RebalanceColors.wrongColor,
+                                        color = RebalanceColors.secondaryColor,
                                         trackColor = RebalanceColors.whiteColor
                                     )
                                 }

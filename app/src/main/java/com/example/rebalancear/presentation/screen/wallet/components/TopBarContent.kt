@@ -32,7 +32,7 @@ internal fun TopbarContent(
                         .fillMaxWidth()
                         .weight(0.5f),
                     text = WalletScreenStrings.wallet_top_bar_title,
-                    color = RebalanceColors.neutral0,
+                    color = RebalanceColors.whiteColor,
                     style = ReBalanceTypography.Tittle,
                     textAlign = TextAlign.Start
                 )
@@ -42,13 +42,13 @@ internal fun TopbarContent(
                         .weight(0.5f)
                         .padding(end = 20.dp),
                     text ="R$ ${String.format("%.2f",patrimony)}",
-                    color = RebalanceColors.neutral0,
+                    color = RebalanceColors.whiteColor,
                     style = ReBalanceTypography.Tittle.copy(fontSize = 16.sp),
                     textAlign = TextAlign.End
                 )
             }
         },
-        backgroundColor = RebalanceColors.neutral500,
+        backgroundColor = RebalanceColors.whiteColor,
         elevation = 10.dp
     )
 

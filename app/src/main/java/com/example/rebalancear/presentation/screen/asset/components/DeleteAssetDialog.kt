@@ -34,7 +34,7 @@ internal fun DeleteAssetDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
-                    .background(RebalanceColors.neutral0, RoundedCornerShape(20.dp))
+                    .background(RebalanceColors.whiteColor, RoundedCornerShape(20.dp))
                     .align(Alignment.Center),
                 onConfirm = onConfirm,
                 onCancel = onCancel,
@@ -55,7 +55,7 @@ private fun DialogWalletAsset(
 
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(RebalanceColors.neutral0),
+        colors = CardDefaults.cardColors(RebalanceColors.whiteColor),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 5.dp),
 
         ) {
@@ -84,7 +84,7 @@ private fun DialogWalletAsset(
                         defaultElevation = 2.dp
                     ),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = RebalanceColors.yellow100
+                        containerColor = RebalanceColors.secondaryColor
                     ),
                     shape = RoundedCornerShape(20),
 
@@ -92,7 +92,7 @@ private fun DialogWalletAsset(
                     Text(
                         modifier = Modifier.padding(4.dp),
                         text = "Deletar",
-                        color = RebalanceColors.neutral0,
+                        color = RebalanceColors.whiteColor,
                         style = ReBalanceTypography.Strong3.copy(
                             textAlign = TextAlign.Start
                         ),
@@ -118,7 +118,7 @@ private fun DialogWalletAsset(
                     Text(
                         modifier = Modifier.padding(4.dp),
                         text = "Cancelar",
-                        color = RebalanceColors.neutral0,
+                        color = RebalanceColors.whiteColor,
                         style = ReBalanceTypography.Strong3.copy(
                             textAlign = TextAlign.Start
                         ),

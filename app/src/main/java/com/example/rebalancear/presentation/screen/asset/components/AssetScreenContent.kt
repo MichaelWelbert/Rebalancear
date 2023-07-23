@@ -1,5 +1,6 @@
 package com.example.rebalancear.presentation.screen.asset.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -29,11 +30,17 @@ internal fun AssetScreenContent(
 
     Scaffold(
         content = { innerPadding ->
-            Box() {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(RebalanceColors.primaryColor)
+            ) {
                 AssetPresenterCard(
                     modifier = Modifier.padding(innerPadding),
                     asset = asset,
-                    onClickBack = { navController.navigate(Routes.WalletScreen.route) },
+                    onClickBack = {
+                        navController.popBackStack()
+                    },
                 )
 
                 EditAssetDialog(

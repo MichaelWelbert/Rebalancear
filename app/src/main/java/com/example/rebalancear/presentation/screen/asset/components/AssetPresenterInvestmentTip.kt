@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -94,7 +93,7 @@ private fun unreachGoaltext(
     /*
      "Você está quase lá! Apenas faltam 12% para você alcançar sua meta. Para atingi-la, uma opção seria comprar 9 unidades das ações por R$5 cada, totalizando um gasto de R$32. Dessa forma, você conseguirá atingir seu objetivo."
      */
-    val spanStyle = SpanStyle(color = RebalanceColors.rightColor, fontSize = 13.sp, fontWeight = FontWeight.ExtraBold)
+    val spanStyle = SpanStyle(color = RebalanceColors.thirdColor, fontSize = 13.sp, fontWeight = FontWeight.ExtraBold)
 
     return buildAnnotatedString {
         append("Você está quase lá! Faltam apenas")
@@ -135,7 +134,7 @@ private fun reachGoaltext(
     /*
     Parabéns! Você ultrapassou sua meta e está 12% acima do que havia planejado. Atualmente, você possui 9 unidades das ações a R$5 cada unidade, totalizando um acumulo de R$32 acima da meta. No entanto, agora é importante avaliar outras oportunidades de investimento em ações em que você ainda não atingiu seus objetivos. Portanto, sugerimos que não priorize mais essa ação no momento e concentre seus esforços em outras oportunidades.
      */
-    val spanStyle = SpanStyle(color = RebalanceColors.wrongColor, fontSize = 13.sp, fontWeight = FontWeight.ExtraBold)
+    val spanStyle = SpanStyle(color = RebalanceColors.secondaryColor, fontSize = 13.sp, fontWeight = FontWeight.ExtraBold)
 
     return buildAnnotatedString {
         append("Parabéns! Você ultrapassou sua meta e está")

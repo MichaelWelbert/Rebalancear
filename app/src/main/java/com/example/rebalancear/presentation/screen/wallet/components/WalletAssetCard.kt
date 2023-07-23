@@ -29,7 +29,7 @@ fun WalletAssetCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 6.dp)
+            .padding(horizontal = 8.dp)
             .zIndex(5f)
             .clickable {
                 onClickCard(asset.code)
@@ -149,8 +149,8 @@ private fun CardContent(asset: WalletAssetPresenter) {
 
 private fun getColors(status: ContributeStatus): Color {
     return when (status) {
-        ContributeStatus.CONTRIBUTE -> RebalanceColors.rightColor
-        ContributeStatus.WAIT -> RebalanceColors.wrongColor
+        ContributeStatus.CONTRIBUTE -> RebalanceColors.thirdColor
+        ContributeStatus.WAIT -> RebalanceColors.secondaryColor
     }
 }
 
