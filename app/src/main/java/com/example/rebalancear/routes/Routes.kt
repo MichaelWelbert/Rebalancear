@@ -1,10 +1,7 @@
 package com.example.rebalancear.routes
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -12,7 +9,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.rebalancear.presentation.adsense.IAdSense
-import com.example.rebalancear.presentation.adsense.RouteTriggeredInterstitialAdDisplay
 import com.example.rebalancear.presentation.screen.asset.AssetScreenComponent
 import com.example.rebalancear.presentation.screen.intro.IntroScreenComponent
 import com.example.rebalancear.presentation.screen.splash.SplashScreenComponent
@@ -33,10 +29,9 @@ sealed class Routes(val route: String) {
 @Composable
 fun MakeRoutes(
     navController: NavHostController,
+    onLoad: (route: Routes) -> Unit,
     adSense: IAdSense,
 ) {
-    val context = LocalContext.current
-
 
     NavHost(
         navController = navController,
@@ -48,47 +43,28 @@ fun MakeRoutes(
             route = Routes.SplashScreen.route
         ) {
             SplashScreenComponent(navController = navController)
-            adSense.loadAppOpenAd(context)
+            onLoad(Routes.SplashScreen)
         }
 
         composable(
             route = Routes.IntroScreen.route
         ) {
             IntroScreenComponent(navController = navController)
+            onLoad(Routes.IntroScreen)
         }
 
         composable(
             route = Routes.WalletScreen.route
         ) {
-
-            if(context is Activity){
-                RouteTriggeredInterstitialAdDisplay.onRouteSwitch(
-                    currentRoute = Routes.WalletScreen,
-                    activity = context,
-                    adSense = adSense
-                )
-            }
-
             val viewmodel: WalletViewModel = hiltViewModel()
             WalletScreenComponent(navController,  adSense, viewmodel)
-
-            if(context is Activity) {
-                adSense.showAppOpenAd(context)
-            }
+            onLoad(Routes.WalletScreen)
         }
 
         composable(
             route = Routes.AssetScreen.route + "/{code}",
             arguments = listOf(navArgument("code") { type = NavType.StringType })
         ) { backStackEntry ->
-
-            if(context is Activity){
-                RouteTriggeredInterstitialAdDisplay.onRouteSwitch(
-                    currentRoute = Routes.AssetScreen,
-                    activity = context,
-                    adSense = adSense
-                )
-            }
 
             val viewmodel: AssetViewModel = hiltViewModel()
             val code = backStackEntry.arguments?.getString("code")
@@ -99,6 +75,7 @@ fun MakeRoutes(
                 navController = navController,
                 assetViewModel = viewmodel
             )
+            onLoad(Routes.AssetScreen)
         }
     }
 }

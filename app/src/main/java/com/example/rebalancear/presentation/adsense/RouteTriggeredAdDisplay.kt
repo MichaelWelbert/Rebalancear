@@ -3,18 +3,39 @@ package com.example.rebalancear.presentation.adsense
 import android.app.Activity
 import com.example.rebalancear.routes.Routes
 
-object RouteTriggeredInterstitialAdDisplay {
+object RouteTriggeredAdDisplay {
 
     private var lastnavRoute: Routes? = null
     private var routeCount: Int = 0
     private const val routeSwitchesNeededToShowAd: Int = 10
     private const val routeSwitchesNeededToLoadNewAd: Int = 8
 
-    fun forceToShowIntesrtitialAtFirstOpportunity() {
-        routeCount = routeSwitchesNeededToShowAd
+
+    fun onRouteSwitch(route: Routes, adsense: IAdSense, activity: Activity) {
+        when (route) {
+            Routes.InterstitialScreen -> Unit
+            Routes.IntroScreen -> Unit
+            Routes.AssetScreen -> {
+                onRouteSwitch(
+                    currentRoute = Routes.AssetScreen,
+                    activity = activity,
+                    adSense = adsense
+                )
+            }
+            Routes.SplashScreen -> adsense.loadAppOpenAd(activity)
+            Routes.WalletScreen -> {
+                onRouteSwitch(
+                    currentRoute = Routes.WalletScreen,
+                    activity = activity,
+                    adSense = adsense
+                )
+                adsense.showAppOpenAd(activity)
+            }
+        }
     }
 
-    fun onRouteSwitch(
+
+    private fun onRouteSwitch(
         currentRoute: Routes,
         activity: Activity,
         adSense: IAdSense,
