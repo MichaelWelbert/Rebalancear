@@ -23,7 +23,7 @@ internal fun ErrorPageComponent(
     ErrorBasePageComponent(
         title = "Oops! Ocorreu um erro",
         subTitle = message,
-        image = R.drawable.onbord2
+        image = R.drawable.mascot_male_2
     )
 }
 

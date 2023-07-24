@@ -35,17 +35,17 @@ internal fun IntroScreenComponent(
     val pages = listOf(
         PageInfo(
             title = "Balance",
-            subTitle = "Seja bem-vindo ao Balance! Aqui, o controle dos seus investimentos está ao alcance das suas mãos. Defina suas metas financeiras e observe o seu progresso em uma experiência fácil e intuitiva. ",
-            image = R.drawable.mascot3
+            subTitle = "Seja bem-vindo ao Balance! Aqui, o controle de seus investimentos está ao seu alcance. Você pode definir suas metas financeiras e nós iremos ajudá-lo a acompanhar seu progresso, tornando a experiência fácil e intuitiva. ",
+            image = R.drawable.mascot_female
 
         ), PageInfo(
             title = "Gerencia ativos",
-            subTitle = "Diga adeus às oportunidades perdidas. Adicione diversos ativos e defina a proporção de cada um de acordo com seus objetivos financeiros. Nosso aplicativo mantém você informado sobre suas metas pendentes e o quanto você precisa investir para alcançá-las.",
-            image = R.drawable.mascot1
+            subTitle = "Você poderá adicionar diversos ativos à sua carteira e saber o quanto ainda falta para alcançar seus objetivos. Nosso aplicativo mantém você atualizado sobre suas metas pendentes e informa quanto precisa ser investido para atingi-las.",
+            image = R.drawable.mascot_male
         ), PageInfo(
             title = "Alcance metas",
-            subTitle = "Prepare-se para uma experiência de investimento otimizada, sua jornada financeira começa agora!",
-            image = R.drawable.mascot2
+            subTitle = "Com nosso aplicativo, não será mais necessário quebrar a cabeça para determinar quanto investir em cada um dos seus ativos. Prepare-se para uma experiência otimizada de investimentos - sua jornada financeira começa agora!",
+            image = R.drawable.mascot_female_2
         )
     )
     val pagerState = rememberPagerState()
@@ -131,25 +131,26 @@ internal fun Page(
             .fillMaxSize()
             .padding(16.dp),
     ) {
-        Image(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp),
-            painter = painterResource(id = pageInfo.image),
-            contentDescription = null,
-        )
+
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.Center,
 
             ) {
 
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+                painter = painterResource(id = pageInfo.image),
+                contentDescription = null,
+            )
 
 
-            Spacer(modifier = Modifier.height(36.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 modifier = Modifier
@@ -169,7 +170,7 @@ internal fun Page(
                     .padding(horizontal = 16.dp),
                 text = pageInfo.subTitle,
                 color = RebalanceColors.whiteColor,
-                style = ReBalanceTypography.Body3,
+                style = ReBalanceTypography.Body2,
                 textAlign = TextAlign.Center
             )
 
