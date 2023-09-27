@@ -15,7 +15,7 @@ interface IRebalanceColors {
 }
 
 
-object RebalanceColors : IRebalanceColors {
+object Colors : IRebalanceColors {
     override val primaryColor: Color = Color(0xFF383838)
     override val secondaryColor: Color = Color(0xFFF652A0)
     override val secondaryLightColor: Color = Color(0xFFFFF8FF)

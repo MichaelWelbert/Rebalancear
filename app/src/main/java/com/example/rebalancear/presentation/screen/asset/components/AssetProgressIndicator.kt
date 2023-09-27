@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rebalancear.domain.status.ContributeStatus
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 
 @Composable
 internal fun AssetProgressIndicator(
@@ -35,14 +35,14 @@ internal fun AssetProgressIndicator(
             Text(
                 modifier = Modifier,
                 text = title,
-                color = RebalanceColors.blackColor,
+                color = Colors.blackColor,
                 style = ReBalanceTypography.Strong2.copy(letterSpacing = 1.2.sp),
             )
 
             Text(
                 modifier = Modifier,
                 text = goalValue,
-                color = RebalanceColors.blackColor,
+                color = Colors.blackColor,
                 style = ReBalanceTypography.Strong2.copy(letterSpacing = 1.2.sp),
             )
         }
@@ -53,8 +53,8 @@ internal fun AssetProgressIndicator(
                 .padding(horizontal = 16.dp),
             progress = progress,
             color = when (contributeStatus) {
-                ContributeStatus.CONTRIBUTE -> RebalanceColors.thirdColor
-                ContributeStatus.WAIT -> RebalanceColors.secondaryColor
+                ContributeStatus.CONTRIBUTE -> Colors.thirdColor
+                ContributeStatus.WAIT -> Colors.secondaryColor
             },
         )
 
@@ -73,7 +73,7 @@ internal fun AssetProgressIndicator(
             Text(
                 modifier = Modifier,
                 text = currentValue,
-                color = RebalanceColors.greyColor,
+                color = Colors.greyColor,
                 style = ReBalanceTypography.Strong1.copy(letterSpacing = 1.2.sp),
             )
         }

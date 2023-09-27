@@ -12,14 +12,14 @@ class YahooFinanceClient(apiKey: String) : IMarket {
             val request = chain.request()
                 .newBuilder()
                 .addHeader("x-rapidapi-key", apiKey)
-                .addHeader("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
+                    .addHeader("x-rapidapi-host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
                 .build()
             chain.proceed(request)
         }.build())
         .build()
         .create(YahooFinanceApi::class.java)
 
-    override suspend fun getStock(code: String): Stock? {
+    override suspend fun getStock(code: String): Stock {
 
         val response = api.getQuotes("${code.uppercase()}.SA", region = "BR")
         if (!response.isSuccessful) {

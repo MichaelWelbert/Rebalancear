@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 
 @Composable
 internal fun DeleteAssetDialog(
@@ -25,7 +25,7 @@ internal fun DeleteAssetDialog(
     if (enable) {
         Box(modifier = modifier
             .fillMaxSize()
-            .background(color = RebalanceColors.blackColor.copy(alpha = 0.5f))
+            .background(color = Colors.blackColor.copy(alpha = 0.5f))
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
@@ -34,7 +34,7 @@ internal fun DeleteAssetDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
-                    .background(RebalanceColors.whiteColor, RoundedCornerShape(20.dp))
+                    .background(Colors.whiteColor, RoundedCornerShape(20.dp))
                     .align(Alignment.Center),
                 onConfirm = onConfirm,
                 onCancel = onCancel,
@@ -55,7 +55,7 @@ private fun DialogWalletAsset(
 
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(RebalanceColors.whiteColor),
+        colors = CardDefaults.cardColors(Colors.whiteColor),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 5.dp),
 
         ) {
@@ -64,7 +64,7 @@ private fun DialogWalletAsset(
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = "Você tem certeza de que deseja deletar essa ação? Lembre-se de que essa ação será removida permanentemente da sua carteira assim que a operação for concluída.",
-                color = RebalanceColors.blackColor,
+                color = Colors.blackColor,
                 style = ReBalanceTypography.Body3,
                 textAlign = TextAlign.Center
             )
@@ -84,7 +84,7 @@ private fun DialogWalletAsset(
                         defaultElevation = 2.dp
                     ),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = RebalanceColors.secondaryColor
+                        containerColor = Colors.secondaryColor
                     ),
                     shape = RoundedCornerShape(20),
 
@@ -92,7 +92,7 @@ private fun DialogWalletAsset(
                     Text(
                         modifier = Modifier.padding(4.dp),
                         text = "Deletar",
-                        color = RebalanceColors.whiteColor,
+                        color = Colors.whiteColor,
                         style = ReBalanceTypography.Strong3.copy(
                             textAlign = TextAlign.Start
                         ),
@@ -110,7 +110,7 @@ private fun DialogWalletAsset(
                         defaultElevation = 2.dp
                     ),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = RebalanceColors.primaryColor
+                        containerColor = Colors.primaryColor
                     ),
                     shape = RoundedCornerShape(20),
 
@@ -118,7 +118,7 @@ private fun DialogWalletAsset(
                     Text(
                         modifier = Modifier.padding(4.dp),
                         text = "Cancelar",
-                        color = RebalanceColors.whiteColor,
+                        color = Colors.whiteColor,
                         style = ReBalanceTypography.Strong3.copy(
                             textAlign = TextAlign.Start
                         ),

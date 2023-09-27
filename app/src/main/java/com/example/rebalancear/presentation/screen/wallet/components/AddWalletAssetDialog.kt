@@ -22,7 +22,7 @@ import com.example.rebalancear.presentation.states.AddAssetState
 import com.example.rebalancear.presentation.states.base.RequestState
 import com.example.rebalancear.presentation.states.base.VisibleState
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 
 val validDecimalregex = """\d{1,2}(.\d{0,2})?""".toRegex()
 
@@ -39,7 +39,7 @@ internal fun AddWalletAssetDialog(
 
             Box(modifier = modifier
                 .fillMaxSize()
-                .background(color = RebalanceColors.primaryColor.copy(alpha = 0.85f))
+                .background(color = Colors.primaryColor.copy(alpha = 0.85f))
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
@@ -51,7 +51,7 @@ internal fun AddWalletAssetDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 40.dp)
-                        .background(RebalanceColors.whiteColor, RoundedCornerShape(20.dp))
+                        .background(Colors.whiteColor, RoundedCornerShape(20.dp))
                         .align(Alignment.Center),
                     addAssetState = addAssetState,
                     onAdd = onAdd,
@@ -89,7 +89,7 @@ private fun DialogWalletAsset(
             interactionSource = remember { MutableInteractionSource() },
             indication = null
         ) { },
-        colors = CardDefaults.cardColors(RebalanceColors.whiteColor),
+        colors = CardDefaults.cardColors(Colors.whiteColor),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 5.dp),
     ) {
 
@@ -172,8 +172,8 @@ private fun DialogWalletAsset(
                                 onAdd(code, units.toDouble(), goal.toDouble())
                             },
                             text = "Tentar novamente",
-                            buttonColor = RebalanceColors.secondaryColor,
-                            errorText = addAssetState.state.resultError.message
+                            buttonColor = Colors.secondaryColor,
+                            errorText = addAssetState.state.errorMessage.message
                         )
                     }
                     is RequestState.Loading -> {
@@ -181,7 +181,7 @@ private fun DialogWalletAsset(
                             enabled = false,
                             onClick = {},
                             text = "Analisando...",
-                            buttonColor = RebalanceColors.secondaryColor,
+                            buttonColor = Colors.secondaryColor,
                         )
                     }
                     is RequestState.Success -> onCancel()
@@ -199,7 +199,7 @@ private fun DialogWalletAsset(
                                 onAdd(code, units.toDouble(), goal.toDouble())
                             },
                             text = "Adicionar",
-                            buttonColor = RebalanceColors.secondaryColor,
+                            buttonColor = Colors.secondaryColor,
                         )
                     }
                 }
@@ -223,7 +223,7 @@ private fun AddCardButton(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = errorText,
-            color = RebalanceColors.secondaryColor,
+            color = Colors.secondaryColor,
             style = ReBalanceTypography.Strong3,
             textAlign = TextAlign.Center
         )
@@ -246,7 +246,7 @@ private fun AddCardButton(
             Text(
                 modifier = Modifier.padding(4.dp),
                 text = text,
-                color = RebalanceColors.whiteColor,
+                color = Colors.whiteColor,
                 style = ReBalanceTypography.Strong3.copy(
                     textAlign = TextAlign.Start
                 ),
@@ -281,14 +281,14 @@ private fun AddCardTextField(
         placeholder = {
             Text(
                 placeholderText,
-                color = RebalanceColors.blackColor.copy(alpha = 0.3f),
+                color = Colors.blackColor.copy(alpha = 0.3f),
                 style = ReBalanceTypography.Strong3,
             )
         },
         label = {
             Text(
                 labelText,
-                color = RebalanceColors.blackColor.copy(alpha = 0.8f),
+                color = Colors.blackColor.copy(alpha = 0.8f),
                 style = ReBalanceTypography.Strong3,
             )
         },
@@ -296,13 +296,13 @@ private fun AddCardTextField(
         textStyle = ReBalanceTypography.Strong3,
         keyboardOptions = keyboardOptions,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            errorCursorColor = RebalanceColors.secondaryColor,
-            errorBorderColor = RebalanceColors.secondaryColor,
-            containerColor = RebalanceColors.whiteColor,
-            unfocusedBorderColor = RebalanceColors.greyColor,
-            focusedBorderColor = RebalanceColors.primaryColor,
-            cursorColor = RebalanceColors.blackColor,
-            textColor = RebalanceColors.blackColor
+            errorCursorColor = Colors.secondaryColor,
+            errorBorderColor = Colors.secondaryColor,
+            containerColor = Colors.whiteColor,
+            unfocusedBorderColor = Colors.greyColor,
+            focusedBorderColor = Colors.primaryColor,
+            cursorColor = Colors.blackColor,
+            textColor = Colors.blackColor
         )
     )
 
@@ -310,7 +310,7 @@ private fun AddCardTextField(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = errorText,
-            color = RebalanceColors.secondaryColor,
+            color = Colors.secondaryColor,
             style = ReBalanceTypography.Body2,
         )
     } else {
@@ -326,9 +326,9 @@ private fun AddCardTextField(
 
 private fun getFocusedColor(isFocus: Boolean): Color {
     return if (isFocus)
-        RebalanceColors.blackColor
+        Colors.blackColor
     else
-        RebalanceColors.blackColor.copy(alpha = 0.3f)
+        Colors.blackColor.copy(alpha = 0.3f)
 }
 
 private fun getFocusedStyle(isFocus: Boolean): TextStyle {

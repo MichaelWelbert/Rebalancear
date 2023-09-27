@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.rebalancear.R
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 import com.example.rebalancear.routes.Routes
 import com.google.accompanist.pager.HorizontalPagerIndicator
 
@@ -54,7 +54,7 @@ internal fun IntroScreenComponent(
     Box(
         Modifier
             .fillMaxSize()
-            .background(RebalanceColors.primaryColor),
+            .background(Colors.primaryColor),
     ) {
         HorizontalPager(
             pageCount = 3,
@@ -75,8 +75,8 @@ internal fun IntroScreenComponent(
             HorizontalPagerIndicator(
                 pagerState = pagerState,
                 pageCount = 3,
-                activeColor = RebalanceColors.secondaryColor,
-                inactiveColor = RebalanceColors.whiteColor
+                activeColor = Colors.secondaryColor,
+                inactiveColor = Colors.whiteColor
             )
 
             if (pagerState.currentPage == pages.lastIndex) {
@@ -91,7 +91,7 @@ internal fun IntroScreenComponent(
                             defaultElevation = 2.dp
                         ),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = RebalanceColors.secondaryColor
+                            containerColor = Colors.secondaryColor
                         ),
                         shape = RoundedCornerShape(20),
 
@@ -99,7 +99,7 @@ internal fun IntroScreenComponent(
                         Text(
                             modifier = Modifier.padding(4.dp),
                             text = "Começar",
-                            color = RebalanceColors.whiteColor,
+                            color = Colors.whiteColor,
                             style = ReBalanceTypography.Strong3.copy(
                                 textAlign = TextAlign.Start
                             ),
@@ -157,7 +157,7 @@ internal fun Page(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 text = pageInfo.title,
-                color = RebalanceColors.whiteColor,
+                color = Colors.whiteColor,
                 style = ReBalanceTypography.Strong5.copy(letterSpacing = (-1).sp),
                 textAlign = TextAlign.Center
             )
@@ -169,7 +169,7 @@ internal fun Page(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
                 text = pageInfo.subTitle,
-                color = RebalanceColors.whiteColor,
+                color = Colors.whiteColor,
                 style = ReBalanceTypography.Body2,
                 textAlign = TextAlign.Center
             )

@@ -16,7 +16,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 
 @Composable
 internal fun EditAssetDialog(
@@ -30,7 +30,7 @@ internal fun EditAssetDialog(
     if (enable) {
         Box(modifier = modifier
             .fillMaxSize()
-            .background(color = RebalanceColors.blackColor.copy(alpha = 0.5f))
+            .background(color = Colors.blackColor.copy(alpha = 0.5f))
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
@@ -39,7 +39,7 @@ internal fun EditAssetDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
-                    .background(RebalanceColors.whiteColor, RoundedCornerShape(20.dp))
+                    .background(Colors.whiteColor, RoundedCornerShape(20.dp))
                     .align(Alignment.Center),
                 currentUnits = currentUnits,
                 currentGoal = currentGoal,
@@ -69,7 +69,7 @@ private fun DialogWalletAsset(
 
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(RebalanceColors.whiteColor),
+        colors = CardDefaults.cardColors(Colors.whiteColor),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 5.dp),
 
         ) {
@@ -83,14 +83,14 @@ private fun DialogWalletAsset(
                 label = {
                     Text(
                         "Quantidade",
-                        color = RebalanceColors.blackColor.copy(alpha = 0.8f),
+                        color = Colors.blackColor.copy(alpha = 0.8f),
                         style = ReBalanceTypography.Strong3,
                     )
                 },
                 placeholder = {
                     Text(
                         "10",
-                        color = RebalanceColors.blackColor.copy(alpha = 0.3f),
+                        color = Colors.blackColor.copy(alpha = 0.3f),
                         style = ReBalanceTypography.Strong3,
                     )
                 },
@@ -98,13 +98,13 @@ private fun DialogWalletAsset(
                 textStyle = ReBalanceTypography.Strong3,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    errorCursorColor = RebalanceColors.secondaryColor,
-                    errorBorderColor = RebalanceColors.secondaryColor,
-                    containerColor = RebalanceColors.whiteColor,
-                    unfocusedBorderColor = RebalanceColors.greyColor,
-                    focusedBorderColor = RebalanceColors.primaryColor,
-                    cursorColor = RebalanceColors.blackColor,
-                    textColor = RebalanceColors.blackColor
+                    errorCursorColor = Colors.secondaryColor,
+                    errorBorderColor = Colors.secondaryColor,
+                    containerColor = Colors.whiteColor,
+                    unfocusedBorderColor = Colors.greyColor,
+                    focusedBorderColor = Colors.primaryColor,
+                    cursorColor = Colors.blackColor,
+                    textColor = Colors.blackColor
                 )
             )
 
@@ -112,14 +112,14 @@ private fun DialogWalletAsset(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Quantidade inválida. Por favor, informe a quantidade de ações que você possui.",
-                    color = RebalanceColors.secondaryColor,
+                    color = Colors.secondaryColor,
                     style = ReBalanceTypography.Body2,
                 )
             } else {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Quantas ações você possui desse ativo?",
-                    color = RebalanceColors.blackColor.copy(alpha = 0.3f),
+                    color = Colors.blackColor.copy(alpha = 0.3f),
                     style = ReBalanceTypography.Body2,
                 )
             }
@@ -135,14 +135,14 @@ private fun DialogWalletAsset(
                 placeholder = {
                     Text(
                         "5",
-                        color = RebalanceColors.blackColor.copy(alpha = 0.3f),
+                        color = Colors.blackColor.copy(alpha = 0.3f),
                         style = ReBalanceTypography.Strong3,
                     )
                 },
                 label = {
                     Text(
                         "Meta",
-                        color = RebalanceColors.blackColor.copy(alpha = 0.8f),
+                        color = Colors.blackColor.copy(alpha = 0.8f),
                         style = ReBalanceTypography.Strong3,
                     )
                 },
@@ -150,13 +150,13 @@ private fun DialogWalletAsset(
                 textStyle = ReBalanceTypography.Strong3,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
-                    errorCursorColor = RebalanceColors.secondaryColor,
-                    errorBorderColor = RebalanceColors.secondaryColor,
-                    containerColor = RebalanceColors.whiteColor,
-                    unfocusedBorderColor = RebalanceColors.greyColor,
-                    focusedBorderColor = RebalanceColors.primaryColor,
-                    cursorColor = RebalanceColors.blackColor,
-                    textColor = RebalanceColors.blackColor
+                    errorCursorColor = Colors.secondaryColor,
+                    errorBorderColor = Colors.secondaryColor,
+                    containerColor = Colors.whiteColor,
+                    unfocusedBorderColor = Colors.greyColor,
+                    focusedBorderColor = Colors.primaryColor,
+                    cursorColor = Colors.blackColor,
+                    textColor = Colors.blackColor
                 )
             )
 
@@ -164,14 +164,14 @@ private fun DialogWalletAsset(
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Porcentagem inválida. Certifique-se de digitar um número entre 0 e 100%.",
-                    color = RebalanceColors.secondaryColor,
+                    color = Colors.secondaryColor,
                     style = ReBalanceTypography.Body2,
                 )
             } else {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Quantos % da ação você deseja ter na sua carteira de investimentos?",
-                    color = RebalanceColors.blackColor.copy(alpha = 0.3f),
+                    color = Colors.blackColor.copy(alpha = 0.3f),
                     style = ReBalanceTypography.Body2,
                 )
             }
@@ -202,7 +202,7 @@ private fun DialogWalletAsset(
                         defaultElevation = 2.dp
                     ),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = RebalanceColors.secondaryColor
+                        containerColor = Colors.secondaryColor
                     ),
                     shape = RoundedCornerShape(20),
 
@@ -210,7 +210,7 @@ private fun DialogWalletAsset(
                     Text(
                         modifier = Modifier.padding(4.dp),
                         text = "Editar",
-                        color = RebalanceColors.whiteColor,
+                        color = Colors.whiteColor,
                         style = ReBalanceTypography.Strong3.copy(
                             textAlign = TextAlign.Start
                         ),
@@ -230,7 +230,7 @@ private fun DialogWalletAsset(
                         defaultElevation = 2.dp
                     ),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = RebalanceColors.primaryColor
+                        containerColor = Colors.primaryColor
                     ),
                     shape = RoundedCornerShape(20),
 
@@ -238,7 +238,7 @@ private fun DialogWalletAsset(
                     Text(
                         modifier = Modifier.padding(4.dp),
                         text = "Cancelar",
-                        color = RebalanceColors.whiteColor,
+                        color = Colors.whiteColor,
                         style = ReBalanceTypography.Strong3.copy(
                             textAlign = TextAlign.Start
                         ),

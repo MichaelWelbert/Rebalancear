@@ -8,7 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.status.ContributeStatus
-import com.example.rebalancear.domain.usecases.*
+import com.example.rebalancear.domain.usecases.AddWalletAssetUseCase
+import com.example.rebalancear.domain.usecases.CalculateGoalUseCase
+import com.example.rebalancear.domain.usecases.CalculatePatrimonyUseCase
+import com.example.rebalancear.domain.usecases.GetContributeStateUseCase
+import com.example.rebalancear.domain.usecases.GetInvestedAmountUseCase
+import com.example.rebalancear.domain.usecases.GetPercentageOwnedUseCase
+import com.example.rebalancear.domain.usecases.GetWalletAssetsUseCase
 import com.example.rebalancear.presentation.events.WalletAssetNavigationEvent
 import com.example.rebalancear.presentation.events.WalletAssetPageEvent
 import com.example.rebalancear.presentation.events.WalletAssetScreenEvents
@@ -100,7 +106,7 @@ internal class WalletViewModel @Inject constructor(
         getWalletAssetsUseCase().onEach { result ->
             _walletState = when (result) {
                 is ResultRequest.Error -> {
-                    WalletState(state = RequestState.Error(result.resultError))
+                    WalletState(state = RequestState.Error(result.errorMessage))
                 }
                 is ResultRequest.Loading -> {
                     WalletState(state = RequestState.Loading())
@@ -127,7 +133,7 @@ internal class WalletViewModel @Inject constructor(
                 is ResultRequest.Error -> {
                     AddAssetState(
                         visibility = VisibleState.Show,
-                        state = RequestState.Error(result.resultError)
+                        state = RequestState.Error(result.errorMessage)
                     )
                 }
                 is ResultRequest.Loading -> {
@@ -167,11 +173,8 @@ internal class WalletViewModel @Inject constructor(
 
             WalletAssetPresenter(
                 code = asset.code,
-                units = asset.units,
-                unitPrice = asset.unitPrice,
                 percentGoal = asset.percentGoal,
-                percentOwned = percentOwned,
-                investedAmount = investedAmount,
+                percentOwned = percentOwned.toDouble(),
                 contributeState = contributeState,
             )
         }

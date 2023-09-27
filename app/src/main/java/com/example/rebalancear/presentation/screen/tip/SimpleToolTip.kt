@@ -7,16 +7,12 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.rebalancear.R
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 
 @Composable
 fun SimpleTooltip(
@@ -38,7 +34,7 @@ fun SimpleTooltip(
 
         Box(
             modifier = Modifier.background(
-                RebalanceColors.blackColor.copy(alpha = 0.85f),
+                Colors.blackColor.copy(alpha = 0.85f),
                 shape = RoundedCornerShape(16.dp)
             ),
         ) {
@@ -49,7 +45,7 @@ fun SimpleTooltip(
             ) {
                 Text(
                     text = title,
-                    color = RebalanceColors.whiteColor,
+                    color = Colors.whiteColor,
                     style = ReBalanceTypography.Strong2
                 )
 
@@ -57,7 +53,7 @@ fun SimpleTooltip(
 
                 Text(
                     text = subtitle,
-                    color = RebalanceColors.greyColor,
+                    color = Colors.greyColor,
                     style = ReBalanceTypography.Body2
                 )
             }

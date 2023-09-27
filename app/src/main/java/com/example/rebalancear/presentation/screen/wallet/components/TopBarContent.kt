@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rebalancear.core.strings.WalletScreenStrings
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 
 @Composable
 internal fun TopbarContent(
@@ -32,7 +32,7 @@ internal fun TopbarContent(
                         .fillMaxWidth()
                         .weight(0.5f),
                     text = WalletScreenStrings.wallet_top_bar_title,
-                    color = RebalanceColors.whiteColor,
+                    color = Colors.whiteColor,
                     style = ReBalanceTypography.Tittle,
                     textAlign = TextAlign.Start
                 )
@@ -42,13 +42,13 @@ internal fun TopbarContent(
                         .weight(0.5f)
                         .padding(end = 20.dp),
                     text ="R$ ${String.format("%.2f",patrimony)}",
-                    color = RebalanceColors.whiteColor,
+                    color = Colors.whiteColor,
                     style = ReBalanceTypography.Tittle.copy(fontSize = 16.sp),
                     textAlign = TextAlign.End
                 )
             }
         },
-        backgroundColor = RebalanceColors.whiteColor,
+        backgroundColor = Colors.whiteColor,
         elevation = 10.dp
     )
 

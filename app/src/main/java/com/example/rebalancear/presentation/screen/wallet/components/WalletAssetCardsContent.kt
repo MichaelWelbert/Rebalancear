@@ -4,15 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,15 +19,13 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
+import com.example.app.presentation.ui.components.assets.AssetCard
 import com.example.rebalancear.presentation.adsense.IAdSense
 import com.example.rebalancear.presentation.presenters.WalletAssetPresenter
-import com.example.rebalancear.presentation.screen.adMob.BannerAdView
 import com.example.rebalancear.presentation.screen.adMob.BannerAdViewWithMaxHeight
 import com.example.rebalancear.presentation.screen.tip.SimpleToolUpCenterArrowtip
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
-import com.google.android.gms.ads.AdSize
+import com.example.rebalancear.presentation.ui.theme.Colors
 
 @Composable
 internal fun WalletAssetCardsContent(
@@ -47,7 +42,7 @@ internal fun WalletAssetCardsContent(
                 .fillMaxWidth()
                 .height(70.dp)
                 .shadow(elevation = 10.dp),
-            color = RebalanceColors.primaryColor,
+            color = Colors.primaryColor,
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -56,7 +51,7 @@ internal fun WalletAssetCardsContent(
                 Text(
                     modifier = Modifier.padding(top = 12.dp),
                     text = "BALANCE",
-                    color = RebalanceColors.whiteColor,
+                    color = Colors.whiteColor,
                     style = ReBalanceTypography.Tittle.copy(
                         fontSize = 18.sp,
                         letterSpacing = (-1).sp
@@ -70,7 +65,7 @@ internal fun WalletAssetCardsContent(
                 Box(
                     modifier = Modifier
                         .height(50.dp)
-                        .background(RebalanceColors.primaryColor),
+                        .background(Colors.primaryColor),
                     contentAlignment = Alignment.Center
                 )
                 {
@@ -85,13 +80,18 @@ internal fun WalletAssetCardsContent(
 
 
             items(walletAssets) { asset ->
-
-                WalletAssetCard(
-                    onClickCard = onClickCard,
-                    asset = asset
+                AssetCard(
+                    code = asset.code,
+                    percentGoal = asset.percentGoal.toFloat(),
+                    percentOwned = asset.percentOwned.toFloat(),
+                    onClickCard = { onClickCard(asset.code) },
                 )
-                WalletAssetTooltip(seeWalletAssetToolTipVisibility)
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
+
+                /*
+                  WalletAssetTooltip(seeWalletAssetToolTipVisibility)
+                  Spacer(modifier = Modifier.height(12.dp))
+                */
             }
 
             item() {

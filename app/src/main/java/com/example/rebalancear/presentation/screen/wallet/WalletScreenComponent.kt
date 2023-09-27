@@ -31,7 +31,7 @@ import com.example.rebalancear.presentation.screen.wallet.components.AddWalletAs
 import com.example.rebalancear.presentation.screen.wallet.components.WalletAssetCardsContent
 import com.example.rebalancear.presentation.states.base.RequestState
 import com.example.rebalancear.presentation.states.base.VisibleState
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 import com.example.rebalancear.presentation.viewmodels.WalletViewModel
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
@@ -59,7 +59,7 @@ internal fun WalletScreenComponent(
 
     when (walletState.state) {
         is RequestState.Error -> {
-            val error = walletState.state.resultError
+            val error = walletState.state.errorMessage
             ErrorPageComponent(message = error.message)
         }
 
@@ -72,7 +72,7 @@ internal fun WalletScreenComponent(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(innerPadding)
-                                .background(RebalanceColors.primaryColor),
+                                .background(Colors.primaryColor),
                             adsense = adsense,
                             seeWalletAssetToolTipVisibility = seeWalletAssetToolTipVisibility,
                             walletAssets = walletState.state.data.assets,
@@ -174,8 +174,8 @@ private fun FloatingButtonWithToolTip(
 
         FloatingActionButton(
             onClick = onClickFloatingButton,
-            backgroundColor = RebalanceColors.secondaryColor,
-            contentColor = RebalanceColors.whiteColor,
+            backgroundColor = Colors.secondaryColor,
+            contentColor = Colors.whiteColor,
             shape = RoundedCornerShape(16.dp)
         ) {
             Icon(Icons.Filled.Add, "")

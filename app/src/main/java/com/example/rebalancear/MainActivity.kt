@@ -12,10 +12,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.rebalancear.presentation.adsense.IAdSense
 import com.example.rebalancear.presentation.adsense.RouteTriggeredAdDisplay
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 import com.example.rebalancear.presentation.ui.theme.RebalanceTheme
 import com.example.rebalancear.routes.MakeRoutes
-import com.example.rebalancear.routes.Routes
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -46,9 +45,10 @@ class MainActivity : ComponentActivity() {
             }
 
             ExitAppOnBackPressedWhenEmptyBackStack(navController)
+
         }
 
-        changeSystemBarColors(RebalanceColors.primaryColor)
+        changeSystemBarColors(Colors.primaryColor)
     }
 
     @Composable
@@ -66,4 +66,5 @@ class MainActivity : ComponentActivity() {
         window.navigationBarColor = color.hashCode()
         window.statusBarColor = color.hashCode()
     }
+
 }

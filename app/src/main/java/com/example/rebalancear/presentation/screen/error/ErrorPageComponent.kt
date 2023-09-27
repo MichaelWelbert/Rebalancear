@@ -13,7 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.rebalancear.R
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 
 
 @Composable
@@ -57,7 +57,7 @@ private fun ErrorBasePageComponent(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             text = title,
-            color = RebalanceColors.blackColor.copy(alpha = 0.7f),
+            color = Colors.blackColor.copy(alpha = 0.7f),
             style = ReBalanceTypography.Strong5,
             textAlign = TextAlign.Center
         )
@@ -69,7 +69,7 @@ private fun ErrorBasePageComponent(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             text = subTitle,
-            color = RebalanceColors.blackColor.copy(alpha = 0.7f),
+            color = Colors.blackColor.copy(alpha = 0.7f),
             style = ReBalanceTypography.Body3,
             textAlign = TextAlign.Center
         )

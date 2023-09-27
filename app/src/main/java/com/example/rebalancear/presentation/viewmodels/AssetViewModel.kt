@@ -1,13 +1,12 @@
 package com.example.rebalancear.presentation.viewmodels
 
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rebalancear.core.ResultError
+import com.example.app.core.request.ErrorMessage
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.entities.WalletAsset
 import com.example.rebalancear.domain.usecases.*
@@ -30,7 +29,7 @@ internal class AssetViewModel @Inject constructor(
     val getInvestedAmountUseCase: GetInvestedAmountUseCase,
     val getWalletAssetsUseCase: GetWalletAssetsUseCase,
     val getInvestedAmountGoalUseCase: GetInvestedAmountGoalUseCase,
-    val getPercentageOwnedUseCase: GetPercentageOwnedUseCase,
+    val getOwnedUseCase: GetPercentageOwnedUseCase,
     val calculatePatrimonyUseCase: CalculatePatrimonyUseCase,
     val getUnitGoalUseCase: GetUnitGoalUseCase,
     val updateWalletAssetUseCase: UpdateWalletAssetUseCase,
@@ -57,12 +56,12 @@ internal class AssetViewModel @Inject constructor(
 
     fun loadWalletAssets(code: String?) {
         if (code == null || code == "") {
-            _assetState = AssetState(state = RequestState.Error(ResultError.CannotFindData()))
+            _assetState = AssetState(state = RequestState.Error(ErrorMessage.CannotFindData()))
         } else {
             getWalletAssetsUseCase().onEach { result ->
                 when (result) {
                     is ResultRequest.Error -> {
-                        _assetState = AssetState(state = RequestState.Error(result.resultError))
+                        _assetState = AssetState(state = RequestState.Error(result.errorMessage))
                     }
                     is ResultRequest.Loading -> {
                         _assetState = AssetState(state = RequestState.Loading())
@@ -71,7 +70,7 @@ internal class AssetViewModel @Inject constructor(
                         val assets = result.data
                         val asset = assets.find { it.code == code }
                         _assetState = if (asset == null) {
-                            AssetState(state = RequestState.Error(ResultError.CannotFindData()))
+                            AssetState(state = RequestState.Error(ErrorMessage.CannotFindData()))
                         } else {
                             val patrimony = calculatePatrimonyUseCase(assets)
                             val assetPresenter = getAssetPresenter(asset, patrimony)
@@ -122,7 +121,7 @@ internal class AssetViewModel @Inject constructor(
             units = asset.units,
             unitsPrice = asset.unitPrice
         )
-        val percentOwned = getPercentageOwnedUseCase(
+        val percentOwned = getOwnedUseCase(
             patrimony = patrimony,
             investedAmount = investedAmount
         )

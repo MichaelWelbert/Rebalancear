@@ -24,7 +24,10 @@ private val Roboto = FontFamily(
     Font(R.font.roboto_black_italic, FontWeight.Black)
 )
 
-object ReBalanceTypography {
+
+
+
+internal object ReBalanceTypography {
     val Tittle = TextStyle(
         fontFamily = Roboto,
         fontWeight = FontWeight.Black,

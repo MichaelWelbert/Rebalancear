@@ -1,6 +1,6 @@
 package com.example.rebalancear.domain.usecases
 
-import com.example.rebalancear.core.ResultError
+import com.example.app.core.request.ErrorMessage
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.repository.IWalletAssetRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +13,7 @@ class AddWalletAssetUseCase @Inject constructor(
     operator fun invoke(code: String, units: Double, goal: Double): Flow<ResultRequest<Unit>> =
         flow {
             if (repository.hasWalletAsset(code)) {
-                emit(ResultRequest.Error(ResultError.CodeAlreadyAdd()))
+                emit(ResultRequest.Error(ErrorMessage.CodeAlreadyAdd()))
                 return@flow
             }
 

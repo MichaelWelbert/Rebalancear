@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.rebalancear.R
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 
 @Composable
 fun SimpleToolUpCenterArrowtip(
@@ -40,11 +40,11 @@ fun SimpleToolUpCenterArrowtip(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 painter = painterResource(id = R.drawable.ic_arrow_up),
                 contentDescription = null,
-                tint = RebalanceColors.whiteColor
+                tint = Colors.whiteColor
             )
             Box(
                 modifier = Modifier.background(
-                    RebalanceColors.whiteColor,
+                    Colors.whiteColor,
                     shape = RoundedCornerShape(16.dp)
                 ),
             ) {
@@ -55,7 +55,7 @@ fun SimpleToolUpCenterArrowtip(
                 ) {
                     Text(
                         text = title,
-                        color = RebalanceColors.secondaryColor.copy(alpha = 0.85f),
+                        color = Colors.secondaryColor.copy(alpha = 0.85f),
                         style = ReBalanceTypography.Strong2
                     )
 
@@ -63,7 +63,7 @@ fun SimpleToolUpCenterArrowtip(
 
                     Text(
                         text = subtitle,
-                        color = RebalanceColors.primaryColor.copy(alpha = 0.85f),
+                        color = Colors.primaryColor.copy(alpha = 0.85f),
                         style = ReBalanceTypography.Body2
                     )
                 }

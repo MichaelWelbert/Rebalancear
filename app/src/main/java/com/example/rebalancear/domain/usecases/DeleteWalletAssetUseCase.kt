@@ -1,6 +1,6 @@
 package com.example.rebalancear.domain.usecases
 
-import com.example.rebalancear.core.ResultError
+import com.example.app.core.request.ErrorMessage
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.repository.IWalletAssetRepository
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ class DeleteWalletAssetUseCase @Inject constructor(
             emit(ResultRequest.Loading())
 
             if (!repository.hasWalletAsset(code)) {
-                emit(ResultRequest.Error(ResultError.CodeNotFound()))
+                emit(ResultRequest.Error(ErrorMessage.CodeNotFound()))
                 return@flow
             }
 

@@ -14,9 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.rebalancear.presentation.events.AssetScreenEvents
 import com.example.rebalancear.presentation.presenters.AssetPresenter
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 import com.example.rebalancear.presentation.viewmodels.AssetViewModel
-import com.example.rebalancear.routes.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,15 +32,19 @@ internal fun AssetScreenContent(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(RebalanceColors.primaryColor)
+                    .background(Colors.primaryColor)
             ) {
-                AssetPresenterCard(
+              /*  AssetPresenterCard(
                     modifier = Modifier.padding(innerPadding),
                     asset = asset,
                     onClickBack = {
                         navController.popBackStack()
                     },
                 )
+
+               */
+
+                AssetInfo(modifier = Modifier.padding(innerPadding))
 
                 EditAssetDialog(
                     enable = dialogStatus == DialogStatus.EDIT,
@@ -79,8 +82,8 @@ internal fun AssetScreenContent(
                         if (dialogStatus == DialogStatus.HIDE)
                             dialogStatus = DialogStatus.EDIT
                     },
-                    containerColor = RebalanceColors.secondaryColor,
-                    contentColor = RebalanceColors.whiteColor,
+                    containerColor = Colors.secondaryColor,
+                    contentColor = Colors.whiteColor,
                     shape = RoundedCornerShape(16.dp)
                 ) {
                     Icon(Icons.Filled.Edit, "")
@@ -93,8 +96,8 @@ internal fun AssetScreenContent(
                         if (dialogStatus == DialogStatus.HIDE)
                             dialogStatus = DialogStatus.DELETE
                     },
-                    containerColor = RebalanceColors.primaryColor,
-                    contentColor = RebalanceColors.whiteColor,
+                    containerColor = Colors.primaryColor,
+                    contentColor = Colors.whiteColor,
                     shape = RoundedCornerShape(16.dp)
                 ) {
                     Icon(Icons.Filled.Delete, "")

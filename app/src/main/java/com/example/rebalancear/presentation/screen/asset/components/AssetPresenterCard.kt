@@ -20,7 +20,7 @@ import com.example.rebalancear.core.strings.AssetScreenStrings
 import com.example.rebalancear.domain.status.ContributeStatus
 import com.example.rebalancear.presentation.presenters.AssetPresenter
 import com.example.rebalancear.presentation.ui.theme.ReBalanceTypography
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
+import com.example.rebalancear.presentation.ui.theme.Colors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +35,7 @@ internal fun AssetPresenterCard(
             modifier = modifier
                 .fillMaxWidth()
                 .height(70.dp),
-            color = RebalanceColors.primaryColor,
+            color = Colors.primaryColor,
         ) {
             Row(
                 modifier = Modifier.padding(horizontal = 4.dp),
@@ -46,13 +46,13 @@ internal fun AssetPresenterCard(
                     onClick = onClickBack
                 ) {
                     Icon(
-                        Icons.Filled.ArrowBack, "", tint = RebalanceColors.whiteColor
+                        Icons.Filled.ArrowBack, "", tint = Colors.whiteColor
                     )
                 }
 
                 Text(
                     text = asset.code.uppercase(),
-                    color = RebalanceColors.whiteColor,
+                    color = Colors.whiteColor,
                     style = ReBalanceTypography.Tittle.copy(fontSize = 18.sp),
                     textAlign = TextAlign.End
                 )
@@ -60,7 +60,7 @@ internal fun AssetPresenterCard(
 
                 IconButton(onClick = {}) {
                     Icon(
-                        Icons.Filled.MoreVert, "", tint = RebalanceColors.whiteColor
+                        Icons.Filled.MoreVert, "", tint = Colors.whiteColor
                     )
                 }
             }
@@ -74,7 +74,7 @@ internal fun AssetPresenterCard(
                 .padding(horizontal = 16.dp)
                 .zIndex(5f),
             shape = RoundedCornerShape(6.dp),
-            colors = CardDefaults.cardColors(RebalanceColors.whiteColor),
+            colors = CardDefaults.cardColors(Colors.whiteColor),
             elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
 
         ) {
@@ -102,14 +102,14 @@ internal fun AssetPresenterCard(
                                 .size(50.dp),
                             painter = painterResource(id = R.drawable.ic_goal),
                             contentDescription = null,
-                            tint = RebalanceColors.greyColor
+                            tint = Colors.greyColor
                         )
 
                         when(asset.contributeState) {
                             ContributeStatus.CONTRIBUTE -> {
                                 Text(
                                     text = "Em busca da \n meta".uppercase(),
-                                    color = RebalanceColors.thirdColor,
+                                    color = Colors.thirdColor,
                                     style = ReBalanceTypography.Strong2.copy(letterSpacing = 1.4.sp),
                                     textAlign = TextAlign.Center,
                                 )
@@ -117,7 +117,7 @@ internal fun AssetPresenterCard(
                             ContributeStatus.WAIT -> {
                                 Text(
                                     text = "Você alcançou \n a meta".uppercase(),
-                                    color = RebalanceColors.secondaryColor,
+                                    color = Colors.secondaryColor,
                                     style = ReBalanceTypography.Strong2.copy(letterSpacing = 1.4.sp),
                                     textAlign = TextAlign.Center,
                                 )
@@ -130,27 +130,27 @@ internal fun AssetPresenterCard(
                             Text(
                                 modifier = Modifier,
                                 text = AssetScreenStrings.asset_info_price.uppercase(),
-                                color = RebalanceColors.greyColor,
+                                color = Colors.greyColor,
                                 style = ReBalanceTypography.Body2,
                             )
                             Text(
                                 text = "R$ ${String.format("%.2f", asset.unitPrice)}",
-                                color = RebalanceColors.blackColor,
+                                color = Colors.blackColor,
                                 style = ReBalanceTypography.Strong3,
                             )
                             when (asset.contributeState) {
                                 ContributeStatus.CONTRIBUTE -> {
                                     LinearProgressIndicator(
                                         modifier = Modifier.width(50.dp),
-                                        color = RebalanceColors.thirdColor,
-                                        trackColor = RebalanceColors.whiteColor
+                                        color = Colors.thirdColor,
+                                        trackColor = Colors.whiteColor
                                     )
                                 }
                                 ContributeStatus.WAIT -> {
                                     LinearProgressIndicator(
                                         modifier = Modifier.width(50.dp),
-                                        color = RebalanceColors.secondaryColor,
-                                        trackColor = RebalanceColors.whiteColor
+                                        color = Colors.secondaryColor,
+                                        trackColor = Colors.whiteColor
                                     )
                                 }
                             }
@@ -206,7 +206,7 @@ internal fun AssetPresenterCard(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 48.dp, vertical = 20.dp),
-                        color = RebalanceColors.greyColor.copy(alpha = 0.5f)
+                        color = Colors.greyColor.copy(alpha = 0.5f)
                     )
 
                     AssetPresenterInvestmentTip(

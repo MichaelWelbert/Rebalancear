@@ -1,6 +1,6 @@
 package com.example.rebalancear.domain.usecases
 
-import com.example.rebalancear.core.ResultError
+import com.example.app.core.request.ErrorMessage
 import com.example.rebalancear.core.ResultRequest
 import com.example.rebalancear.domain.repository.IWalletAssetRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +13,7 @@ class UpdateWalletAssetUseCase @Inject constructor(
     operator fun invoke(code: String, units: Double, goal: Double): Flow<ResultRequest<Unit>> =
         flow {
             if (!repository.hasWalletAsset(code)) {
-                emit(ResultRequest.Error(ResultError.CodeAlreadyAdd()))
+                emit(ResultRequest.Error(ErrorMessage.CodeAlreadyAdd()))
                 return@flow
             }
 
@@ -22,7 +22,7 @@ class UpdateWalletAssetUseCase @Inject constructor(
             updateResult.collect { result ->
                 when (result) {
                     is ResultRequest.Error -> {
-                        emit(ResultRequest.Error(ResultError.CannotFindData()))
+                        emit(ResultRequest.Error(ErrorMessage.CannotFindData()))
                     }
                     is ResultRequest.Loading -> {
                         emit(ResultRequest.Loading())

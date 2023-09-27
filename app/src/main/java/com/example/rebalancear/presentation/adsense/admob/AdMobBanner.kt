@@ -3,9 +3,7 @@ package com.example.rebalancear.presentation.adsense.admob
 import android.content.Context
 import android.graphics.Color
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.WindowManager
-import com.example.rebalancear.presentation.ui.theme.RebalanceColors
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView

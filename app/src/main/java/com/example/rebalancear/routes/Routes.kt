@@ -8,13 +8,17 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.app.presentation.events.AssetEvent
+import com.example.app.presentation.events.WalletEvent
+import com.example.app.presentation.ui.screens.AssetScreen
+import com.example.app.presentation.ui.screens.WalletScreen
+import com.example.app.presentation.viewmodels.AssetViewModel
+import com.example.app.presentation.viewmodels.WalletViewModel
 import com.example.rebalancear.presentation.adsense.IAdSense
-import com.example.rebalancear.presentation.screen.asset.AssetScreenComponent
 import com.example.rebalancear.presentation.screen.intro.IntroScreenComponent
 import com.example.rebalancear.presentation.screen.splash.SplashScreenComponent
-import com.example.rebalancear.presentation.screen.wallet.WalletScreenComponent
-import com.example.rebalancear.presentation.viewmodels.AssetViewModel
-import com.example.rebalancear.presentation.viewmodels.WalletViewModel
+
+
 
 sealed class Routes(val route: String) {
     object WalletScreen : Routes(route = "wallet_screen")
@@ -56,8 +60,16 @@ fun MakeRoutes(
         composable(
             route = Routes.WalletScreen.route
         ) {
+
             val viewmodel: WalletViewModel = hiltViewModel()
-            WalletScreenComponent(navController,  adSense, viewmodel)
+            viewmodel.onEvent(WalletEvent.OnLoadWallet)
+
+            WalletScreen(
+                navController = navController,
+                wallet = viewmodel.wallet,
+                addAssetState = viewmodel.addAssetDialogState,
+                onEvent = viewmodel::onEvent
+            )
             onLoad(Routes.WalletScreen)
         }
 
@@ -67,13 +79,14 @@ fun MakeRoutes(
         ) { backStackEntry ->
 
             val viewmodel: AssetViewModel = hiltViewModel()
-            val code = backStackEntry.arguments?.getString("code")
-            remember {
-                viewmodel.loadWalletAssets(code)
-            }
-            AssetScreenComponent(
-                navController = navController,
-                assetViewModel = viewmodel
+            val code = backStackEntry.arguments?.getString("code") ?: return@composable //TODO: Tratar pagina error
+            viewmodel.onEvent(AssetEvent.OnLoadAsset(code = code))
+            val asset = viewmodel.asset
+
+            AssetScreen(
+                navController =  navController,
+                asset = asset,
+                onEvent = viewmodel::onEvent
             )
             onLoad(Routes.AssetScreen)
         }

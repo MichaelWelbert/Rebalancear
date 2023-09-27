@@ -1,5 +1,7 @@
 package com.example.rebalancear.di.viewmodel
 
+import com.example.app.data.WalletRepository
+import com.example.app.domain.repository.IWalletRepository
 import com.example.rebalancear.data.WalletAssetRepository
 import com.example.rebalancear.domain.repository.IWalletAssetRepository
 import dagger.Binds
@@ -17,4 +19,10 @@ abstract class RepositoriesModel {
     abstract fun provideIWalletAssetRepository(
         repositoryImpl : WalletAssetRepository
     ): IWalletAssetRepository
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideIWalletRepository(
+        repositoryImpl : WalletRepository
+    ): IWalletRepository
 }
